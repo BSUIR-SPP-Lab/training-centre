@@ -10,10 +10,6 @@ public interface SolutionDAO {
 
     List<Solution> findSolutions();
 
-    Solution findSolution(long id);
-
     boolean updateSolution(Solution solution);
-
-    boolean deleteSolution(long id);
 
 }

@@ -1,5 +1,6 @@
 package com.bsuir.trainingcenter.dao;
 
+import com.bsuir.trainingcenter.entity.Student;
 import com.bsuir.trainingcenter.entity.StudentGroup;
 
 import java.util.List;
@@ -10,10 +11,8 @@ public interface StudentGroupDAO {
 
     List<StudentGroup> findStudentGroups();
 
-    StudentGroup findStudentGroup(long id);
+    List<Student> findStudentGroups(long groupId);
 
     boolean updateStudentGroup(StudentGroup studentGroup);
-
-    boolean deleteStudentGroup(long id);
     
 }

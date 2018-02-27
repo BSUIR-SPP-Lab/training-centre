@@ -10,10 +10,8 @@ public interface TeacherDAO {
 
     List<Teacher> findTeachers();
 
-    Teacher findTeacher(long id);
+    List<Teacher> findTeacher(long teacherId);
 
     boolean updateTeacher(Teacher teacher);
-
-    boolean deleteTeacher(long id);
 
 }
