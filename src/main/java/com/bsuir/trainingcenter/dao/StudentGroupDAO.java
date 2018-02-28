@@ -11,8 +11,6 @@ public interface StudentGroupDAO {
 
     List<StudentGroup> findStudentGroups();
 
-    List<Student> findStudentGroups(long groupId);
-
     boolean updateStudentGroup(StudentGroup studentGroup);
     
 }

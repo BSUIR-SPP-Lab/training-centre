@@ -1,34 +1,42 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
 import com.bsuir.trainingcenter.dao.UserDAO;
-import com.bsuir.trainingcenter.dao.rowMapper.UserRowMapper;
+import com.bsuir.trainingcenter.entity.Role;
 import com.bsuir.trainingcenter.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
+    private static final String queryAddUser = "INSERT INTO `user` (`login`, `password`, `role`, `email`, `phone`, " +
+            "`first_name`, `last_name`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String queryFindUsers = "SELECT `user`.`user_id`, `user`.`login`, `user`.`password`, " +
+            "`user`.`role`, `user`.`email`, `user`.`phone`, `user`.`first_name`, `user`.`last_name`  FROM `user`";
+    private static final String queryFindUserById = "SELECT `user`.`user_id`, `user`.`login`, `user`.`password`, " +
+            "`user`.`role`, `user`.`email`, `user`.`phone`, `user`.`first_name`, `user`.`last_name`  FROM `user` " +
+            "WHERE `user`.`user_id` = ?";
+    private static final String queryUpdateUser = "UPDATE `user` SET `login` = ?, `password` = ?, `role` = ?, " +
+            "`email` = ?, `phone` = ?, `first_name` = ?, `last_name` = ? WHERE `user_id` = ?";
+    private static final String queryDeleteUser = "DELETE FROM `user` WHERE `user`.`user_id` = ?";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private String queryAddUser = "INSERT INTO `user` (`login`, `password`, `role`, `email`, `phone`, " +
-            "`first_name`, `last_name`) VALUES (?, ?, ?, ?, ?, ?, ?);";
-
-    private String queryFindUsers = "SELECT `user`.`user_id`, `user`.`login`, `user`.`password`, `user`.`role`, " +
-            "`user`.`email`, `user`.`phone`, `user`.`first_name`, " +
-            "`user`.`last_name`  FROM `user`";
-
-    private String queryFindUserById = "SELECT `user`.`user_id`, `user`.`login`, `user`.`password`, `user`.`role`, " +
-            "`user`.`email`, `user`.`phone`, `user`.`first_name`, " +
-            "`user`.`last_name`  FROM `user` WHERE `user`.`user_id` = ?";
-
-    private String queryUpdateUser = "UPDATE `user` SET `login` = ?, `password` = ?, " +
-            "`role` = ?, `email` = ?, `phone` = ?, `first_name` = ?, " +
-            "`last_name` = ? WHERE `user_id` = ?";
-
-    private String queryDeleteUser = "DELETE FROM `user` WHERE `user`.`user_id` = ?";
+    private RowMapper<User> rowMapper = ((resultSet, i) -> {
+        User user = new User();
+        user.setId(resultSet.getLong("user_id"));
+        user.setLogin(resultSet.getString("login"));
+        user.setPassword(resultSet.getString("password"));
+        user.setRole(Role.valueOf(resultSet.getString("role").toUpperCase()));
+        user.setEmail(resultSet.getString("email"));
+        user.setPhone(resultSet.getString("phone"));
+        user.setFirstName(resultSet.getString("first_name"));
+        user.setLastName(resultSet.getString("last_name"));
+        return user;
+    });
 
     @Override
     public boolean addUser(User user) {
@@ -37,13 +45,13 @@ public class UserDAOImpl implements UserDAO {
                 user.getLastName()) > 0;
     }
 
-    public User findUser(long id) {
-        return jdbcTemplate.queryForObject(queryFindUserById, new Object[]{id}, new UserRowMapper());
-    }
-
     @Override
     public List<User> findUsers() {
-        return jdbcTemplate.query(queryFindUsers, new UserRowMapper());
+        return jdbcTemplate.query(queryFindUsers, rowMapper);
+    }
+
+    public User findUser(long userId) {
+        return jdbcTemplate.queryForObject(queryFindUserById, new Object[]{userId}, rowMapper);
     }
 
     @Override
@@ -54,7 +62,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean deleteUser(long id) {
-        return jdbcTemplate.update(queryDeleteUser, id) > 0;
+    public boolean deleteUser(long userId) {
+        return jdbcTemplate.update(queryDeleteUser, userId) > 0;
     }
+
 }

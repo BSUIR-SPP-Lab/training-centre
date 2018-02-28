@@ -1,5 +1,7 @@
 package com.bsuir.trainingcenter.entity;
 
+import com.sun.istack.internal.Nullable;
+
 import java.util.Objects;
 
 public class User {
@@ -9,8 +11,11 @@ public class User {
     private String password;
     private Role role;
     private String email;
+    @Nullable
     private String phone;
+    @Nullable
     private String firstName;
+    @Nullable
     private String lastName;
 
     public User(long id, String login, String password, Role role, String email, String phone, String firstName, String lastName) {

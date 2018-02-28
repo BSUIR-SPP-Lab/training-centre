@@ -1,5 +1,7 @@
 package com.bsuir.trainingcenter.entity;
 
+import com.sun.istack.internal.Nullable;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -7,16 +9,20 @@ public class Solution {
 
     private long taskId;
     private long userId;
+    @Nullable
     private String notes;
+    @Nullable
     private String filepath;
+    @Nullable
     private String teacherNotes;
-    private long mark;
+    @Nullable
+    private Long mark;
     private LocalDateTime uploadTime;
 
     public Solution() {
     }
 
-    public Solution(long taskId, long userId, String notes, String filepath, String teacherNotes, long mark, LocalDateTime uploadTime) {
+    public Solution(long taskId, long userId, String notes, String filepath, String teacherNotes, Long mark, LocalDateTime uploadTime) {
         this.taskId = taskId;
         this.userId = userId;
         this.notes = notes;
@@ -66,11 +72,11 @@ public class Solution {
         this.teacherNotes = teacherNotes;
     }
 
-    public long getMark() {
+    public Long getMark() {
         return mark;
     }
 
-    public void setMark(long mark) {
+    public void setMark(Long mark) {
         this.mark = mark;
     }
 
@@ -89,10 +95,10 @@ public class Solution {
         Solution solution = (Solution) o;
         return taskId == solution.taskId &&
                 userId == solution.userId &&
-                mark == solution.mark &&
                 Objects.equals(notes, solution.notes) &&
                 Objects.equals(filepath, solution.filepath) &&
                 Objects.equals(teacherNotes, solution.teacherNotes) &&
+                Objects.equals(mark, solution.mark) &&
                 Objects.equals(uploadTime, solution.uploadTime);
     }
 

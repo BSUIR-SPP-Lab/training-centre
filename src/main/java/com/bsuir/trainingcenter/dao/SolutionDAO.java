@@ -10,6 +10,10 @@ public interface SolutionDAO {
 
     List<Solution> findSolutions();
 
+    List<Solution> findSolutions(long userId);
+
     boolean updateSolution(Solution solution);
+
+    boolean deleteSolution(long taskId, long userId);
 
 }

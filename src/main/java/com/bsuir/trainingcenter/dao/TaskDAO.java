@@ -10,10 +10,10 @@ public interface TaskDAO {
 
     List<Task> findTasks();
 
-    Task findTask(long id);
+    Task findTask(long taskId);
 
     boolean updateTask(Task task);
 
-    boolean deleteTask(long id);
+    boolean deleteTask(long taskId);
 
 }

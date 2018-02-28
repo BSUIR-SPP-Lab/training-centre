@@ -10,10 +10,10 @@ public interface TaskInfoDAO {
 
     List<TaskInfo> findTaskInfos();
 
-    TaskInfo findTaskInfo(long id);
+    TaskInfo findTaskInfo(long taskInfoId);
 
     boolean updateTaskInfo(TaskInfo taskInfo);
 
-    boolean deleteTaskInfo(long id);
+    boolean deleteTaskInfo(long taskInfoId);
 
 }

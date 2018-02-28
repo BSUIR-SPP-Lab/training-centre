@@ -11,10 +11,10 @@ public interface UserDAO {
 
     List<User> findUsers();
 
-    User findUser(long id);
+    User findUser(long userId);
 
     boolean updateUser(User user);
 
-    boolean deleteUser(long id);
+    boolean deleteUser(long userId);
 
 }

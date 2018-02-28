@@ -10,10 +10,10 @@ public interface StudentDAO {
 
     List<Student> findStudents();
 
-    Student findStudent(long id);
+    Student findStudent(long studentId);
 
     boolean updateStudent(Student student);
 
-    boolean deleteStudent(long id);
+    boolean deleteStudent(long studentId);
     
 }
