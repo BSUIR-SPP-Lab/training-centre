@@ -1,14 +1,12 @@
 package com.bsuir.trainingcenter.entity;
 
-import com.sun.istack.internal.Nullable;
-
 import java.util.Objects;
 
 public class CourseInfo {
 
     private long courseInfoId;
     private String name;
-    @Nullable
+    //can be null
     private String description;
 
     public CourseInfo() {

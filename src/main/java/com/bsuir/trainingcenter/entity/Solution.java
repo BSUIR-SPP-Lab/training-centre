@@ -1,7 +1,5 @@
 package com.bsuir.trainingcenter.entity;
 
-import com.sun.istack.internal.Nullable;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -9,14 +7,14 @@ public class Solution {
 
     private long taskId;
     private long userId;
-    @Nullable
+
+    //can be null
     private String notes;
-    @Nullable
     private String filepath;
-    @Nullable
     private String teacherNotes;
-    @Nullable
     private Long mark;
+
+
     private LocalDateTime uploadTime;
 
     public Solution() {
