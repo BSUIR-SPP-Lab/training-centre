@@ -18,8 +18,9 @@ public class UserDAOImpl implements UserDAO {
     private static final String queryFindUserById = "SELECT `user`.`user_id`, `user`.`login`, `user`.`password`, " +
             "`user`.`role`, `user`.`email`, `user`.`phone`, `user`.`first_name`, `user`.`last_name`  FROM `user` " +
             "WHERE `user`.`user_id` = ?";
-    private static final String queryUpdateUser = "UPDATE `user` SET `login` = ?, `password` = ?, `role` = ?, " +
-            "`email` = ?, `phone` = ?, `first_name` = ?, `last_name` = ? WHERE `user_id` = ?";
+    private static final String queryUpdateUser = "UPDATE `user` SET `user`.`login` = ?, `user`.`password` = ?, " +
+            "`user`.`role` = ?, `user`.`email` = ?, `user`.`phone` = ?, `user`.`first_name` = ?, " +
+            "`user`.`last_name` = ? WHERE `user`.`user_id` = ?";
     private static final String queryDeleteUser = "DELETE FROM `user` WHERE `user`.`user_id` = ?";
 
     @Autowired

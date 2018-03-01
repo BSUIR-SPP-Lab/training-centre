@@ -14,8 +14,9 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
             "`course_complete`) VALUES (?, ?, ?)";
     private static final String queryFindStudentGroups = "SELECT `student_group`.`student_id`, " +
             "`student_group`.`group_id`, `student_group`.`course_complete` FROM `student_group`";
-    private static final String queryUpdateStudentGroup = "UPDATE `student_group` SET `course_complete` = ? " +
-            "WHERE (`student_id` = ?) AND (`group_id` = ?)";
+    private static final String queryUpdateStudentGroup = "UPDATE `student_group` " +
+            "SET `student_group`.`course_complete` = ? " +
+            "WHERE (`student_group`.`student_id` = ?) AND (`student_group`.`group_id` = ?)";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

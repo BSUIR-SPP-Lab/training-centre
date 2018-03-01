@@ -16,8 +16,8 @@ public class TaskDAOImpl implements TaskDAO {
             "`task`.`task_info_id`, `task`.`upload_time` FROM `task`";
     private static final String queryFindTaskById = "SELECT `task`.`task_id`, `task`.`teacher_id`, `task`.`group_id`, " +
             "`task`.`task_info_id`, `task`.`upload_time` FROM `task` WHERE `task`.`task_id` = ?";
-    private static final String queryUpdateTask = "UPDATE `task` SET `teacher_id` = ?, `group_id` = ?, " +
-            "`task_info_id` = ?, `upload_time` = ? WHERE `task`.`task_id` = ?";
+    private static final String queryUpdateTask = "UPDATE `task` SET `task`.`teacher_id` = ?, `task`.`group_id` = ?, " +
+            "`task`.`task_info_id` = ?, `task`.`upload_time` = ? WHERE `task`.`task_id` = ?";
     private static final String queryDeleteTask = "DELETE FROM `task` WHERE `task`.`task_id` = ?";
 
     @Autowired

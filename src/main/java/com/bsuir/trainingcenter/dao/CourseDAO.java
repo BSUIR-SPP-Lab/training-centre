@@ -10,10 +10,10 @@ public interface CourseDAO {
 
     List<Course> findCourses();
 
-    Course findCourse(long id);
+    Course findCourse(long courseId);
 
     boolean updateCourse(Course course);
 
-    boolean deleteCourse(long id);
+    boolean deleteCourse(long courseId);
     
 }

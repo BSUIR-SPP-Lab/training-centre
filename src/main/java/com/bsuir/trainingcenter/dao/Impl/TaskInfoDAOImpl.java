@@ -15,8 +15,8 @@ public class TaskInfoDAOImpl implements TaskInfoDAO {
             "`task_info`.`body` FROM `task_info`";
     private static final String queryFindTaskInfoById = "SELECT `task_info`.`task_info_id`, `task_info`.`name`, " +
             "`task_info`.`body` FROM `task_info` WHERE `task_info`.`task_info_id` = ?";
-    private static final String queryUpdateTaskInfo = "UPDATE `task_info` SET `name` = ?, `body` = ? " +
-            "WHERE `task_info_id` = ?";
+    private static final String queryUpdateTaskInfo = "UPDATE `task_info` SET `task_info`.`name` = ?, " +
+            "`task_info`.`body` = ? WHERE `task_info`.`task_info_id` = ?";
     private static final String queryDeleteTaskInfo = "DELETE FROM `task_info` WHERE `task_info`.`task_info_id` = ?";
 
     @Autowired

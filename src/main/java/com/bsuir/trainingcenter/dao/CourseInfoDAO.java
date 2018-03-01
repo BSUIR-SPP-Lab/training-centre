@@ -8,12 +8,12 @@ public interface CourseInfoDAO {
 
     boolean addCourseInfo(CourseInfo courseInfo);
 
-    List<CourseInfo> findCourseInfos();
+    List<CourseInfo> findCoursesInfo();
 
-    CourseInfo findCourseInfo(long id);
+    CourseInfo findCourseInfo(long courseInfoId);
 
     boolean updateCourseInfo(CourseInfo courseInfo);
 
-    boolean deleteCourseInfo(long id);
+    boolean deleteCourseInfo(long courseInfoId);
     
 }

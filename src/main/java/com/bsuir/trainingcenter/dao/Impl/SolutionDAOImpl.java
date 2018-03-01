@@ -18,8 +18,9 @@ public class SolutionDAOImpl implements SolutionDAO {
     private static final String queryFindSolutionsByUserId = "SELECT `solution`.`task_id`, `solution`.`user_id`," +
             "`solution`.`notes`, `solution`.`filepath`, `solution`.`teacher_notes`, `solution`.`upload_time`, " +
             "`solution`.`mark` FROM `solution` WHERE `solution`.`user_id` = ?";
-    private static final String queryUpdateSolution = "UPDATE `solution` SET `notes` = ?, `filepath` = ?, " +
-            "`teacher_notes` = ?, `mark` = ? WHERE (`task_id` = ?) AND (`user_id` = ?)";
+    private static final String queryUpdateSolution = "UPDATE `solution` SET `solution`.`notes` = ?, " +
+            "`solution`.`filepath` = ?, `solution`.`teacher_notes` = ?, `solution`.`mark` = ? " +
+            "WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
     private static final String queryDeleteSolution = "DELETE FROM `solution` WHERE (`solution`.`task_id` = ?) AND " +
             "(`solution`.`user_id` = ?)";
 
