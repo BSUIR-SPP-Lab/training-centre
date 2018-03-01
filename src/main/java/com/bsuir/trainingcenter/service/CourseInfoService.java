@@ -1,10 +1,10 @@
-package com.bsuir.trainingcenter.dao;
+package com.bsuir.trainingcenter.service;
 
 import com.bsuir.trainingcenter.entity.CourseInfo;
 
 import java.util.List;
 
-public interface CourseInfoDAO {
+public interface CourseInfoService {
 
     boolean addCourseInfo(CourseInfo courseInfo);
 
@@ -15,5 +15,5 @@ public interface CourseInfoDAO {
     boolean updateCourseInfo(CourseInfo courseInfo);
 
     boolean deleteCourseInfo(long courseInfoId);
-    
+
 }

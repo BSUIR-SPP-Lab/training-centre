@@ -1,12 +1,10 @@
-package com.bsuir.trainingcenter.dao;
+package com.bsuir.trainingcenter.service;
 
 import com.bsuir.trainingcenter.entity.TaskInfo;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-@Repository
-public interface TaskInfoDAO {
 
+public interface TaskInfoService {
     boolean addTaskInfo(TaskInfo taskInfo);
 
     List<TaskInfo> findTasksInfo();
@@ -16,5 +14,4 @@ public interface TaskInfoDAO {
     boolean updateTaskInfo(TaskInfo taskInfo);
 
     boolean deleteTaskInfo(long taskInfoId);
-
 }

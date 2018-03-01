@@ -10,10 +10,10 @@ public interface ApplicationDAO {
 
     List<Application> findApplications();
 
-    Application findApplication(long id);
+    Application findApplication(long applicationId);
 
     boolean updateApplication(Application application);
 
-    boolean deleteApplication(long id);
+    boolean deleteApplication(long applicationId);
     
 }

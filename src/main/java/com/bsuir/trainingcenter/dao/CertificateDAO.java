@@ -4,16 +4,16 @@ import com.bsuir.trainingcenter.entity.Certificate;
 
 import java.util.List;
 
-public interface CerificateDAO {
+public interface CertificateDAO {
 
     boolean addCertificate(Certificate certificate);
 
     List<Certificate> findCertificates();
 
-    Certificate findCertificate(long id);
+    Certificate findCertificate(long certificateId);
 
     boolean updateCertificate(Certificate certificate);
 
-    boolean deleteCertificate(long id);
+    boolean deleteCertificate(long certificateId);
     
 }

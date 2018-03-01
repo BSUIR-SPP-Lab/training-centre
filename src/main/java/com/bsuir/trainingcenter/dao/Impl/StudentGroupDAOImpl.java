@@ -5,20 +5,29 @@ import com.bsuir.trainingcenter.entity.StudentGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class StudentGroupDAOImpl implements StudentGroupDAO {
 
     private static final String queryAddStudentGroup = "INSERT INTO `student_group` (`student_id`, `group_id`, " +
             "`course_complete`) VALUES (?, ?, ?)";
     private static final String queryFindStudentGroups = "SELECT `student_group`.`student_id`, " +
             "`student_group`.`group_id`, `student_group`.`course_complete` FROM `student_group`";
-    private static final String queryUpdateStudentGroup = "UPDATE `student_group` SET `course_complete` = ? " +
-            "WHERE (`student_id` = ?) AND (`group_id` = ?)";
+    private static final String queryUpdateStudentGroup = "UPDATE `student_group` " +
+            "SET `student_group`.`course_complete` = ? " +
+            "WHERE (`student_group`.`student_id` = ?) AND (`student_group`.`group_id` = ?)";
+
+
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<StudentGroup> rowMapper = ((resultSet, i) -> {
         StudentGroup studentGroup = new StudentGroup();

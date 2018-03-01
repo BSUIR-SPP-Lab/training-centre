@@ -1,7 +1,7 @@
 package com.bsuir.trainingcenter.controller;
 
-import com.bsuir.trainingcenter.entity.User;
-import com.bsuir.trainingcenter.service.UserService;
+import com.bsuir.trainingcenter.entity.TaskInfo;
+import com.bsuir.trainingcenter.service.TaskInfoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
-
-    private static final Logger logger = LogManager.getLogger(UserController.class);
+@RequestMapping("/taskInfo")
+public class TaskInfoController {
+    private static final Logger logger = LogManager.getLogger(TaskInfoController.class);
 
     @Autowired
-    private UserService userService;
+    private TaskInfoService taskInfoService;
 
     @PutMapping("/add")
-    public ResponseEntity addUser(@RequestBody User user){
+    public ResponseEntity addTaskInfo(@RequestBody TaskInfo taskInfo){
         ResponseEntity response;
-        if(userService.addUser(user)){
+        if(taskInfoService.addTaskInfo(taskInfo)){
             response=new ResponseEntity( HttpStatus.OK);
         }else {
             response=new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -32,17 +31,17 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> findUsers(){
-        return new ResponseEntity<>(userService.findUsers(), HttpStatus.OK);
+    public ResponseEntity<List<TaskInfo>> findTasksInfo(){
+        return new ResponseEntity<>(taskInfoService.findTasksInfo(), HttpStatus.OK);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findUser(@PathVariable Long id){
+    public ResponseEntity<TaskInfo> findTaskInfo(@PathVariable Long id){
         ResponseEntity response;
-        User user = userService.findUser(id);
-        if(user!=null){
-            response=new ResponseEntity<>(user, HttpStatus.OK);
+        TaskInfo taskInfo = taskInfoService.findTaskInfo(id);
+        if(taskInfo!=null){
+            response=new ResponseEntity<>(taskInfo, HttpStatus.OK);
         }else {
             response=new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -50,10 +49,10 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity updateUser(@PathVariable Long id,@RequestBody User user){
+    public ResponseEntity updateTaskInfo(@PathVariable Long id,@RequestBody TaskInfo taskInfo){
         ResponseEntity response;
-        user.setId(id);
-        if(userService.updateUser(user)){
+        taskInfo.setTaskInfoId(id);
+        if(taskInfoService.updateTaskInfo(taskInfo)){
             response=new ResponseEntity( HttpStatus.OK);
         }else {
             response=new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -62,9 +61,9 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id){
+    public ResponseEntity deleteTaskInfo(@PathVariable Long id){
         ResponseEntity response;
-        if(userService.deleteUser(id)){
+        if(taskInfoService.deleteTaskInfo(id)){
             response=new ResponseEntity( HttpStatus.OK);
         }else {
             response=new ResponseEntity(HttpStatus.BAD_REQUEST);

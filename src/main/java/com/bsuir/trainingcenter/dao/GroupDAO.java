@@ -10,10 +10,10 @@ public interface GroupDAO {
 
     List<Group> findGroups();
 
-    Group findGroup(long id);
+    Group findGroup(long groupId);
 
     boolean updateGroup(Group group);
 
-    boolean deleteGroup(long id);
+    boolean deleteGroup(long groupId);
     
 }

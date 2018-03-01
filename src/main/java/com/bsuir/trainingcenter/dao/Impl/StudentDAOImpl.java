@@ -5,9 +5,12 @@ import com.bsuir.trainingcenter.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class StudentDAOImpl implements StudentDAO {
 
     private static final String queryAddStudent = "INSERT INTO `student` () VALUES ()";
@@ -16,8 +19,13 @@ public class StudentDAOImpl implements StudentDAO {
             "WHERE `student`.`student_id` = ?";
     private static final String queryDeleteStudent = "DELETE FROM `student` WHERE `student`.`student_id` = ?";
 
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<Student> rowMapper = ((resultSet, i) -> {
         Student student = new Student();

@@ -1,7 +1,7 @@
 package com.bsuir.trainingcenter.controller;
 
-import com.bsuir.trainingcenter.entity.User;
-import com.bsuir.trainingcenter.service.UserService;
+import com.bsuir.trainingcenter.entity.Task;
+import com.bsuir.trainingcenter.service.TaskService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
-
-    private static final Logger logger = LogManager.getLogger(UserController.class);
+@RequestMapping("/task")
+public class TaskController {
+    private static final Logger logger = LogManager.getLogger(TaskController.class);
 
     @Autowired
-    private UserService userService;
+    private TaskService taskService;
 
     @PutMapping("/add")
-    public ResponseEntity addUser(@RequestBody User user){
+    public ResponseEntity addTask(@RequestBody Task task){
         ResponseEntity response;
-        if(userService.addUser(user)){
+        if(taskService.addTask(task)){
             response=new ResponseEntity( HttpStatus.OK);
         }else {
             response=new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -32,17 +31,17 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> findUsers(){
-        return new ResponseEntity<>(userService.findUsers(), HttpStatus.OK);
+    public ResponseEntity<List<Task>> findTasksInfo(){
+        return new ResponseEntity<>(taskService.findTasks(), HttpStatus.OK);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findUser(@PathVariable Long id){
+    public ResponseEntity<Task> findUser(@PathVariable Long id){
         ResponseEntity response;
-        User user = userService.findUser(id);
-        if(user!=null){
-            response=new ResponseEntity<>(user, HttpStatus.OK);
+        Task task = taskService.findTask(id);
+        if(task!=null){
+            response=new ResponseEntity<>(task, HttpStatus.OK);
         }else {
             response=new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -50,10 +49,10 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity updateUser(@PathVariable Long id,@RequestBody User user){
+    public ResponseEntity updateTask(@PathVariable Long id,@RequestBody Task task){
         ResponseEntity response;
-        user.setId(id);
-        if(userService.updateUser(user)){
+        task.setTaskId(id);
+        if(taskService.updateTask(task)){
             response=new ResponseEntity( HttpStatus.OK);
         }else {
             response=new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -62,9 +61,9 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id){
+    public ResponseEntity deleteTask(@PathVariable Long id){
         ResponseEntity response;
-        if(userService.deleteUser(id)){
+        if(taskService.deleteTask(id)){
             response=new ResponseEntity( HttpStatus.OK);
         }else {
             response=new ResponseEntity(HttpStatus.BAD_REQUEST);

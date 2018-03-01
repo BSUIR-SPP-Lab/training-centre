@@ -5,9 +5,12 @@ import com.bsuir.trainingcenter.entity.Solution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class SolutionDAOImpl implements SolutionDAO {
 
     private static final String queryAddSolution = "INSERT INTO `solution` (`task_id`, `user_id`, `notes`, " +
@@ -18,13 +21,19 @@ public class SolutionDAOImpl implements SolutionDAO {
     private static final String queryFindSolutionsByUserId = "SELECT `solution`.`task_id`, `solution`.`user_id`," +
             "`solution`.`notes`, `solution`.`filepath`, `solution`.`teacher_notes`, `solution`.`upload_time`, " +
             "`solution`.`mark` FROM `solution` WHERE `solution`.`user_id` = ?";
-    private static final String queryUpdateSolution = "UPDATE `solution` SET `notes` = ?, `filepath` = ?, " +
-            "`teacher_notes` = ?, `mark` = ? WHERE (`task_id` = ?) AND (`user_id` = ?)";
+    private static final String queryUpdateSolution = "UPDATE `solution` SET `solution`.`notes` = ?, " +
+            "`solution`.`filepath` = ?, `solution`.`teacher_notes` = ?, `solution`.`mark` = ? " +
+            "WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
     private static final String queryDeleteSolution = "DELETE FROM `solution` WHERE (`solution`.`task_id` = ?) AND " +
             "(`solution`.`user_id` = ?)";
 
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<Solution> rowMapper = ((resultSet, i) -> {
         Solution solution = new Solution();
