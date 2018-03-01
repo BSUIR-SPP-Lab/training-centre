@@ -5,9 +5,12 @@ import com.bsuir.trainingcenter.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class TaskDAOImpl implements TaskDAO {
 
     private static final String queryAddTask = "INSERT INTO `task` (`teacher_id`, `group_id`, `task_info_id`, " +
@@ -20,8 +23,13 @@ public class TaskDAOImpl implements TaskDAO {
             "`task`.`task_info_id` = ?, `task`.`upload_time` = ? WHERE `task`.`task_id` = ?";
     private static final String queryDeleteTask = "DELETE FROM `task` WHERE `task`.`task_id` = ?";
 
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<Task> rowMapper = ((resultSet, i) -> {
         Task task = new Task();

@@ -5,9 +5,12 @@ import com.bsuir.trainingcenter.entity.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class ApplicationDAOImpl implements ApplicationDAO {
 
     private static final String queryAddApplication = "INSERT INTO `application` (`student_id`, `course_id`) " +
@@ -21,8 +24,13 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             "`application`.`course_id` = ? WHERE `application`.`application_id` = ?";
     private static final String queryDeleteApplication = "DELETE FROM `application` WHERE `application_id` = ?";
 
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<Application> rowMapper = ((resultSet, i) -> {
         Application application = new Application();

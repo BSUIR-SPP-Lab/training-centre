@@ -5,9 +5,12 @@ import com.bsuir.trainingcenter.entity.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class GroupDAOImpl implements GroupDAO {
 
     private static final String queryAddGroup = "INSERT INTO `group` (`course_id`, `coordinator_id`) VALUES (?, ?)";
@@ -19,8 +22,13 @@ public class GroupDAOImpl implements GroupDAO {
             "`group`.`coordinator_id` = ? WHERE `group`.`group_id` = ?";
     private static final String queryDeleteGroup = "DELETE FROM `group` WHERE `group_id` = ?";
 
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<Group> rowMapper = ((resultSet, i) -> {
         Group group = new Group();

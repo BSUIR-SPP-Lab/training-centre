@@ -6,9 +6,12 @@ import com.bsuir.trainingcenter.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class UserDAOImpl implements UserDAO {
 
     private static final String queryAddUser = "INSERT INTO `user` (`login`, `password`, `role`, `email`, `phone`, " +
@@ -23,8 +26,13 @@ public class UserDAOImpl implements UserDAO {
             "`user`.`last_name` = ? WHERE `user`.`user_id` = ?";
     private static final String queryDeleteUser = "DELETE FROM `user` WHERE `user`.`user_id` = ?";
 
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<User> rowMapper = ((resultSet, i) -> {
         User user = new User();

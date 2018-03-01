@@ -5,9 +5,12 @@ import com.bsuir.trainingcenter.entity.CourseInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class CourseInfoDAOImpl implements CourseInfoDAO {
 
     private static final String queryAddCourseInfo = "INSERT INTO `course_info` (`name`, `description`) " +
@@ -21,8 +24,13 @@ public class CourseInfoDAOImpl implements CourseInfoDAO {
             "`course_info`.`description` = ? WHERE `course_info`.`course_info_id` = ?";
     private static final String queryDeleteCourseInfo = "DELETE FROM `course_info` WHERE `course_info_id` = ?";
 
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<CourseInfo> rowMapper = ((resultSet, i) -> {
         CourseInfo courseInfo = new CourseInfo();

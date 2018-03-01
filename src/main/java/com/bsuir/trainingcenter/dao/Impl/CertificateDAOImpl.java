@@ -5,9 +5,12 @@ import com.bsuir.trainingcenter.entity.Certificate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class CertificateDAOImpl implements CertificateDAO {
 
     private static final String queryAddCertificate = "INSERT INTO `certificate` (`student_id`, `group_id`) " +
@@ -21,8 +24,13 @@ public class CertificateDAOImpl implements CertificateDAO {
             "`certificate`.`group_id` = ? WHERE `certificate`.`certificate_id` = ?";
     private static final String queryDeleteCertificate = "DELETE FROM `certificate` WHERE `certificate_id` = ?";
 
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<Certificate> rowMapper = ((resultSet, i) -> {
         Certificate certificate = new Certificate();

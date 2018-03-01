@@ -5,9 +5,12 @@ import com.bsuir.trainingcenter.entity.TaskInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class TaskInfoDAOImpl implements TaskInfoDAO {
 
     private static final String queryAddTaskInfo = "INSERT INTO `task_info` (`name`, `body`) VALUES (?, ?)";
@@ -19,8 +22,13 @@ public class TaskInfoDAOImpl implements TaskInfoDAO {
             "`task_info`.`body` = ? WHERE `task_info`.`task_info_id` = ?";
     private static final String queryDeleteTaskInfo = "DELETE FROM `task_info` WHERE `task_info`.`task_info_id` = ?";
 
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     private RowMapper<TaskInfo> rowMapper = ((resultSet, i) -> {
         TaskInfo taskInfo = new TaskInfo();
@@ -36,7 +44,7 @@ public class TaskInfoDAOImpl implements TaskInfoDAO {
     }
 
     @Override
-    public List<TaskInfo> findTaskInfos() {
+    public List<TaskInfo> findTasksInfo() {
         return jdbcTemplate.query(queryFindTasksInfo, rowMapper);
     }
 
