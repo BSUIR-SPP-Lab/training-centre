@@ -1,10 +1,14 @@
 package com.bsuir.trainingcenter.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class CourseInfo {
 
     private long courseInfoId;
+    @NotNull
+    @Size(min=1,max = 50)
     private String name;
     //can be null
     private String description;

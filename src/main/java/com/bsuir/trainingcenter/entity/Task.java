@@ -1,5 +1,6 @@
 package com.bsuir.trainingcenter.entity;
 
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ public class Task {
     private long teacherId;
     private long groupId;
     private long taskInfoId;
+    @Pattern(regexp = "^(\\d{4,})-(\\d{2})-(\\d{2})[T ](\\d{2}):(\\d{2})(?::(\\d{2}(?:\\.\\d+)?))?$")
     private LocalDateTime uploadTime;
 
     public Task() {
