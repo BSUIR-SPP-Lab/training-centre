@@ -22,7 +22,7 @@ public class CourseController {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     }
 
-    @PutMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity addCourse(@RequestBody Course course){
         ResponseEntity response;
         if(courseService.addCourse(course)){
@@ -51,7 +51,7 @@ public class CourseController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity updateCourse(@PathVariable Long id,@RequestBody Course course){
         ResponseEntity response;
         course.setCourseId(id);

@@ -25,7 +25,7 @@ public class TaskController {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     }
 
-    @PutMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity addTask(@RequestBody Task task){
         ResponseEntity response;
         if(taskService.addTask(task)){
@@ -54,7 +54,7 @@ public class TaskController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity updateTask(@PathVariable Long id,@RequestBody Task task){
         ResponseEntity response;
         task.setTaskId(id);

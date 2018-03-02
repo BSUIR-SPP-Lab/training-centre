@@ -22,7 +22,7 @@ public class StudentGroupController {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     }
 
-    @PutMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity addStudentGroup(@RequestBody StudentGroup studentGroup){
         ResponseEntity response;
         if(studentGroupService.addStudentGroup(studentGroup)){
@@ -40,7 +40,7 @@ public class StudentGroupController {
     }
 
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity updateTask(@PathVariable Long id,@RequestBody StudentGroup studentGroup){
         ResponseEntity response;
         studentGroup.setStudentId(id);

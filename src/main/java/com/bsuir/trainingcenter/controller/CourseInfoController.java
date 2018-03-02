@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/courseInfo")
 public class CourseInfoController {
-
     @Autowired
     private CourseInfoService courseInfoService;
 
@@ -22,7 +21,7 @@ public class CourseInfoController {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     }
 
-    @PutMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity addCourseInfo(@RequestBody CourseInfo courseInfo){
         ResponseEntity response;
         if(courseInfoService.addCourseInfo(courseInfo)){
@@ -51,7 +50,7 @@ public class CourseInfoController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity updateCourseInfo(@PathVariable Long id,@RequestBody CourseInfo courseInfo){
         ResponseEntity response;
         courseInfo.setCourseInfoId(id);
