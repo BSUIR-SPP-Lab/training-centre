@@ -1,5 +1,6 @@
 package com.bsuir.trainingcenter.entity;
 
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -7,7 +8,9 @@ public class Course {
 
     private long courseId;
     private long courseInfoId;
+    @Pattern(regexp = "^(\\d{4,})-(\\d{2})-(\\d{2})[T ](\\d{2}):(\\d{2})(?::(\\d{2}(?:\\.\\d+)?))?$")
     private LocalDateTime start;
+    @Pattern(regexp = "^(\\d{4,})-(\\d{2})-(\\d{2})[T ](\\d{2}):(\\d{2})(?::(\\d{2}(?:\\.\\d+)?))?$")
     private LocalDateTime end;
 
     public Course() {

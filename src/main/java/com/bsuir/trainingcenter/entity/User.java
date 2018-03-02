@@ -1,13 +1,25 @@
 package com.bsuir.trainingcenter.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class User {
 
     private long id;
+    @NotNull
+    @Pattern(regexp = "^\\w+$")
+    @Size(min=2, max=50)
     private String login;
+    @NotNull
+    @Pattern(regexp = "^\\w+$")
     private String password;
+
     private Role role;
+    @NotNull
+    @Pattern(regexp = "^[\\w\\.]+@\\w+\\.\\w+$")
+    @Size(min=5,max=256)
     private String email;
 
     //can be null

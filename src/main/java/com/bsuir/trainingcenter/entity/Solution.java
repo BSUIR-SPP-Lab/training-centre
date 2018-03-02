@@ -1,5 +1,7 @@
 package com.bsuir.trainingcenter.entity;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -9,9 +11,12 @@ public class Solution {
     private long userId;
 
     //can be null
+
     private String notes;
     private String filepath;
     private String teacherNotes;
+    @Max(10)
+    @Min(0)
     private Long mark;
 
 
