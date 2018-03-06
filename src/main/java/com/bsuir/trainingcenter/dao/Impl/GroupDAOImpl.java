@@ -25,11 +25,6 @@ public class GroupDAOImpl implements GroupDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private RowMapper<Group> rowMapper = ((resultSet, i) -> {
         Group group = new Group();
         group.setGroupId(resultSet.getLong("group_id"));
@@ -37,6 +32,11 @@ public class GroupDAOImpl implements GroupDAO {
         group.setCoordinatorId(resultSet.getLong("coordinator_id"));
         return group;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addGroup(Group group) {

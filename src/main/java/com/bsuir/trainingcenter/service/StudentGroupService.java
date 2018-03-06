@@ -11,4 +11,6 @@ public interface StudentGroupService {
 
     boolean updateStudentGroup(StudentGroup studentGroup);
 
+    boolean deleteStudentGroup(long studentId, long groupId);
+
 }
