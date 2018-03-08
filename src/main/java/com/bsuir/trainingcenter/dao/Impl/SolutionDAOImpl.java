@@ -24,16 +24,13 @@ public class SolutionDAOImpl implements SolutionDAO {
     private static final String queryUpdateSolution = "UPDATE `solution` SET `solution`.`notes` = ?, " +
             "`solution`.`filepath` = ?, `solution`.`teacher_notes` = ?, `solution`.`mark` = ? " +
             "WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
+    private static final String queryUpdateSolutionMark = "UPDATE `solution` SET `solution`.`teacher_notes` = ?, " +
+            "`solution`.`mark` = ? WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
     private static final String queryDeleteSolution = "DELETE FROM `solution` WHERE (`solution`.`task_id` = ?) AND " +
             "(`solution`.`user_id` = ?)";
 
 
     private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     private RowMapper<Solution> rowMapper = ((resultSet, i) -> {
         Solution solution = new Solution();
@@ -50,6 +47,11 @@ public class SolutionDAOImpl implements SolutionDAO {
         solution.setUploadTime(resultSet.getTimestamp("upload_time").toLocalDateTime());
         return solution;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addSolution(Solution solution) {
@@ -71,6 +73,11 @@ public class SolutionDAOImpl implements SolutionDAO {
     public boolean updateSolution(Solution solution) {
         return jdbcTemplate.update(queryUpdateSolution, solution.getNotes(), solution.getFilepath(),
                 solution.getTeacherNotes(), solution.getMark(), solution.getTaskId(), solution.getUserId()) > 0;
+    }
+
+    @Override
+    public boolean updateSolutionMark(long taskId, long userId, String teacherNotes, long mark) {
+        return jdbcTemplate.update(queryUpdateSolutionMark, teacherNotes, mark, taskId, userId) > 0;
     }
 
     @Override

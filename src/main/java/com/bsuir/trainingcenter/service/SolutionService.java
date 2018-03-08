@@ -13,5 +13,7 @@ public interface SolutionService {
 
     boolean updateSolution(Solution solution);
 
+    boolean updateSolutionMark(long taskId, long userId, String teacherNotes, long mark);
+
     boolean deleteSolution(long taskId, long userId);
 }

@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.service.impl;
 
 import com.bsuir.trainingcenter.dao.UserDAO;
+import com.bsuir.trainingcenter.entity.Role;
 import com.bsuir.trainingcenter.entity.User;
 import com.bsuir.trainingcenter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUser(User user) {
         return userDAO.updateUser(user);
+    }
+
+    @Override
+    public boolean updateUserRole(long userId, Role newRole) {
+        return userDAO.updateUserRole(userId, newRole);
     }
 
     @Override
