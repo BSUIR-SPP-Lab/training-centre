@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 
 
-interface User {
+class User {
   email: string;
   firstName:string;
   id: number;
@@ -18,13 +18,25 @@ interface User {
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css']
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit, AfterViewInit {
   users: User[] = [];
 
-  constructor(private usersService: UsersService) { }
+  userName:string = '';
 
-  ngOnInit() {
+  user: User;
+
+  constructor(private usersService: UsersService) { }
+  ngOnInit(){}
+
+  ngAfterViewInit() {
+    this.user = new User();
+    this.user.email = 'test@gmail.com';
+    this.user.lastName = 'testLastName';
     
+    this.user.password = 'testpass';
+    this.user.phone = '8800553522';
+    this.user.role = 'STUDENT';
+    this.user.id = 0;
   }
   
   loadUsers(){
@@ -32,7 +44,17 @@ export class UsersListComponent implements OnInit {
     .getUsers().
     subscribe((users:User[]) => {
       this.users = users;
-    })
+    });
+  }
+
+  addUser(){
+    this.user.login = this.userName;
+    this.user.firstName = this.userName;
+    this.usersService.addUser(this.user)
+    .subscribe((user:User) => {
+      //this.users.push(user);
+    });
+    this.userName = '';
   }
 
 }

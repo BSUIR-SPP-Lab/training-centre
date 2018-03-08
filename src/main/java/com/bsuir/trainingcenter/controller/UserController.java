@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 
@@ -20,13 +21,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @ModelAttribute
-    public void setVaryResponseHeader(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-        response.setHeader("Access-Control-Allow-Methods"," GET, POST, PATCH, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token");
-    }
 
     @PostMapping("/add")
     public ResponseEntity addUser(@RequestBody User user){

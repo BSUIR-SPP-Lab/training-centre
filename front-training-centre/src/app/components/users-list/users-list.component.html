@@ -1,6 +1,11 @@
 <div class="col-xs-8 col-xs-offset-2">
 
   <hr/>
+  <div>
+    <button class="btn btn-success"(click) ="addUser()" > Добавить пользователя</button>
+    <input type = "text" class="form-contol" [(ngModel)] = "userName">
+  </div>
+  <hr/>
   <button class="btn btn-primary" (click) = "loadUsers()"> Загрузить пользователей  </button>
   <hr/>
   <ul class="list-group"> 
