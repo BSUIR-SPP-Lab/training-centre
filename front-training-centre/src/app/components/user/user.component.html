@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-md-8 order-md-1">
+    <h4 class="mb-3">Информация о пользователе</h4>
+    <form class="needs-validation" novalidate="">
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+          <label for="firstName">Имя</label>
+          <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+          <div class="invalid-feedback">
+            Введите имя.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="lastName">Фамилия</label>
+          <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+          <div class="invalid-feedback">
+            Введите фамилию
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mb-3">
+        <label for="email">Email </label>
+        <input type="email" class="form-control" id="email" placeholder="you@example.com">
+        <div class="invalid-feedback">
+          Введите email.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="address">Логин</label>
+        <input type="text" class="form-control" id="login" placeholder="" required="">
+        <div class="invalid-feedback">
+          Введите логин.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password">Пароль</label>
+        <input type="text" class="form-control" id="password" placeholder="" required="">
+        <div class="invalid-feedback">
+          Введите пароль.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone">Телефон</label>
+        <input type="text" class="form-control" id="phone" placeholder="" required="">
+        <div class="invalid-feedback">
+          Введите номер.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="country">Роль</label>
+        <select class="custom-select d-block w-100" id="role" required="">
+          <option value="guest">Гость</option>
+          <option value="student"> Студент </option>
+          <option value="admin"> Администратор </option>
+        </select>
+        <div class="invalid-feedback">
+          Выберите роль.
+        </div>
+      </div>
+
+
+      <hr class="mb-4">
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Сохранить</button>
+    </form>
+  </div>
+</div>
+

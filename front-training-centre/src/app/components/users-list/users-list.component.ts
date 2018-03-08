@@ -4,7 +4,7 @@ import { UsersService } from '../../services/users.service';
 
 class User {
   email: string;
-  firstName:string;
+  firstName: string;
   id: number;
   lastName: string;
   login: string;
@@ -32,19 +32,23 @@ export class UsersListComponent implements OnInit, AfterViewInit {
     this.user = new User();
     this.user.email = 'test@gmail.com';
     this.user.lastName = 'testLastName';
-    
     this.user.password = 'testpass';
     this.user.phone = '8800553522';
     this.user.role = 'STUDENT';
     this.user.id = 0;
+    this.loadUsers();
   }
-  
+
   loadUsers(){
     this.usersService
     .getUsers().
     subscribe((users:User[]) => {
       this.users = users;
-    });
+    },
+    (error) => {
+      alert(error);
+    }
+  );
   }
 
   addUser(){
