@@ -9,11 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 
@@ -21,6 +19,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
 
     @PostMapping("/add")
     public ResponseEntity addUser(@RequestBody User user){

@@ -23,6 +23,6 @@ export class UsersService {
 
     addUser(user: User){
         return this.http.post('http://localhost:8080/user/add',user)
-        .map((response:Response) =>  response.json());
+        .map((response:Response) =>  response)
     }
 }
