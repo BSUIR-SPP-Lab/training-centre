@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router, Params } from '@angular/router';
 import {UsersService} from '../../services/users.service';
 import {NgForm} from "@angular/forms";
@@ -29,6 +29,7 @@ export class UserComponent implements OnInit {
 
   user: User;
 
+  firstNameInput = '';
 
   ngOnInit() {
     this.user = new User();
@@ -53,6 +54,7 @@ export class UserComponent implements OnInit {
   }
 
   submitForm(form: NgForm) {
-    console.log('sub');
+    console.log(form);
+
   }
 }
