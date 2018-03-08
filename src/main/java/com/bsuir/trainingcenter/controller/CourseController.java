@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,12 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @PutMapping("/add")
+    @ModelAttribute
+    public void setVaryResponseHeader(HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+    }
+
+    @PostMapping("/add")
     public ResponseEntity addCourse(@RequestBody Course course){
         ResponseEntity response;
         if(courseService.addCourse(course)){
@@ -45,7 +51,7 @@ public class CourseController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity updateCourse(@PathVariable Long id,@RequestBody Course course){
         ResponseEntity response;
         course.setCourseId(id);

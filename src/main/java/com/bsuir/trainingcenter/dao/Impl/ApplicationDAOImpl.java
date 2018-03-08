@@ -27,11 +27,6 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private RowMapper<Application> rowMapper = ((resultSet, i) -> {
         Application application = new Application();
         application.setApplicationId(resultSet.getLong("application_id"));
@@ -39,6 +34,11 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         application.setCourseId(resultSet.getLong("course_id"));
         return application;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addApplication(Application application) {

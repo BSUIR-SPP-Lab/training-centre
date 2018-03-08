@@ -27,11 +27,6 @@ public class CourseInfoDAOImpl implements CourseInfoDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private RowMapper<CourseInfo> rowMapper = ((resultSet, i) -> {
         CourseInfo courseInfo = new CourseInfo();
         courseInfo.setCourseInfoId(resultSet.getLong("course_info_id"));
@@ -39,6 +34,11 @@ public class CourseInfoDAOImpl implements CourseInfoDAO {
         courseInfo.setDescription(resultSet.getString("description"));
         return courseInfo;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addCourseInfo(CourseInfo courseInfo) {

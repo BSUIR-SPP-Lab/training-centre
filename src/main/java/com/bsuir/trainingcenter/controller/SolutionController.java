@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,12 @@ public class SolutionController {
     @Autowired
     private SolutionService solutionService;
 
-    @PutMapping("/add")
+    @ModelAttribute
+    public void setVaryResponseHeader(HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+    }
+
+    @PostMapping("/add")
     public ResponseEntity addSolution(@RequestBody Solution solution){
         ResponseEntity response;
         if(solutionService.addSolution(solution)){
@@ -38,7 +44,7 @@ public class SolutionController {
         return new ResponseEntity<>(solutionService.findSolutions(id), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{taskId}/{userId}")
+    @PostMapping("/update/{taskId}/{userId}")
     public ResponseEntity updateSolution(@PathVariable Long taskId,@PathVariable Long userId,@RequestBody Solution solution){
         ResponseEntity response;
         solution.setUserId(userId);

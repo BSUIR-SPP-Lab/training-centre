@@ -21,17 +21,17 @@ public class TeacherDAOImpl implements TeacherDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private RowMapper<Teacher> rowMapper = ((resultSet, i) -> {
         Teacher teacher = new Teacher();
         teacher.setTeacherId(resultSet.getLong("teacher_id"));
         teacher.setGroupId(resultSet.getLong("group_id"));
         return teacher;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addTeacher(Teacher teacher) {

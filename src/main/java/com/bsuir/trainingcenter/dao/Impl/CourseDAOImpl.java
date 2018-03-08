@@ -26,19 +26,20 @@ public class CourseDAOImpl implements CourseDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private RowMapper<Course> rowMapper = ((resultSet, i) -> {
         Course course = new Course();
         course.setCourseId(resultSet.getLong("course_id"));
         course.setCourseInfoId(resultSet.getLong("course_info_id"));
+        course.setCoordinatorId(resultSet.getLong("coordinator_id"));
         course.setStart(resultSet.getTimestamp("start").toLocalDateTime());
         course.setEnd(resultSet.getTimestamp("end").toLocalDateTime());
         return course;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addCourse(Course course) {

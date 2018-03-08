@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,12 @@ public class StudentGroupController {
     @Autowired
     private StudentGroupService studentGroupService;
 
-    @PutMapping("/add")
+    @ModelAttribute
+    public void setVaryResponseHeader(HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+    }
+
+    @PostMapping("/add")
     public ResponseEntity addStudentGroup(@RequestBody StudentGroup studentGroup){
         ResponseEntity response;
         if(studentGroupService.addStudentGroup(studentGroup)){
@@ -34,7 +40,7 @@ public class StudentGroupController {
     }
 
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity updateTask(@PathVariable Long id,@RequestBody StudentGroup studentGroup){
         ResponseEntity response;
         studentGroup.setStudentId(id);

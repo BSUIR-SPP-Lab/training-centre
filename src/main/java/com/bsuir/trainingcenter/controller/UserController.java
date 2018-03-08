@@ -26,8 +26,7 @@ public class UserController {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     }
 
-
-    @PutMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity addUser(@RequestBody User user){
         ResponseEntity response;
         if(userService.addUser(user)){
@@ -56,7 +55,7 @@ public class UserController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity updateUser(@PathVariable Long id,@RequestBody User user){
         ResponseEntity response;
         user.setId(id);
