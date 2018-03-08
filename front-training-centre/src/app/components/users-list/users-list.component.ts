@@ -51,7 +51,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   );
   }
 
-  addUser(){
+  addUser() {
     this.user.login = this.userName;
     this.user.firstName = this.userName;
     this.usersService.addUser(this.user)

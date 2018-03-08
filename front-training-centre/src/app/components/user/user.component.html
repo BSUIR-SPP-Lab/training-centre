@@ -1,74 +1,136 @@
 <div class="row">
   <div class="col-md-8 order-md-1">
     <h4 class="mb-3">Информация о пользователе</h4>
-    <form class="needs-validation" novalidate="">
+    <form class="needs-validation" (ngSubmit)="submitForm(form)" #form="ngForm">
       <div class="row">
 
         <div class="col-md-6 mb-3">
-          <label for="firstName">Имя</label>
-          <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-          <div class="invalid-feedback">
+          <label>Имя</label>
+          <input
+            type="text"
+            class="form-control"
+            ngModel name="firstName"
+            placeholder=""
+            value=""
+            required
+            #firstName="ngModel"
+            [ngClass]="{'is-invalid': firstName.invalid && firstName.touched}"
+          >
+          <p  *ngIf="firstName.invalid && firstName.touched"  [ngClass]="{'invalid-feedback': firstName.invalid && firstName.touched}">
             Введите имя.
-          </div>
+          </p>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="lastName">Фамилия</label>
-          <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-          <div class="invalid-feedback">
-            Введите фамилию
-          </div>
+          <label>Фамилия</label>
+          <input
+            type="text"
+            class="form-control"
+            ngModel name="lastName"
+            placeholder=""
+            value=""
+            required
+            #lastName="ngModel"
+            [ngClass]="{'is-invalid': lastName.invalid && lastName.touched}"
+          >
+          <p  *ngIf="lastName.invalid && lastName.touched"  [ngClass]="{'invalid-feedback': lastName.invalid && lastName.touched}">
+            Введите фамилию.
+          </p>
         </div>
 
       </div>
 
       <div class="mb-3">
-        <label for="email">Email </label>
-        <input type="email" class="form-control" id="email" placeholder="you@example.com">
-        <div class="invalid-feedback">
-          Введите email.
-        </div>
+          <label>Email </label>
+          <input
+            class="form-control"
+            ngModel name="email"
+            placeholder="you@example.com"
+            email
+            #email="ngModel"
+            required
+            [ngClass]="{'is-invalid': email.invalid && email.touched}"
+          >
+          <p  *ngIf="email.invalid && email.touched"  [ngClass]="{'invalid-feedback': email.invalid && email.touched}">
+            Введите корректный email.
+          </p>
       </div>
 
       <div class="mb-3">
-        <label for="address">Логин</label>
-        <input type="text" class="form-control" id="login" placeholder="" required="">
-        <div class="invalid-feedback">
+        <label>Логин</label>
+        <input
+          type="text"
+          class="form-control"
+          ngModel name="login"
+          placeholder=""
+          required
+          #login="ngModel"
+          [ngClass]="{'is-invalid': login.invalid && login.touched}"
+        >
+        <p  *ngIf="login.invalid && login.touched"  [ngClass]="{'invalid-feedback': login.invalid && login.touched}">
           Введите логин.
-        </div>
+        </p>
+
       </div>
 
       <div class="mb-3">
-        <label for="password">Пароль</label>
-        <input type="text" class="form-control" id="password" placeholder="" required="">
-        <div class="invalid-feedback">
+        <label>Пароль</label>
+        <input
+          type="text"
+          class="form-control"
+          ngModel name="password"
+          placeholder=""
+          required
+          #password="ngModel"
+          [ngClass]="{'is-invalid': password.invalid && password.touched}"
+        >
+        <p  *ngIf="password.invalid && password.touched"  [ngClass]="{'invalid-feedback': password.invalid && password.touched}">
           Введите пароль.
-        </div>
+        </p>
       </div>
 
       <div class="mb-3">
-        <label for="phone">Телефон</label>
-        <input type="text" class="form-control" id="phone" placeholder="" required="">
-        <div class="invalid-feedback">
-          Введите номер.
-        </div>
+        <label>Телефон</label>
+        <input
+        type="text"
+        class="form-control"
+        ngModel name="phone"
+        placeholder=""
+        required
+        #phone="ngModel"
+        [ngClass]="{'is-invalid': phone.invalid && phone.touched}"
+      >
+        <p  *ngIf="phone.invalid && phone.touched"  [ngClass]="{'invalid-feedback': phone.invalid && phone.touched}">
+          Введите номер телефона.
+        </p>
       </div>
 
       <div class="mb-3">
-        <label for="country">Роль</label>
-        <select class="custom-select d-block w-100" id="role" required="">
+        <label>Роль</label>
+        <select
+          class="custom-select d-block w-100"
+          ngModel name="role"
+          required
+          #role="ngModel"
+          [ngClass]="{'is-invalid': role.invalid && role.touched}"
+        >
+
           <option value="guest">Гость</option>
           <option value="student"> Студент </option>
           <option value="admin"> Администратор </option>
         </select>
-        <div class="invalid-feedback">
+        <p  *ngIf="role.invalid && role.touched"  [ngClass]="{'invalid-feedback': role.invalid && role.touched}">
           Выберите роль.
-        </div>
+        </p>
       </div>
 
 
       <hr class="mb-4">
-      <button class="btn btn-primary btn-lg btn-block" type="submit">Сохранить</button>
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        type="submit"
+        [disabled] ="!form.valid"
+      >Сохранить</button>
     </form>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router, Params } from '@angular/router';
 import {UsersService} from '../../services/users.service';
+import {NgForm} from "@angular/forms";
 
 
 class User {
@@ -49,5 +50,9 @@ export class UserComponent implements OnInit {
         (error) => {
           alert(error);
         });
+  }
+
+  submitForm(form: NgForm) {
+    console.log('sub');
   }
 }
