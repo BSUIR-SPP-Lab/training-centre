@@ -1,19 +1,19 @@
 package com.bsuir.trainingcenter.service;
 
-import com.bsuir.trainingcenter.entity.Task;
+import com.bsuir.trainingcenter.entity.view.TaskView;
 
 import java.util.List;
 
 public interface TaskService {
 
 
-    boolean addTask(Task task);
+    boolean addTask(TaskView task);
 
-    List<Task> findTasks();
+    List<TaskView> findTasks();
 
-    Task findTask(long taskId);
+    TaskView findTask(long taskId);
 
-    boolean updateTask(Task task);
+    boolean updateTask(TaskView task);
 
     boolean deleteTask(long taskId);
 }
