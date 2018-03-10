@@ -14,6 +14,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TaskInfoListComponent } from './components/task-info/task-info-list/task-info-list.component';
 import { TaskTemplateService } from './services/taskTemplate.service';
 import { TasktemplateComponent } from './components/task-info/tasktemplate/tasktemplate.component';
+import { CourseInfoListComponent } from './components/course-info/course-info-list/course-info-list.component';
+import { CourseTemplateService } from './services/courseTemplate.service';
+import { CourseTemplateComponent } from './components/course-info/course-template/course-template.component';
 
 
 @NgModule({
@@ -24,7 +27,9 @@ import { TasktemplateComponent } from './components/task-info/tasktemplate/taskt
     StartPageComponent,
     NotFoundComponent,
     TaskInfoListComponent,
-    TasktemplateComponent
+    TasktemplateComponent,
+    CourseInfoListComponent,
+    CourseTemplateComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,7 @@ import { TasktemplateComponent } from './components/task-info/tasktemplate/taskt
     HttpModule,
     AppRoutingModule
   ],
-  providers: [UsersService, TaskTemplateService],
+  providers: [UsersService, TaskTemplateService, CourseTemplateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
