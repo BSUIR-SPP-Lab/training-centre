@@ -35,7 +35,12 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     @Override
+    public boolean updateSolutionMark(long taskId, long userId, String teacherNotes, long mark) {
+        return solutionDAO.updateSolutionMark(taskId, userId, teacherNotes, mark);
+    }
+
+    @Override
     public boolean deleteSolution(long taskId, long userId) {
-        return solutionDAO.deleteSolution(taskId,userId);
+        return solutionDAO.deleteSolution(taskId, userId);
     }
 }

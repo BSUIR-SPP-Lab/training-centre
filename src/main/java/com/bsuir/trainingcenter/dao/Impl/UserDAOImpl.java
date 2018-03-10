@@ -24,15 +24,11 @@ public class UserDAOImpl implements UserDAO {
     private static final String queryUpdateUser = "UPDATE `user` SET `user`.`login` = ?, `user`.`password` = ?, " +
             "`user`.`role` = ?, `user`.`email` = ?, `user`.`phone` = ?, `user`.`first_name` = ?, " +
             "`user`.`last_name` = ? WHERE `user`.`user_id` = ?";
+    private static final String queryUpdateUserRole = "UPDATE `user` SET `user`.`role` = ? WHERE `user`.`user_id` = ?";
     private static final String queryDeleteUser = "DELETE FROM `user` WHERE `user`.`user_id` = ?";
 
 
     private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     private RowMapper<User> rowMapper = ((resultSet, i) -> {
         User user = new User();
@@ -46,6 +42,11 @@ public class UserDAOImpl implements UserDAO {
         user.setLastName(resultSet.getString("last_name"));
         return user;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addUser(User user) {
@@ -66,8 +67,13 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public boolean updateUser(User user) {
         return jdbcTemplate.update(queryUpdateUser, user.getLogin(), user.getPassword(),
-                user.getRole(), user.getEmail(), user.getPhone(), user.getFirstName(), user.getLastName(),
+                user.getRole().toString(), user.getEmail(), user.getPhone(), user.getFirstName(), user.getLastName(),
                 user.getId()) > 0;
+    }
+
+    @Override
+    public boolean updateUserRole(long userId, Role newRole) {
+        return jdbcTemplate.update(queryUpdateUserRole, newRole.toString(), userId) > 0;
     }
 
     @Override

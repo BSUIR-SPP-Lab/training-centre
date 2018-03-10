@@ -20,14 +20,11 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
     private static final String queryUpdateStudentGroup = "UPDATE `student_group` " +
             "SET `student_group`.`course_complete` = ? " +
             "WHERE (`student_group`.`student_id` = ?) AND (`student_group`.`group_id` = ?)";
+    private static final String queryDeleteStudentGroup = "DELETE FROM `student_group` WHERE (`student_id` = ?)" +
+            "AND (`group_id` = ?)";
 
 
     private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     private RowMapper<StudentGroup> rowMapper = ((resultSet, i) -> {
         StudentGroup studentGroup = new StudentGroup();
@@ -36,6 +33,11 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
         studentGroup.setCourseComplete(resultSet.getBoolean("course_complete"));
         return studentGroup;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addStudentGroup(StudentGroup studentGroup) {
@@ -52,5 +54,10 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
     public boolean updateStudentGroup(StudentGroup studentGroup) {
         return jdbcTemplate.update(queryUpdateStudentGroup, studentGroup.isCourseComplete(),
                 studentGroup.getStudentId(), studentGroup.getGroupId()) > 0;
+    }
+
+    @Override
+    public boolean deleteStudentGroup(long studentId, long groupId) {
+        return jdbcTemplate.update(queryDeleteStudentGroup, studentId, groupId) > 0;
     }
 }
