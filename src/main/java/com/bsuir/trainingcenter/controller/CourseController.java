@@ -1,6 +1,6 @@
 package com.bsuir.trainingcenter.controller;
 
-import com.bsuir.trainingcenter.entity.Course;
+import com.bsuir.trainingcenter.entity.view.CourseView;
 import com.bsuir.trainingcenter.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class CourseController {
 
 
     @PostMapping("/add")
-    public ResponseEntity addCourse(@RequestBody Course course){
+    public ResponseEntity addCourse(@RequestBody CourseView course){
         ResponseEntity response;
         if(courseService.addCourse(course)){
             response=new ResponseEntity( HttpStatus.OK);
@@ -29,15 +29,15 @@ public class CourseController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Course>> findCourses(){
+    public ResponseEntity<List<CourseView>> findCourses(){
         return new ResponseEntity<>(courseService.findCourses(), HttpStatus.OK);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findCourse(@PathVariable Long id){
+    public ResponseEntity<CourseView> findCourse(@PathVariable Long id){
         ResponseEntity response;
-        Course course = courseService.findCourse(id);
+        CourseView course = courseService.findCourse(id);
         if(course!=null){
             response=new ResponseEntity<>(course, HttpStatus.OK);
         }else {
@@ -47,7 +47,7 @@ public class CourseController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity updateCourse(@PathVariable Long id,@RequestBody Course course){
+    public ResponseEntity updateCourse(@PathVariable Long id,@RequestBody CourseView course){
         ResponseEntity response;
         course.setCourseId(id);
         if(courseService.updateCourse(course)){
