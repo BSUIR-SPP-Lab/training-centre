@@ -67,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public boolean updateUser(User user) {
         return jdbcTemplate.update(queryUpdateUser, user.getLogin(), user.getPassword(),
-                user.getRole(), user.getEmail(), user.getPhone(), user.getFirstName(), user.getLastName(),
+                user.getRole().toString(), user.getEmail(), user.getPhone(), user.getFirstName(), user.getLastName(),
                 user.getId()) > 0;
     }
 
