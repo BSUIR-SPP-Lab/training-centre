@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -16,10 +15,6 @@ public class CourseInfoController {
     @Autowired
     private CourseInfoService courseInfoService;
 
-    @ModelAttribute
-    public void setVaryResponseHeader(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-    }
 
     @PostMapping("/add")
     public ResponseEntity addCourseInfo(@RequestBody CourseInfo courseInfo){
