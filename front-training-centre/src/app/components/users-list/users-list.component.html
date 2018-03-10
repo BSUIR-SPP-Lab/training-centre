@@ -18,7 +18,7 @@
     <ul class="list-group">
       <li class="list-group-item" *ngFor= "let user of users" >
         <a [routerLink]="['/users', user.id]">
-          {{ user.id }} {{ user.firstName }} {{ user.email }}
+          {{ user.id }} {{ user.firstName }} {{ user.lastName }}
         </a>
       </li>
     </ul>

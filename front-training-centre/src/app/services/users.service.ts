@@ -21,7 +21,7 @@ export class UsersService {
         return this.http.get('http://localhost:8080/user/all')
             .map((response: Response ) =>  response.json())
             .catch((error: Response ) => {
-                return Observable.throw('Problem');
+                return Observable.throw('Problems when loading users');
             });
     }
 

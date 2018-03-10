@@ -69,7 +69,7 @@ export class UserComponent implements OnInit {
           this.user = user;
         },
         (error) => {
-          alert('Ошибка при загрузке пользователя');
+          alert('Error loading user');
         });
   }
 
@@ -81,20 +81,19 @@ export class UserComponent implements OnInit {
         this.router.navigate(['/users']);
       },
         (error) => {
-        alert('Ошибка при удалении пользователя');
+        alert('Error while deleting user');
         });
 
   }
 
 
   submitForm(form: NgForm) {
-    console.log(form);
+    // console.log(form);
     if (this.isCreated) {
-      console.log('isCreated');
-      // console.log(' sub ', this.user );
+      // console.log('isCreated');
       this.usersService.addUser(this.user)
       .then(_ => {
-        console.log('User was added');
+        // console.log('User was added');
         this.user = new User();
         this.router.navigate(['/users']);
 
@@ -102,11 +101,10 @@ export class UserComponent implements OnInit {
 
     } else {
       if (this.isChanged) {
-        console.log('isChanged');
-        // console.log(this.user);
+        // console.log('isChanged');
         this.usersService.updateUser(this.user)
           .then(_ => {
-            console.log('User was changed');
+            // console.log('User was changed');
             this.router.navigate(['/users']);
           });
       }

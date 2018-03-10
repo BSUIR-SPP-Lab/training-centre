@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { UserComponent } from './components/user/user.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { TaskInfoListComponent } from './components/task-info/task-info-list/task-info-list.component';
+import { TaskTemplateService } from './services/taskTemplate.service';
+import { TasktemplateComponent } from './components/task-info/tasktemplate/tasktemplate.component';
 
 
 @NgModule({
@@ -19,7 +22,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     UsersListComponent,
     UserComponent,
     StartPageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TaskInfoListComponent,
+    TasktemplateComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [UsersService],
+  providers: [UsersService, TaskTemplateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-md-8 order-md-1">
+    <h4 class="mb-3">Информация о шаблоне</h4>
+    <form class="needs-validation" (ngSubmit)="submitForm(form)" #form="ngForm">
+
+        <div class="mb-3">
+          <label>Имя шаблона</label>
+          <input
+            type="text"
+            class="form-control"
+            ngModel name="name"
+            placeholder=""
+            required
+            #name="ngModel"
+            [(ngModel)] ="task.name"
+            [ngClass]="{'is-invalid': name.invalid && name.touched}"
+          >
+          <p  *ngIf="name.invalid && name.touched"  [ngClass]="{'invalid-feedback': name.invalid && name.touched}">
+            Введите название шаблона.
+          </p>
+        </div>
+          <div class="mb-3">
+            <label>Тело шаблона</label>
+            <input
+              type="text"
+              class="form-control"
+              ngModel name="body"
+              placeholder=""
+              required
+              #body="ngModel"
+              [(ngModel)] ="task.body"
+              [ngClass]="{'is-invalid': body.invalid && body.touched}"
+            >
+            <p  *ngIf="body.invalid && body.touched"  [ngClass]="{'invalid-feedback': body.invalid && body.touched}">
+              Введите тело шаблона.
+            </p>
+          </div>
+
+      <hr class="mb-4">
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        type="submit"
+        [disabled] ="!form.valid"
+        *ngIf  ="isChanged"
+      >Сохранить
+      </button>
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        type="submit"
+        [disabled] ="!form.valid"
+        *ngIf  ="isCreated"
+      >Добавить
+      </button>
+
+      <button
+        class="btn btn-danger btn-lg btn-block "
+        type="reset"
+        *ngIf  ="isChanged"
+        (click) = "deleteTaskTemplate()"
+
+      >Удалить
+      </button>
+    </form>
+  </div>
+</div>
+

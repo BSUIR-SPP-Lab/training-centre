@@ -43,9 +43,6 @@ export class UsersListComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
-
   loadUsers() {
     this.usersService
     .getUsers().
