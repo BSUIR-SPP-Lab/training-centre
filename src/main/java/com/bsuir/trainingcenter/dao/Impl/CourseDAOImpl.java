@@ -13,14 +13,14 @@ import java.util.List;
 @Repository
 public class CourseDAOImpl implements CourseDAO {
 
-    private static final String queryAddCourse = "INSERT INTO `course` (`course_info_id`, `start`, `end`)" +
-            "VALUES (?, ?, ?)";
+    private static final String queryAddCourse = "INSERT INTO `course` (`course_info_id`, `coordinator_id`, " +
+            "`start`, `end`) VALUES (?, ?, ?, ?)";
     private static final String queryFindCourses = "SELECT `course`.`course_id`, `course`.`course_info_id`, " +
-            "`course`.`start`, `course`.`end` FROM `course`";
+            "`course`.`start`, `course`.`end`, `course`.`coordinator_id` FROM `course`";
     private static final String queryFindCourse = "SELECT `course`.`course_id`, `course`.`course_info_id`, " +
-            "`course`.`start`, `course`.`end` FROM `course` WHERE `course`.`course_id` = ?";
+            "`course`.`start`, `course`.`end`, `course`.`coordinator_id` FROM `course` WHERE `course`.`course_id` = ?";
     private static final String queryUpdateCourse = "UPDATE `course` SET `course`.`course_info_id` = ?, " +
-            "`course`.`start` = ?, `course`.`end` = ? WHERE `course`.`course_id` = ?";
+            "`course`.`coordinator_id` = ?, `course`.`start` = ?, `course`.`end` = ? WHERE `course`.`course_id` = ?";
     private static final String queryDeleteCourse = "DELETE FROM `course` WHERE `course_id` = ?";
 
 
@@ -58,8 +58,8 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     public boolean updateCourse(Course course) {
-        return jdbcTemplate.update(queryUpdateCourse, course.getCourseInfoId(), course.getStart(), course.getEnd(),
-                course.getCourseId()) > 0;
+        return jdbcTemplate.update(queryUpdateCourse, course.getCourseInfoId(), course.getCoordinatorId(),
+                course.getStart(), course.getEnd(), course.getCourseId()) > 0;
     }
 
     @Override
