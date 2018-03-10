@@ -1,17 +1,16 @@
-package com.bsuir.trainingcenter.entity;
+package com.bsuir.trainingcenter.entity.view;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Task {
+public class TaskView {
 
     private long taskId;
     private long teacherId;
     private long groupId;
     private long taskInfoId;
-    private LocalDateTime uploadTime;
+    private String uploadTime;
 
-    public Task(long taskId, long teacherId, long groupId, long taskInfoId, LocalDateTime uploadTime) {
+    public TaskView(long taskId, long teacherId, long groupId, long taskInfoId, String uploadTime) {
         this.taskId = taskId;
         this.teacherId = teacherId;
         this.groupId = groupId;
@@ -19,7 +18,7 @@ public class Task {
         this.uploadTime = uploadTime;
     }
 
-    public Task() {
+    public TaskView() {
     }
 
     public long getTaskId() {
@@ -54,11 +53,11 @@ public class Task {
         this.taskInfoId = taskInfoId;
     }
 
-    public LocalDateTime getUploadTime() {
+    public String getUploadTime() {
         return uploadTime;
     }
 
-    public void setUploadTime(LocalDateTime uploadTime) {
+    public void setUploadTime(String uploadTime) {
         this.uploadTime = uploadTime;
     }
 
@@ -66,12 +65,12 @@ public class Task {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return taskId == task.taskId &&
-                teacherId == task.teacherId &&
-                groupId == task.groupId &&
-                taskInfoId == task.taskInfoId &&
-                Objects.equals(uploadTime, task.uploadTime);
+        TaskView taskView = (TaskView) o;
+        return taskId == taskView.taskId &&
+                teacherId == taskView.teacherId &&
+                groupId == taskView.groupId &&
+                taskInfoId == taskView.taskInfoId &&
+                Objects.equals(uploadTime, taskView.uploadTime);
     }
 
     @Override
@@ -82,12 +81,12 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "TaskView{" +
                 "taskId=" + taskId +
                 ", teacherId=" + teacherId +
                 ", groupId=" + groupId +
                 ", taskInfoId=" + taskInfoId +
-                ", uploadTime=" + uploadTime +
+                ", uploadTime='" + uploadTime + '\'' +
                 '}';
     }
 }
