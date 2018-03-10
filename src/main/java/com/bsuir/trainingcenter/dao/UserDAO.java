@@ -9,6 +9,8 @@ public interface UserDAO {
 
     boolean addUser(User user);
 
+    boolean isLoginUnique(String login);
+
     List<User> findUsers();
 
     User findUser(long userId);
