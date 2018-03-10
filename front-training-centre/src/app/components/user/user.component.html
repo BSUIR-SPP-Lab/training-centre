@@ -123,9 +123,11 @@
           [ngClass]="{'is-invalid': role.invalid && role.touched}"
         >
 
-          <option value="USER">Гость</option>
+          <option value="USER">Пользователь</option>
           <option value="STUDENT"> Студент </option>
           <option value="ADMIN"> Администратор </option>
+          <option value="TEACHER"> Преподаватель </option>
+          <option value="COORDINATOR"> Координатор </option>
         </select>
         <p  *ngIf="role.invalid && role.touched"  [ngClass]="{'invalid-feedback': role.invalid && role.touched}">
           Выберите роль.
@@ -138,7 +140,25 @@
         class="btn btn-primary btn-lg btn-block"
         type="submit"
         [disabled] ="!form.valid"
-      >Сохранить</button>
+        *ngIf  ="isChanged"
+      >Сохранить
+      </button>
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        type="submit"
+        [disabled] ="!form.valid"
+        *ngIf  ="isCreated"
+      >Добавить
+      </button>
+
+      <button
+        class="btn btn-danger btn-lg btn-block "
+        type="reset"
+        *ngIf  ="isChanged"
+        (click) = "deleteUser()"
+
+      >Удалить
+      </button>
     </form>
   </div>
 </div>

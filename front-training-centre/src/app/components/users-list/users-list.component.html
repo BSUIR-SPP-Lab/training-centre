@@ -1,13 +1,16 @@
 <h2> Список пользователей</h2>
 <hr/>
-<div>
-  <button class="btn btn-success"(click) ="addUser()" > Добавить пользователя </button>
-  <input type = "text" class="form-contol" [(ngModel)] = "userName">
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <button class="btn btn-primary" routerLink="/users"> Загрузить пользователей  </button>
+      <button class="btn btn-success" routerLink="add" > Добавить пользователя </button>
+    </div>
+  </div>
 </div>
+<hr/>
 
-<hr/>
-<button class="btn btn-primary" (click) = "loadUsers()"> Загрузить пользователей  </button>
-<hr/>
+
 
 <div class="row">
   <div class="col-md-4">

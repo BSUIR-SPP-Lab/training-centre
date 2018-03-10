@@ -10,6 +10,7 @@ import { UsersService } from './services/users.service';
 import { AppRoutingModule } from './app-routing.module';
 import { UserComponent } from './components/user/user.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { StartPageComponent } from './components/start-page/start-page.component
     AppComponent,
     UsersListComponent,
     UserComponent,
-    StartPageComponent
+    StartPageComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

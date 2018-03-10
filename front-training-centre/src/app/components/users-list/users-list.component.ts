@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import {Component, OnInit, AfterViewInit, AfterContentChecked, OnChanges} from '@angular/core';
 import { UsersService } from '../../services/users.service';
+import {ActivatedRoute, Params, Router, RouterEvent} from '@angular/router';
 
 
 class User {
@@ -20,29 +21,35 @@ class User {
 })
 export class UsersListComponent implements OnInit, AfterViewInit {
   users: User[] = [];
-
-  userName:string = '';
-
   user: User;
 
-  constructor(private usersService: UsersService) { }
-  ngOnInit(){}
+  constructor(private usersService: UsersService, private router: Router) {
+    router.events.filter(event => event instanceof RouterEvent).subscribe(event => {
+      if (event['url'] === '/users' ) {
+        this.loadUsers();
+        console.log(event['url'], 'update url');
+      }
+    });
+
+  }
+
+  ngOnInit() {
+
+  }
 
   ngAfterViewInit() {
     this.user = new User();
-    this.user.email = 'test@gmail.com';
-    this.user.lastName = 'testLastName';
-    this.user.password = 'testpass';
-    this.user.phone = '8800553522';
-    this.user.role = 'STUDENT';
-    this.user.id = 0;
     this.loadUsers();
+
   }
 
-  loadUsers(){
+
+
+
+  loadUsers() {
     this.usersService
     .getUsers().
-    subscribe((users:User[]) => {
+    subscribe((users: User[]) => {
       this.users = users;
     },
     (error) => {
@@ -51,12 +58,6 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   );
   }
 
-  addUser() {
-    this.user.login = this.userName;
-    this.user.firstName = this.userName;
-    this.usersService.addUser(this.user)
-    .subscribe();
-    this.userName = '';
-  }
+
 
 }
