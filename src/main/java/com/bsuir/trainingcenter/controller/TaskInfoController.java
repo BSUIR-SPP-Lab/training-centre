@@ -61,6 +61,7 @@ public class TaskInfoController {
         return response;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteTaskInfo(@PathVariable Long id){
         ResponseEntity response;
