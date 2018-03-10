@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -19,13 +18,9 @@ public class TaskInfoController {
 
     @Autowired
     private TaskInfoService taskInfoService;
+    
 
-    @ModelAttribute
-    public void setVaryResponseHeader(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-    }
-
-    @PutMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity addTaskInfo(@RequestBody TaskInfo taskInfo){
         ResponseEntity response;
         if(taskInfoService.addTaskInfo(taskInfo)){
@@ -54,7 +49,7 @@ public class TaskInfoController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity updateTaskInfo(@PathVariable Long id,@RequestBody TaskInfo taskInfo){
         ResponseEntity response;
         taskInfo.setTaskInfoId(id);
@@ -66,6 +61,7 @@ public class TaskInfoController {
         return response;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteTaskInfo(@PathVariable Long id){
         ResponseEntity response;

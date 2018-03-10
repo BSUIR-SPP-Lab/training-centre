@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StudentGroupServiceImpl implements StudentGroupService{
+public class StudentGroupServiceImpl implements StudentGroupService {
 
     @Autowired
     private StudentGroupDAO studentGroupDAO;
@@ -27,5 +27,10 @@ public class StudentGroupServiceImpl implements StudentGroupService{
     @Override
     public boolean updateStudentGroup(StudentGroup studentGroup) {
         return studentGroupDAO.updateStudentGroup(studentGroup);
+    }
+
+    @Override
+    public boolean deleteStudentGroup(long studentId, long groupId) {
+        return studentGroupDAO.deleteStudentGroup(studentId, groupId);
     }
 }

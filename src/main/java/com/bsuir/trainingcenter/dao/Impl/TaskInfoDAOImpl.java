@@ -25,11 +25,6 @@ public class TaskInfoDAOImpl implements TaskInfoDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private RowMapper<TaskInfo> rowMapper = ((resultSet, i) -> {
         TaskInfo taskInfo = new TaskInfo();
         taskInfo.setTaskInfoId(resultSet.getLong("task_info_id"));
@@ -37,6 +32,11 @@ public class TaskInfoDAOImpl implements TaskInfoDAO {
         taskInfo.setBody(resultSet.getString("body"));
         return taskInfo;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addTaskInfo(TaskInfo taskInfo) {

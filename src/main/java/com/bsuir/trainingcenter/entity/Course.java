@@ -1,6 +1,5 @@
 package com.bsuir.trainingcenter.entity;
 
-import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -8,17 +7,17 @@ public class Course {
 
     private long courseId;
     private long courseInfoId;
-    @Pattern(regexp = "^(\\d{4,})-(\\d{2})-(\\d{2})[T ](\\d{2}):(\\d{2})(?::(\\d{2}(?:\\.\\d+)?))?$")
+    private long coordinatorId;
     private LocalDateTime start;
-    @Pattern(regexp = "^(\\d{4,})-(\\d{2})-(\\d{2})[T ](\\d{2}):(\\d{2})(?::(\\d{2}(?:\\.\\d+)?))?$")
     private LocalDateTime end;
 
     public Course() {
     }
 
-    public Course(long courseId, long courseInfoId, LocalDateTime start, LocalDateTime end) {
+    public Course(long courseId, long courseInfoId, long coordinatorId, LocalDateTime start, LocalDateTime end) {
         this.courseId = courseId;
         this.courseInfoId = courseInfoId;
+        this.coordinatorId = coordinatorId;
         this.start = start;
         this.end = end;
     }
@@ -55,6 +54,14 @@ public class Course {
         this.end = end;
     }
 
+    public long getCoordinatorId() {
+        return coordinatorId;
+    }
+
+    public void setCoordinatorId(long coordinatorId) {
+        this.coordinatorId = coordinatorId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,5 +88,4 @@ public class Course {
                 ", end=" + end +
                 '}';
     }
-    
 }

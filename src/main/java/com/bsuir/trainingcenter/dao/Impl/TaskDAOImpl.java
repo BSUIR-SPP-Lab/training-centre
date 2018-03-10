@@ -26,11 +26,6 @@ public class TaskDAOImpl implements TaskDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private RowMapper<Task> rowMapper = ((resultSet, i) -> {
         Task task = new Task();
         task.setTaskId(resultSet.getLong("task_id"));
@@ -40,6 +35,11 @@ public class TaskDAOImpl implements TaskDAO {
         task.setUploadTime(resultSet.getTimestamp("upload_time").toLocalDateTime());
         return task;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addTask(Task task) {

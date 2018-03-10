@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -20,12 +19,9 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @ModelAttribute
-    public void setVaryResponseHeader(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-    }
 
-    @PutMapping("/add")
+
+    @PostMapping("/add")
     public ResponseEntity addTask(@RequestBody Task task){
         ResponseEntity response;
         if(taskService.addTask(task)){
@@ -54,7 +50,7 @@ public class TaskController {
         return response;
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity updateTask(@PathVariable Long id,@RequestBody Task task){
         ResponseEntity response;
         task.setTaskId(id);
@@ -66,6 +62,7 @@ public class TaskController {
         return response;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteTask(@PathVariable Long id){
         ResponseEntity response;
