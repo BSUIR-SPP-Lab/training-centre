@@ -58,6 +58,7 @@ public class CourseController {
         return response;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteCourse(@PathVariable Long id){
         ResponseEntity response;

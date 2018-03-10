@@ -53,6 +53,7 @@ public class SolutionController {
         return response;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{taskId}/{userId}")
     public ResponseEntity deleteSolution(@PathVariable Long taskId,@PathVariable Long userId){
         ResponseEntity response;
