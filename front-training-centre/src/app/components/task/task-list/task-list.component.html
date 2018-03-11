@@ -1,0 +1,31 @@
+<h2> Список  заданий</h2>
+<hr/>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <button class="btn btn-primary" routerLink="/task"> Загрузить задания  </button>
+      <button class="btn btn-success" routerLink="add" > Добавить задания </button>
+    </div>
+  </div>
+</div>
+<hr/>
+
+
+
+<div class="row">
+  <div class="col-md-4">
+
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor= "let task of tasks" >
+        <a [routerLink]="['/task', task.taskId]">
+          {{ task.taskId }} {{ task.taskInfoId }}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-8">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

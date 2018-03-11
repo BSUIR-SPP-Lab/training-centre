@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Data } from '@angular/router';
 
 interface Task {
   groupId: number;
   taskId: number;
   taskInfoId: number;
   teacherId: number;
-  uploadTime: string;
+  uploadTime: Data;
 }
 
 @Injectable()
@@ -19,7 +20,7 @@ export class TaskService {
   getTasks() {
     // console.log('get func');
     return this.http.get('http://localhost:8080/task/all')
-      .map((response: Response ) =>  response.json())
+      .map((response: Response ) => response.json())
       .catch((error: Response ) => {
         return Observable.throw('Problems when loading task');
       });

@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-md-8 order-md-1">
+    <h4 class="mb-3">Информация о задаче</h4>
+    <form class="needs-validation" (ngSubmit)="submitForm(form)" #form="ngForm">
+
+
+
+      <div class="mb-3">
+        <label>Номер шаблона</label>
+        <select
+          class="custom-select d-block w-100"
+          ngModel name="taskTemplate"
+          required
+          #taskTemplate="ngModel"
+          [(ngModel)] ="task.taskInfoId"
+          [ngClass]="{'is-invalid': taskTemplate.invalid && taskTemplate.touched}"
+        >
+
+          <option *ngFor="let taskTemplate of taskTemplates " value="{{taskTemplate.taskInfoId}}">{{taskTemplate.taskInfoId}}</option>
+
+        </select>
+        <p  *ngIf="taskTemplate.invalid && taskTemplate.touched"  [ngClass]="{'invalid-feedback': taskTemplate.invalid && taskTemplate.touched}">
+          Выберите номер шаблона.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <label>Преподаватель</label>
+        <select
+          class="custom-select d-block w-100"
+          ngModel name="teacheNumber"
+          required
+          #teacheNumber="ngModel"
+          [(ngModel)] ="task.teacherId"
+          [ngClass]="{'is-invalid': teacheNumber.invalid && teacheNumber.touched}"
+        >
+
+          <option *ngFor="let user of users " value="{{user.id}}">{{user.id }} {{user.lastName}} {{user.firstName}}</option>
+
+        </select>
+        <p  *ngIf="teacheNumber.invalid && teacheNumber.touched"  [ngClass]="{'invalid-feedback': teacheNumber.invalid && teacheNumber.touched}">
+          Выберите преподавателя.
+        </p>
+      </div>
+
+
+      <div class="mb-3">
+        <p> Time </p>
+        <input
+          ngModel name="uploadTime"
+          type="datetime-local"
+          name="uploadTime"
+          required
+          #uploadTime="ngModel"
+          [(ngModel)] ="task.uploadTime"
+        >
+
+        <p  *ngIf="uploadTime.invalid && uploadTime.touched"  [ngClass]="{'invalid-feedback': uploadTime.invalid && uploadTime.touched}">
+          Введите время.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <label>Группа</label>
+        <select
+          class="custom-select d-block w-100"
+          ngModel name="groupNumber"
+          required
+          #groupNumber="ngModel"
+          [(ngModel)] ="task.groupId"
+          [ngClass]="{'is-invalid': groupNumber.invalid && groupNumber.touched}"
+        >
+
+          <option *ngFor="let group of groups " value="{{group.groupId}}">{{group.groupId }}</option>
+
+        </select>
+        <p  *ngIf="groupNumber.invalid && groupNumber.touched"  [ngClass]="{'invalid-feedback': groupNumber.invalid && groupNumber.touched}">
+          Выберите группу.
+        </p>
+      </div>
+
+
+      <hr class="mb-4">
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        type="submit"
+        [disabled] ="!form.valid"
+        *ngIf  ="isChanged"
+      >Сохранить
+      </button>
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        type="submit"
+        [disabled] ="!form.valid"
+        *ngIf  ="isCreated"
+      >Добавить
+      </button>
+
+      <button
+        class="btn btn-danger btn-lg btn-block "
+        type="reset"
+        *ngIf  ="isChanged"
+        (click) = "deleteTask()"
+
+      >Удалить
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-md-8 order-md-1">
+    <h4 class="mb-3">Информация о задаче</h4>
+    <form class="needs-validation" (ngSubmit)="submitForm(form)" #form="ngForm">
+
+
+
+      <div class="mb-3">
+        <label>Номер шаблона</label>
+        <select
+          class="custom-select d-block w-100"
+          ngModel name="courseInfo"
+          required
+          #courseInfo="ngModel"
+          [(ngModel)] ="course.courseInfoId"
+          [ngClass]="{'is-invalid': courseInfo.invalid && courseInfo.touched}"
+        >
+
+          <option *ngFor="let courseTemplate of courseTemplates " value="{{courseTemplate.courseInfoId}}">{{courseTemplate.courseInfoId}} {{courseTemplate.name}}</option>
+
+        </select>
+        <p  *ngIf="courseInfo.invalid && courseInfo.touched"  [ngClass]="{'invalid-feedback': courseInfo.invalid && courseInfo.touched}">
+          Выберите номер шаблона.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <label>Координатор</label>
+        <select
+          class="custom-select d-block w-100"
+          ngModel name="coordinatorNumber"
+          required
+          #coordinatorNumber="ngModel"
+          [(ngModel)] ="course.coordinatorId"
+          [ngClass]="{'is-invalid': coordinatorNumber.invalid && coordinatorNumber.touched}"
+        >
+
+          <option *ngFor="let user of users " value="{{user.id}}">{{user.id }} {{user.lastName}} {{user.firstName}}</option>
+
+        </select>
+        <p  *ngIf="coordinatorNumber.invalid && coordinatorNumber.touched"  [ngClass]="{'invalid-feedback': coordinatorNumber.invalid && coordinatorNumber.touched}">
+          Выберите координатора.
+        </p>
+      </div>
+
+
+      <div class="mb-3">
+        <p> Дата начала </p>
+        <input
+          ngModel name="initTime"
+          type="datetime-local"
+          name="initTime"
+          required
+          #initTime="ngModel"
+          [(ngModel)] ="course.start"
+        >
+
+        <p  *ngIf="initTime.invalid && initTime.touched"  [ngClass]="{'invalid-feedback': initTime.invalid && initTime.touched}">
+          Введите дату начала.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <p> Дата окончания </p>
+        <input
+          ngModel name="endTime"
+          type="datetime-local"
+          name="endTime"
+          required
+          #endTime="ngModel"
+          [(ngModel)] ="course.end"
+        >
+
+        <p  *ngIf="endTime.invalid && endTime.touched"  [ngClass]="{'invalid-feedback': endTime.invalid && endTime.touched}">
+          Введите дату окончания.
+        </p>
+      </div>
+
+
+
+
+      <hr class="mb-4">
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        type="submit"
+        [disabled] ="!form.valid"
+        *ngIf  ="isChanged"
+      >Сохранить
+      </button>
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        type="submit"
+        [disabled] ="!form.valid"
+        *ngIf  ="isCreated"
+      >Добавить
+      </button>
+
+      <button
+        class="btn btn-danger btn-lg btn-block "
+        type="reset"
+        *ngIf  ="isChanged"
+        (click) = "deleteCourse()"
+
+      >Удалить
+      </button>
+    </form>
+  </div>
+</div>

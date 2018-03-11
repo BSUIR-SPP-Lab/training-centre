@@ -7,7 +7,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TaskInfoListComponent } from './components/task-info/task-info-list/task-info-list.component';
 import { TasktemplateComponent } from './components/task-info/tasktemplate/tasktemplate.component';
 import { CourseInfoListComponent } from './components/course-info/course-info-list/course-info-list.component';
-import {CourseTemplateComponent} from './components/course-info/course-template/course-template.component';
+import { CourseTemplateComponent } from './components/course-info/course-template/course-template.component';
+import { TaskListComponent } from './components/task/task-list/task-list.component';
+import { TaskComponent } from './components/task/task/task.component';
+import { CourseListComponent } from './components/course/course-list/course-list.component';
+import { CourseComponent } from './components/course/course/course.component';
 
 
 
@@ -24,6 +28,14 @@ const appRoutes: Routes = [
   { path: 'courseTemplate', component: CourseInfoListComponent, children: [
     { path: ':id', component: CourseTemplateComponent  },
     { path: 'add', component: CourseTemplateComponent  }
+  ] },
+  { path: 'task', component: TaskListComponent, children: [
+    { path: ':id', component: TaskComponent  },
+    { path: 'add', component: TaskComponent  }
+  ] },
+  { path: 'course', component: CourseListComponent, children: [
+    { path: ':id', component: CourseComponent  },
+    { path: 'add', component: CourseComponent  }
   ] },
     { path: '**', component: NotFoundComponent}
     ]

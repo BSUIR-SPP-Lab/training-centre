@@ -17,6 +17,14 @@ import { TasktemplateComponent } from './components/task-info/tasktemplate/taskt
 import { CourseInfoListComponent } from './components/course-info/course-info-list/course-info-list.component';
 import { CourseTemplateService } from './services/courseTemplate.service';
 import { CourseTemplateComponent } from './components/course-info/course-template/course-template.component';
+import { TaskService } from './services/task.service';
+import { TaskListComponent } from './components/task/task-list/task-list.component';
+import { TaskComponent } from './components/task/task/task.component';
+import { GroupService } from './services/group.service';
+import { CourseListComponent } from './components/course/course-list/course-list.component';
+import { CourseService } from './services/course.service';
+import { CourseComponent } from './components/course/course/course.component';
+
 
 
 @NgModule({
@@ -29,7 +37,11 @@ import { CourseTemplateComponent } from './components/course-info/course-templat
     TaskInfoListComponent,
     TasktemplateComponent,
     CourseInfoListComponent,
-    CourseTemplateComponent
+    CourseTemplateComponent,
+    TaskListComponent,
+    TaskComponent,
+    CourseListComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +50,14 @@ import { CourseTemplateComponent } from './components/course-info/course-templat
     HttpModule,
     AppRoutingModule
   ],
-  providers: [UsersService, TaskTemplateService, CourseTemplateService],
+  providers: [
+    UsersService,
+    TaskTemplateService,
+    CourseTemplateService,
+    TaskService,
+    GroupService,
+    CourseService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,29 @@
+<h2> Список  курсов</h2>
+<hr/>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <button class="btn btn-primary" routerLink="/course"> Загрузить курсы  </button>
+      <button class="btn btn-success" routerLink="add" > Добавить курс </button>
+    </div>
+  </div>
+</div>
+<hr/>
+
+
+
+<div class="row">
+  <div class="col-md-4">
+
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor= "let cours of courses" >
+        <a [routerLink]="['/course', cours.courseId]">
+          {{ cours.courseId }} {{ cours.courseInfoId }}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-8">
+    <router-outlet></router-outlet>
+  </div>
