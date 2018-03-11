@@ -37,6 +37,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
+
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -47,6 +48,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 
     @Override
     public List<Application> findApplications() {
+
         return jdbcTemplate.query(queryFindApplications, rowMapper);
     }
 
