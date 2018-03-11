@@ -43,7 +43,8 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     public boolean addCourse(Course course) {
-        return jdbcTemplate.update(queryAddCourse, course.getCourseInfoId(), course.getStart(), course.getEnd()) > 0;
+        return jdbcTemplate.update(queryAddCourse, course.getCourseInfoId(), course.getCoordinatorId(),
+                course.getStart(), course.getEnd()) > 0;
     }
 
     @Override
