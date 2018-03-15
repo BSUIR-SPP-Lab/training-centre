@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService {
 
+    private final GroupDAO groupDAO;
+
     @Autowired
-    private GroupDAO groupDAO;
+    public GroupServiceImpl(GroupDAO groupDAO) {
+        this.groupDAO = groupDAO;
+    }
 
     @Override
     public boolean addGroup(Group group) {

@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
 
+    private final CourseService courseService;
+
     @Autowired
-    private CourseService courseService;
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
 
     @PostMapping("/add")

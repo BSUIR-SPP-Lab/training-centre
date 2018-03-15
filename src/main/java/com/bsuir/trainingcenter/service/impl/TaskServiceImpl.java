@@ -14,8 +14,12 @@ import java.util.List;
 @Service
 public class TaskServiceImpl implements TaskService{
 
+    private final TaskDAO taskDAO;
+
     @Autowired
-    private TaskDAO taskDAO;
+    public TaskServiceImpl(TaskDAO taskDAO) {
+        this.taskDAO = taskDAO;
+    }
 
     @Override
     public boolean addTask(TaskView taskView) {

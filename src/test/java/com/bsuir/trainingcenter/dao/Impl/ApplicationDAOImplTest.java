@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
 import com.bsuir.trainingcenter.config.TestConfig;
+import com.bsuir.trainingcenter.entity.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +10,18 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestConfig.class})
 @SpringBootTest
-@Sql(scripts = "/sql/sql_application.sql")
+@Transactional
+@Sql("sql/sql_application.sql")
 public class ApplicationDAOImplTest {
 
 
@@ -31,15 +35,20 @@ public class ApplicationDAOImplTest {
     @Test
     @Rollback
     public void addApplication() {
-        assertEquals(applicationDAO.findApplications(),null);
+        assertTrue(applicationDAO.addApplication(new Application(0,43,2)));
+        assertEquals(applicationDAO.findApplications().size(),3);
+
     }
 
     @Test
     public void findApplications() {
+
+        assertEquals(applicationDAO.findApplications().size(),2);
     }
 
     @Test
     public void findApplication() {
+
     }
 
     @Test
@@ -49,6 +58,9 @@ public class ApplicationDAOImplTest {
     @Test
     @Rollback
     public void deleteApplication() {
-        applicationDAO.deleteApplication(1);
+
+        assertTrue(applicationDAO.deleteApplication(8));
+        assertEquals(applicationDAO.findApplications().size(),1);
+
     }
 }
