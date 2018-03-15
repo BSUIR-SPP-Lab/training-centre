@@ -13,16 +13,23 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserServiceImpl(UserDAO userDAO, PasswordEncoder passwordEncoder) {
+        this.userDAO = userDAO;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public boolean addUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userDAO.addUser(user);
+        if(userDAO.isLoginUnique(user.getLogin())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return userDAO.addUser(user);
+        }
+        return false;
     }
 
     @Override

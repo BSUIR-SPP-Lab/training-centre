@@ -14,8 +14,12 @@ import java.util.List;
 @Service
 public class SolutionServiceImpl implements SolutionService {
 
+    private final SolutionDAO solutionDAO;
+
     @Autowired
-    private SolutionDAO solutionDAO;
+    public SolutionServiceImpl(SolutionDAO solutionDAO) {
+        this.solutionDAO = solutionDAO;
+    }
 
     @Override
     public boolean addSolution(SolutionView solutionView) {

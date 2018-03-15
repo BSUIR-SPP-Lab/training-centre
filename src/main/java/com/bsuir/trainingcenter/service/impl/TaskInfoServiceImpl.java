@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class TaskInfoServiceImpl implements TaskInfoService {
 
+    private final TaskInfoDAO taskInfoDAO;
+
     @Autowired
-    private TaskInfoDAO taskInfoDAO;
+    public TaskInfoServiceImpl(TaskInfoDAO taskInfoDAO) {
+        this.taskInfoDAO = taskInfoDAO;
+    }
 
     @Override
     public boolean addTaskInfo(TaskInfo taskInfo) {

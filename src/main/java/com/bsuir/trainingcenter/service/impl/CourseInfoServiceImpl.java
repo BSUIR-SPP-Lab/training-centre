@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class CourseInfoServiceImpl implements CourseInfoService {
 
+    private final CourseInfoDAO courseInfoDAO;
+
     @Autowired
-    private CourseInfoDAO courseInfoDAO;
+    public CourseInfoServiceImpl(CourseInfoDAO courseInfoDAO) {
+        this.courseInfoDAO = courseInfoDAO;
+    }
 
     @Override
     public boolean addCourseInfo(CourseInfo courseInfo) {
