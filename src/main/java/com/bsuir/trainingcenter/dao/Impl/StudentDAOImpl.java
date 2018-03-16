@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class StudentDAOImpl implements StudentDAO {
 
-    private static final String queryAddStudent = "INSERT INTO `student` () VALUES ()";
+    private static final String queryAddStudent = "INSERT INTO `student` (`student_id`) VALUES (?)";
     private static final String queryFindStudents = "SELECT `student`.`student_id` FROM `student`";
     private static final String queryFindStudentById = "SELECT `student`.`student_id` FROM `student` " +
             "WHERE `student`.`student_id` = ?";
@@ -22,20 +22,20 @@ public class StudentDAOImpl implements StudentDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private RowMapper<Student> rowMapper = ((resultSet, i) -> {
         Student student = new Student();
         student.setStudentId(resultSet.getLong("student_id"));
         return student;
     });
 
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
     @Override
     public boolean addStudent(Student student) {
-        return jdbcTemplate.update(queryAddStudent) > 0;
+        return jdbcTemplate.update(queryAddStudent, student.getStudentId()) > 0;
     }
 
     @Override

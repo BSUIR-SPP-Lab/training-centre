@@ -11,6 +11,12 @@ public class TaskInfo {
     public TaskInfo() {
     }
 
+    public TaskInfo(String name, String body) {
+        this.taskInfoId = 0;
+        this.name = name;
+        this.body = body;
+    }
+
     public TaskInfo(long taskInfoId, String name, String body) {
         this.taskInfoId = taskInfoId;
         this.name = name;

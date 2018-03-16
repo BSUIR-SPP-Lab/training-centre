@@ -11,6 +11,12 @@ public class Application {
     public Application() {
     }
 
+    public Application(long studentId, long courseId) {
+        this.applicationId = 0;
+        this.studentId = studentId;
+        this.courseId = courseId;
+    }
+
     public Application(long applicationId, long studentId, long courseId) {
         this.applicationId = applicationId;
         this.studentId = studentId;

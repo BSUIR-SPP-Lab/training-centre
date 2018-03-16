@@ -11,6 +11,12 @@ public class Certificate {
     public Certificate() {
     }
 
+    public Certificate(long studentId, long groupId) {
+        this.certificateId = 0;
+        this.studentId = studentId;
+        this.groupId = groupId;
+    }
+
     public Certificate(long certificateId, long studentId, long groupId) {
         this.certificateId = certificateId;
         this.studentId = studentId;

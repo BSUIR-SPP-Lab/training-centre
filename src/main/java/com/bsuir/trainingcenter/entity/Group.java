@@ -11,6 +11,12 @@ public class Group {
     public Group() {
     }
 
+    public Group(long courseId, long coordinatorId) {
+        this.groupId = 0;
+        this.courseId = courseId;
+        this.coordinatorId = coordinatorId;
+    }
+
     public Group(long groupId, long courseId, long coordinatorId) {
         this.groupId = groupId;
         this.courseId = courseId;

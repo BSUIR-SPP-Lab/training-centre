@@ -48,7 +48,6 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 
     @Override
     public List<Application> findApplications() {
-
         return jdbcTemplate.query(queryFindApplications, rowMapper);
     }
 
