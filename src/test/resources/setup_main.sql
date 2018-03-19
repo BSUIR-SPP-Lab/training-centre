@@ -397,7 +397,7 @@ CREATE TABLE `task_info` (
   `name` varchar(50) NOT NULL,
   `body` text NOT NULL,
   PRIMARY KEY (`task_info_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -524,7 +524,9 @@ DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `training_service_db`.`user_BEFORE_INSERT` BEFORE INSERT ON `user` FOR EACH ROW
 BEGIN
 	IF (NEW.`role` = 'student') THEN
-		INSERT INTO `student` (`student_id`) VALUES (NEW.`user_id`);
+		IF ((SELECT COUNT(*) FROM `student` WHERE `student`.` student_id` = NEW.`user_id`) = 0) THEN
+			INSERT INTO `student` (`student_id`) VALUES (NEW.`user_id`);
+        END IF;
     END IF;
 END */;;
 DELIMITER ;
@@ -544,7 +546,9 @@ DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `training_service_db`.`user_BEFORE_UPDATE` BEFORE UPDATE ON `user` FOR EACH ROW
 BEGIN
 	IF (NEW.`role` = 'student') THEN
-		INSERT INTO `student` (`student_id`) VALUES (NEW.`user_id`);
+		IF ((SELECT COUNT(*) FROM `student` WHERE `student`.` student_id` = NEW.`user_id`) = 0) THEN
+			INSERT INTO `student` (`student_id`) VALUES (NEW.`user_id`);
+        END IF;
     END IF;
 END */;;
 DELIMITER ;
@@ -597,4 +601,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-19 23:44:28
+-- Dump completed on 2018-03-20  0:15:42
