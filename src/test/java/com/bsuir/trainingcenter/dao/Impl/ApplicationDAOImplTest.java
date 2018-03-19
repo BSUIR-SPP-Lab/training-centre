@@ -34,18 +34,18 @@ public class ApplicationDAOImplTest {
     public void addApplication() {
         Application application = new Application(41, 5);
         assertTrue(applicationDAO.addApplication(application));
-        assertEquals(applicationDAO.findApplications().size(), 13);
+        assertEquals(13, applicationDAO.findApplications().size());
     }
 
     @Test
     public void findApplications() {
-        assertEquals(applicationDAO.findApplications().size(), 12);
+        assertEquals(12, applicationDAO.findApplications().size());
     }
 
     @Test
     public void findApplication() {
         Application app = new Application(5, 61, 5);
-        assertEquals(applicationDAO.findApplication(5), app);
+        assertEquals(app, applicationDAO.findApplication(5));
     }
 
     @Test
@@ -53,14 +53,14 @@ public class ApplicationDAOImplTest {
     public void updateApplication() {
         Application app = new Application(5, 61, 2);
         assertTrue(applicationDAO.updateApplication(app));
-        assertEquals(applicationDAO.findApplication(5), app);
+        assertEquals(app, applicationDAO.findApplication(5));
     }
 
     @Test
     @Rollback
     public void deleteApplication() {
         assertTrue(applicationDAO.deleteApplication(5));
-        assertEquals(applicationDAO.findApplications().size(), 11);
+        assertEquals(11, applicationDAO.findApplications().size());
     }
 
 }

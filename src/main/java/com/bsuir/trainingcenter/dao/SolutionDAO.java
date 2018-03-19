@@ -8,9 +8,11 @@ public interface SolutionDAO {
 
     boolean addSolution(Solution solution);
 
-    List<Solution> findSolutions();
+    List<Solution> findSolutionsByUserId();
 
-    List<Solution> findSolutions(long userId);
+    List<Solution> findSolutionsByUserId(long userId);
+
+    Solution findSolution(long taskId, long userId);
 
     boolean updateSolution(Solution solution);
 

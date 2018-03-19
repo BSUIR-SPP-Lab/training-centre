@@ -34,18 +34,18 @@ public class GroupDAOImplTest {
     public void addGroup() {
         Group group = new Group(8, 45);
         assertTrue(groupDAO.addGroup(group));
-        assertEquals(groupDAO.findGroups().size(), 13);
+        assertEquals(13, groupDAO.findGroups().size());
     }
 
     @Test
     public void findGroups() {
-        assertEquals(groupDAO.findGroups().size(), 12);
+        assertEquals(12, groupDAO.findGroups().size());
     }
 
     @Test
     public void findGroup() {
         Group group = new Group(13, 8, 45);
-        assertEquals(groupDAO.findGroup(13), group);
+        assertEquals(group, groupDAO.findGroup(13));
     }
 
     @Test
@@ -53,14 +53,14 @@ public class GroupDAOImplTest {
     public void updateGroup() {
         Group group = new Group(13, 8, 50);
         assertTrue(groupDAO.updateGroup(group));
-        assertEquals(groupDAO.findGroup(13), group);
+        assertEquals(group, groupDAO.findGroup(13));
     }
 
     @Test
     @Rollback
     public void deleteGroup() {
         assertTrue(groupDAO.deleteGroup(5));
-        assertEquals(groupDAO.findGroups().size(), 11);
+        assertEquals(11, groupDAO.findGroups().size());
     }
 
 }

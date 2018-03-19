@@ -33,18 +33,19 @@ public class StudentDAOImplTest {
     @Rollback
     public void addStudent() {
         Student student = new Student(49);
-        assertEquals(studentDAO.findStudents().size(), 10);
+        assertEquals(studentDAO.addStudent(student), true);
+        assertEquals(11, studentDAO.findStudents().size());
     }
 
     @Test
     public void findStudents() {
-        assertEquals(studentDAO.findStudents().size(), 10);
+        assertEquals(10, studentDAO.findStudents().size());
     }
 
     @Test
     public void findStudent() {
         Student student = new Student(61);
-        assertEquals(studentDAO.findStudent(61), student);
+        assertEquals(student, studentDAO.findStudent(61));
     }
 
     @Test
@@ -52,14 +53,14 @@ public class StudentDAOImplTest {
     public void updateStudent() {
         Student student = new Student(61);
         assertTrue(studentDAO.updateStudent(student));
-        assertEquals(studentDAO.findStudent(61), student);
+        assertEquals(student, studentDAO.findStudent(61));
     }
 
     @Test
     @Rollback
     public void deleteStudent() {
         assertTrue(studentDAO.deleteStudent(61));
-        assertEquals(studentDAO.findStudents().size(), 9);
+        assertEquals(9, studentDAO.findStudents().size());
     }
 
 }

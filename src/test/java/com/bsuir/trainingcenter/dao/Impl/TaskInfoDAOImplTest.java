@@ -34,7 +34,7 @@ public class TaskInfoDAOImplTest {
     public void addTaskInfo() {
         TaskInfo taskInfo = new TaskInfo("", "");
         assertTrue(taskInfoDAO.addTaskInfo(taskInfo));
-        assertEquals(taskInfoDAO.findTasksInfo().size(), 14);
+        assertEquals(14, taskInfoDAO.findTasksInfo().size());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TaskInfoDAOImplTest {
     public void findTaskInfo() {
         TaskInfo taskInfo = new TaskInfo(2, "Проверка знаний по курсу тестирования. вопрос 1",
                 "Что такое тест?");
-        assertEquals(taskInfoDAO.findTaskInfo(2), taskInfo);
+        assertEquals(taskInfo, taskInfoDAO.findTaskInfo(2));
     }
 
     @Test
@@ -55,14 +55,14 @@ public class TaskInfoDAOImplTest {
         TaskInfo taskInfo = new TaskInfo(2, "Проверка знаний по курсу тестирования. вопрос 0001",
                 "Что такое тест?");
         assertTrue(taskInfoDAO.updateTaskInfo(taskInfo));
-        assertEquals(taskInfoDAO.findTaskInfo(2), taskInfo);
+        assertEquals(taskInfo, taskInfoDAO.findTaskInfo(2));
     }
 
     @Test
     @Rollback
     public void deleteTaskInfo() {
         assertTrue(taskInfoDAO.deleteTaskInfo(5));
-        assertEquals(taskInfoDAO.findTasksInfo().size(), 12);
+        assertEquals(12, taskInfoDAO.findTasksInfo().size());
     }
 
 }

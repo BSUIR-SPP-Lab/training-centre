@@ -38,12 +38,12 @@ public class TaskDAOImplTest {
         Task task = new Task(55, 7, 5,
                 LocalDateTime.parse("2018-01-01 00:00", formatter));
         assertTrue(taskDAO.addTask(task));
-        assertEquals(taskDAO.findTasks().size(), 12);
+        assertEquals(12, taskDAO.findTasks().size());
     }
 
     @Test
     public void findTasks() {
-        assertEquals(taskDAO.findTasks().size(), 11);
+        assertEquals(11, taskDAO.findTasks().size());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class TaskDAOImplTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         Task task = new Task(26, 55, 7, 3,
                 LocalDateTime.parse("0034-03-21 04:01", formatter));
-        assertEquals(taskDAO.findTask(26), task);
+        assertEquals(task, taskDAO.findTask(26));
     }
 
     @Test
@@ -61,14 +61,14 @@ public class TaskDAOImplTest {
         Task task = new Task(26, 55, 7, 5,
                 LocalDateTime.parse("2018-01-01 00:00", formatter));
         assertTrue(taskDAO.updateTask(task));
-        assertEquals(taskDAO.findTask(26), task);
+        assertEquals(task, taskDAO.findTask(26));
     }
 
     @Test
     @Rollback
     public void deleteTask() {
         assertTrue(taskDAO.deleteTask(14));
-        assertEquals(taskDAO.findTasks().size(), 10);
+        assertEquals(10, taskDAO.findTasks().size());
     }
 
 }

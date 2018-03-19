@@ -21,6 +21,9 @@ public class SolutionDAOImpl implements SolutionDAO {
     private static final String queryFindSolutionsByUserId = "SELECT `solution`.`task_id`, `solution`.`user_id`," +
             "`solution`.`notes`, `solution`.`filepath`, `solution`.`teacher_notes`, `solution`.`upload_time`, " +
             "`solution`.`mark` FROM `solution` WHERE `solution`.`user_id` = ?";
+    private static final String queryFindSolution = "SELECT `solution`.`task_id`, `solution`.`user_id`," +
+            "`solution`.`notes`, `solution`.`filepath`, `solution`.`teacher_notes`, `solution`.`upload_time`, " +
+            "`solution`.`mark` FROM `solution` WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
     private static final String queryUpdateSolution = "UPDATE `solution` SET `solution`.`notes` = ?, " +
             "`solution`.`filepath` = ?, `solution`.`teacher_notes` = ?, `solution`.`mark` = ? " +
             "WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
@@ -60,13 +63,18 @@ public class SolutionDAOImpl implements SolutionDAO {
     }
 
     @Override
-    public List<Solution> findSolutions() {
+    public List<Solution> findSolutionsByUserId() {
         return jdbcTemplate.query(queryFindSolutions, rowMapper);
     }
 
     @Override
-    public List<Solution> findSolutions(long userId) {
+    public List<Solution> findSolutionsByUserId(long userId) {
         return jdbcTemplate.query(queryFindSolutionsByUserId, new Object[]{userId}, rowMapper);
+    }
+
+    @Override
+    public Solution findSolution(long taskId, long userId) {
+        return jdbcTemplate.queryForObject(queryFindSolution, new Object[]{taskId, userId}, rowMapper);
     }
 
     @Override

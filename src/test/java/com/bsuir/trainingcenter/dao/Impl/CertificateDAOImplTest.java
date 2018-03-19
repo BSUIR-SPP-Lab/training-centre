@@ -34,18 +34,18 @@ public class CertificateDAOImplTest {
     public void addCertificate() {
         Certificate certificate = new Certificate(62, 13);
         assertTrue(certificateDAO.addCertificate(certificate));
-        assertEquals(certificateDAO.findCertificates().size(), 11);
+        assertEquals(11, certificateDAO.findCertificates().size());
     }
 
     @Test
     public void findCertificates() {
-        assertEquals(certificateDAO.findCertificates().size(), 10);
+        assertEquals(10, certificateDAO.findCertificates().size());
     }
 
     @Test
     public void findCertificate() {
         Certificate certificate = new Certificate(9, 63, 10);
-        assertEquals(certificateDAO.findCertificate(9), certificate);
+        assertEquals(certificate, certificateDAO.findCertificate(9));
     }
 
     @Test
@@ -53,14 +53,14 @@ public class CertificateDAOImplTest {
     public void updateCertificate() {
         Certificate certificate = new Certificate(11, 62, 13);
         assertTrue(certificateDAO.updateCertificate(certificate));
-        assertEquals(certificateDAO.findCertificate(11), certificate);
+        assertEquals(certificate, certificateDAO.findCertificate(11));
     }
 
     @Test
     @Rollback
     public void deleteCertificate() {
         assertTrue(certificateDAO.deleteCertificate(5));
-        assertEquals(certificateDAO.findCertificates().size(), 9);
+        assertEquals(9, certificateDAO.findCertificates().size());
     }
 
 }

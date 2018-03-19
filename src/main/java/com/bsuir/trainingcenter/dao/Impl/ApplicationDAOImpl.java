@@ -29,8 +29,8 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 
     private RowMapper<Application> rowMapper = ((resultSet, i) -> {
         Application application = new Application();
-        application.setApplicationId(resultSet.getLong("application_id"));
         application.setStudentId(resultSet.getLong("student_id"));
+        application.setApplicationId(resultSet.getLong("application_id"));
         application.setCourseId(resultSet.getLong("course_id"));
         return application;
     });

@@ -34,12 +34,12 @@ public class StudentGroupDAOImplTest {
     public void addStudentGroup() {
         StudentGroup studentGroup = new StudentGroup(67, 2, false);
         assertTrue(studentGroupDAO.addStudentGroup(studentGroup));
-        assertEquals(studentGroupDAO.findStudentGroups().size(), 20);
+        assertEquals(20, studentGroupDAO.findStudentGroups().size());
     }
 
     @Test
     public void findStudentGroups() {
-        assertEquals(studentGroupDAO.findStudentGroups().size(), 19);
+        assertEquals(19, studentGroupDAO.findStudentGroups().size());
     }
 
     @Test
@@ -47,13 +47,15 @@ public class StudentGroupDAOImplTest {
     public void updateStudentGroup() {
         StudentGroup studentGroup = new StudentGroup(67, 13, false);
         assertTrue(studentGroupDAO.updateStudentGroup(studentGroup));
+        assertEquals(studentGroup, studentGroupDAO.findStudentGroup(studentGroup.getStudentId(),
+                studentGroup.getGroupId()));
     }
 
     @Test
     @Rollback
     public void deleteStudentGroup() {
         assertTrue(studentGroupDAO.deleteStudentGroup(67, 13));
-        assertEquals(studentGroupDAO.findStudentGroups().size(), 18);
+        assertEquals(18, studentGroupDAO.findStudentGroups().size());
     }
 
 }

@@ -30,7 +30,7 @@ public class SolutionServiceImpl implements SolutionService {
     @Override
     public List<SolutionView> findSolutions() {
         List<SolutionView> list = new ArrayList<>();
-        for(Solution solution :solutionDAO.findSolutions()){
+        for(Solution solution :solutionDAO.findSolutionsByUserId()){
             list.add(new SolutionView(solution.getTaskId(),solution.getUserId(),solution.getNotes(),solution.getFilepath(),solution.getTeacherNotes(),solution.getMark(), solution.getUploadTime().toString()));
         }
         return list;
@@ -39,7 +39,7 @@ public class SolutionServiceImpl implements SolutionService {
     @Override
     public List<SolutionView> findSolutions(long userId) {
         List<SolutionView> list = new ArrayList<>();
-        for(Solution solution :solutionDAO.findSolutions(userId)){
+        for(Solution solution :solutionDAO.findSolutionsByUserId(userId)){
             list.add(new SolutionView(solution.getTaskId(),solution.getUserId(),solution.getNotes(),solution.getFilepath(),solution.getTeacherNotes(),solution.getMark(), solution.getUploadTime().toString()));
         }
         return list;

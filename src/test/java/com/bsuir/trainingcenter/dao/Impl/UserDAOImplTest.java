@@ -36,35 +36,35 @@ public class UserDAOImplTest {
         User user = new User("logj", "$2a$10$4E6uT21RneB9FkHJ.2DZP.vwLo/GgXHAtCNORPCqxpUVvyXD4Qoqe",
                 Role.USER, "email@email.com", null, null, null);
         assertTrue(userDAO.addUser(user));
-        assertEquals(userDAO.findUsers().size(), 27);
+        assertEquals(27, userDAO.findUsers().size());
     }
 
     @Test
     public void findUsers() {
-        assertEquals(userDAO.findUsers().size(), 26);
+        assertEquals(26, userDAO.findUsers().size());
     }
 
     @Test
-    public void findCertificate() {
+    public void findUser() {
         User user = new User(48, "cat1566", "$2a$10$4E6uT21RneB9FkHJ.2DZP.vwLo/GgXHAtCNORPCqxpUVvyXD4Qoqe",
                 Role.USER, "cat@ya.ru", "1688442", "Катя", "Катина");
-        assertEquals(userDAO.findUser(48), user);
+        assertEquals(user, userDAO.findUser(48));
     }
 
     @Test
     @Rollback
-    public void updateCertificate() {
+    public void updateUser() {
         User user = new User(48, "cat1566", "$2a$10$4E6uT21RneB9FkHJ.2DZP.vwLo/GgXHAtCNORPCqxpUVvyXD4Qoqe",
                 Role.USER, "cat@ya.ru", "1688442", "Катя", "Катрина");
         assertTrue(userDAO.updateUser(user));
-        assertEquals(userDAO.findUser(48), user);
+        assertEquals(user, userDAO.findUser(48));
     }
 
     @Test
     @Rollback
-    public void deleteCertificate() {
+    public void deleteUser() {
         assertTrue(userDAO.deleteUser(63));
-        assertEquals(userDAO.findUsers().size(), 25);
+        assertEquals(25, userDAO.findUsers().size());
     }
 
 }

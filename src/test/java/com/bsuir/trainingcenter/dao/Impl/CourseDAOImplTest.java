@@ -35,22 +35,25 @@ public class CourseDAOImplTest {
     @Rollback
     public void addCourse() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        assertTrue(courseDAO.addCourse(new Course(9, 45,
-                LocalDateTime.parse("2018-01-01 00:00", formatter), LocalDateTime.parse("2018-02-01 00:00", formatter))));
-        assertEquals(courseDAO.findCourses().size(), 13);
+        Course course = new Course(9, 45,
+                LocalDateTime.parse("2018-01-01 00:00", formatter),
+                LocalDateTime.parse("2018-02-01 00:00", formatter));
+        assertTrue(courseDAO.addCourse(course));
+        assertEquals(13, courseDAO.findCourses().size());
     }
 
     @Test
     public void findCourses() {
-        assertEquals(courseDAO.findCourses().size(), 12);
+        assertEquals(12, courseDAO.findCourses().size());
     }
 
     @Test
     public void findCourse() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         Course course = new Course(9, 2, 50,
-                LocalDateTime.parse("2012-02-12 00:00", formatter), LocalDateTime.parse("2013-02-18 00:00", formatter));
-        assertEquals(courseDAO.findCourse(9), course);
+                LocalDateTime.parse("2012-02-12 00:00", formatter),
+                LocalDateTime.parse("2013-02-18 00:00", formatter));
+        assertEquals(course, courseDAO.findCourse(9));
     }
 
     @Test
@@ -58,16 +61,17 @@ public class CourseDAOImplTest {
     public void updateCourse() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         Course course = new Course(10, 9, 50,
-                LocalDateTime.parse("2018-01-01 00:00", formatter), LocalDateTime.parse("2018-02-01 00:00", formatter));
+                LocalDateTime.parse("2018-01-01 00:00", formatter),
+                LocalDateTime.parse("2018-02-01 00:00", formatter));
         assertTrue(courseDAO.updateCourse(course));
-        assertEquals(courseDAO.findCourse(10), course);
+        assertEquals(course, courseDAO.findCourse(10));
     }
 
     @Test
     @Rollback
     public void deleteCourse() {
         assertTrue(courseDAO.deleteCourse(5));
-        assertEquals(courseDAO.findCourses().size(), 11);
+        assertEquals(11, courseDAO.findCourses().size());
     }
 
 }

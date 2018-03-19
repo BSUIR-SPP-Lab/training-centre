@@ -19,18 +19,23 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String queryUsersByUsername = "SELECT `user`.`login` AS `username`, `user`.`password`, " +
+            "`user`.`enabled` FROM `user` WHERE `user`.`login` = ?";
+    private static final String queryAuthoritiesByUsername = "SELECT `user`.`login` AS `user`.`username`, " +
+            "`user`.`role` FROM `user` WHERE `user`.`login` = ?";
+
     @Autowired
     private DataSource dataSource;
 
     @Autowired
-    protected void configureAuthentication(AuthenticationManagerBuilder auth,PasswordEncoder passwordEncoder) throws Exception {
+    protected void configureAuthentication(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder) throws Exception {
         auth.jdbcAuthentication().passwordEncoder(passwordEncoder).dataSource(dataSource).rolePrefix("ROLE_")
-                .usersByUsernameQuery("select `login` as username, password,enabled from user where login =?")
-                .authoritiesByUsernameQuery("select login as username, role from user where login =?");
+                .usersByUsernameQuery(queryUsersByUsername)
+                .authoritiesByUsernameQuery(queryAuthoritiesByUsername);
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -38,8 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/user/add" ).permitAll()
-                .antMatchers("/login.html","/swagger-ui.html","/webjars/**" ).permitAll()
+                .antMatchers("/user/add").permitAll()
+                .antMatchers("/login.html", "/swagger-ui.html", "/webjars/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()

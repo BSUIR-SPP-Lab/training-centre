@@ -34,17 +34,17 @@ public class TeacherDAOImplTest {
     public void addTeacher() {
         Teacher teacher = new Teacher(59, 2);
         assertTrue(teacherDAO.addTeacher(teacher));
-        assertEquals(teacherDAO.findTeachers().size(), 12);
+        assertEquals(12, teacherDAO.findTeachers().size());
     }
 
     @Test
     public void findTeachers() {
-        assertEquals(teacherDAO.findTeachers().size(), 11);
+        assertEquals(11, teacherDAO.findTeachers().size());
     }
 
     @Test
     public void findGroupTeachers() {
-        assertEquals(teacherDAO.findGroupTeachers(2).size(), 2);
+        assertEquals(2, teacherDAO.findGroupTeachers(2).size());
     }
 
 }

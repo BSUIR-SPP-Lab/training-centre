@@ -34,19 +34,19 @@ public class CourseInfoDAOImplTest {
     public void addCourseInfo() {
         CourseInfo courseInfo = new CourseInfo("Я тестовое название курса", "Я тестовое описание курса");
         assertTrue(courseInfoDAO.addCourseInfo(courseInfo));
-        assertEquals(courseInfoDAO.findCoursesInfo().size(), 12);
+        assertEquals(12, courseInfoDAO.findCoursesInfo().size());
     }
 
     @Test
     public void findCoursesInfo() {
-        assertEquals(courseInfoDAO.findCoursesInfo().size(), 11);
+        assertEquals(11, courseInfoDAO.findCoursesInfo().size());
     }
 
     @Test
     public void findCourseInfo() {
         CourseInfo courseInfo = new CourseInfo(5, "Курс смекалки",
                 "Курс развивающий вашу смекалку.");
-        assertEquals(courseInfoDAO.findCourseInfo(5), courseInfo);
+        assertEquals(courseInfo, courseInfoDAO.findCourseInfo(5));
     }
 
     @Test
@@ -55,14 +55,14 @@ public class CourseInfoDAOImplTest {
         CourseInfo courseInfo = new CourseInfo(5, "Курс смекалки",
                 "Курс развивающий вашу смекалистость.");
         assertTrue(courseInfoDAO.updateCourseInfo(courseInfo));
-        assertEquals(courseInfoDAO.findCourseInfo(5), courseInfo);
+        assertEquals(courseInfo, courseInfoDAO.findCourseInfo(5));
     }
 
     @Test
     @Rollback
     public void deleteCourseInfo() {
         assertTrue(courseInfoDAO.deleteCourseInfo(5));
-        assertEquals(courseInfoDAO.findCoursesInfo().size(), 10);
+        assertEquals(10, courseInfoDAO.findCoursesInfo().size());
     }
 
 }

@@ -38,44 +38,54 @@ public class SolutionDAOImplTest {
         Solution solution = new Solution(21, 41, "", "", "", 0L,
                 LocalDateTime.parse("2018-01-01 00:00", formatter));
         assertTrue(solutionDAO.addSolution(solution));
-        assertEquals(solutionDAO.findSolutions().size(), 13);
+        assertEquals(13, solutionDAO.findSolutionsByUserId().size());
     }
 
     @Test
     public void findSolutions() {
-        assertEquals(solutionDAO.findSolutions().size(), 12);
+        assertEquals(12, solutionDAO.findSolutionsByUserId().size());
     }
 
     @Test
     public void findSolutionsByUserId() {
-        assertEquals(solutionDAO.findSolutions(66).size(), 2);
+        assertEquals(2, solutionDAO.findSolutionsByUserId(66).size());
+    }
+
+    @Test
+    public void findSolution() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Solution solution = new Solution(26, 43, null, "/main/answer/file16.txt",
+                "Отлично", 10L, LocalDateTime.parse("2018-03-12 19:45:57", formatter));
+        assertEquals(solution, solutionDAO.findSolution(solution.getTaskId(), solution.getUserId()));
     }
 
     @Test
     @Rollback
     public void updateSolution() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        Solution solution = new Solution(21, 64, "", "", "", 0L,
-                LocalDateTime.parse("2018-01-01 00:00", formatter));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Solution solution = new Solution(26, 43, "", "", "", 0L,
+                LocalDateTime.parse("2018-03-12 19:45:57", formatter));
+
         assertTrue(solutionDAO.updateSolution(solution));
+        assertEquals(solution, solutionDAO.findSolution(solution.getTaskId(), solution.getUserId()));
     }
 
     @Test
     @Rollback
     public void updateSolutionMark() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        long taskId = 21;
-        long userId = 64;
-        String teacherNotes = "";
-        long mark = 10;
-        assertTrue(solutionDAO.updateSolutionMark(taskId, userId, teacherNotes, mark));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Solution solution = new Solution(26, 43, null, "/main/answer/file16.txt",
+                "Отлично", 0L, LocalDateTime.parse("2018-03-12 19:45:57", formatter));
+        assertTrue(solutionDAO.updateSolutionMark(solution.getTaskId(), solution.getUserId(),
+                solution.getTeacherNotes(), solution.getMark()));
+        assertEquals(solution, solutionDAO.findSolution(solution.getTaskId(), solution.getUserId()));
     }
 
     @Test
     @Rollback
     public void deleteSolution() {
         assertTrue(solutionDAO.deleteSolution(22, 63));
-        assertEquals(solutionDAO.findSolutions().size(), 11);
+        assertEquals(11, solutionDAO.findSolutionsByUserId().size());
     }
 
 }
