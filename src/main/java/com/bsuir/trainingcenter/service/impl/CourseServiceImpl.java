@@ -23,29 +23,29 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public boolean addCourse(CourseView courseView) {
-        Course course = new Course(courseView.getCourseId(),courseView.getCourseInfoId(),courseView.getCoordinatorId(), LocalDateTime.parse(courseView.getStart()),LocalDateTime.parse(courseView.getEnd()));
+        Course course = new Course(courseView.getCourseId(), courseView.getCourseInfoId(), courseView.getCoordinatorId(), LocalDateTime.parse(courseView.getStart()), LocalDateTime.parse(courseView.getEnd()));
         return courseDAO.addCourse(course);
     }
 
     @Override
     public List<CourseView> findCourses() {
-        List<CourseView> list=new ArrayList<>();
-        for(Course course:courseDAO.findCourses() ){
-            list.add(new CourseView(course.getCourseId(),course.getCourseInfoId(),course.getCoordinatorId(),course.getStart().toString(),course.getEnd().toString()));
+        List<CourseView> list = new ArrayList<>();
+        for (Course course : courseDAO.findCourses()) {
+            list.add(new CourseView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(), course.getStart().toString(), course.getEnd().toString()));
         }
         return list;
     }
 
     @Override
-    public CourseView findCourse(long courseId){
-        Course course=courseDAO.findCourse(courseId);
-        return new CourseView(course.getCourseId(),course.getCourseInfoId(),course.getCoordinatorId(),course.getStart().toString(),course.getEnd().toString());
+    public CourseView findCourse(long courseId) {
+        Course course = courseDAO.findCourse(courseId);
+        return new CourseView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(), course.getStart().toString(), course.getEnd().toString());
     }
 
     @Override
     public boolean updateCourse(CourseView courseView) {
 
-        Course course = new Course(courseView.getCourseId(),courseView.getCourseInfoId(),courseView.getCoordinatorId(), LocalDateTime.parse(courseView.getStart()),LocalDateTime.parse(courseView.getEnd()));
+        Course course = new Course(courseView.getCourseId(), courseView.getCourseInfoId(), courseView.getCoordinatorId(), LocalDateTime.parse(courseView.getStart()), LocalDateTime.parse(courseView.getEnd()));
         return courseDAO.updateCourse(course);
     }
 

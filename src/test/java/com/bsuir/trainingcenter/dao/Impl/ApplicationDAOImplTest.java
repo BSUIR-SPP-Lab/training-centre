@@ -45,7 +45,7 @@ public class ApplicationDAOImplTest {
     @Test
     public void findApplication() {
         Application app = new Application(5, 61, 5);
-        assertEquals(app, applicationDAO.findApplication(5));
+        assertEquals(app, applicationDAO.findApplication(5).get());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class ApplicationDAOImplTest {
     public void updateApplication() {
         Application app = new Application(5, 61, 2);
         assertTrue(applicationDAO.updateApplication(app));
-        assertEquals(app, applicationDAO.findApplication(5));
+        assertEquals(app, applicationDAO.findApplication(5).get());
     }
 
     @Test

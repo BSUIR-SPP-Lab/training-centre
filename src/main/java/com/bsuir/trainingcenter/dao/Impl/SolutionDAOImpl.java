@@ -1,5 +1,6 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
+import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.dao.SolutionDAO;
 import com.bsuir.trainingcenter.entity.Solution;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class SolutionDAOImpl implements SolutionDAO {
@@ -34,7 +36,6 @@ public class SolutionDAOImpl implements SolutionDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Solution> rowMapper = ((resultSet, i) -> {
         Solution solution = new Solution();
         solution.setTaskId(resultSet.getLong("task_id"));
@@ -73,8 +74,9 @@ public class SolutionDAOImpl implements SolutionDAO {
     }
 
     @Override
-    public Solution findSolution(long taskId, long userId) {
-        return jdbcTemplate.queryForObject(queryFindSolution, new Object[]{taskId, userId}, rowMapper);
+    public Optional<Solution> findSolution(long taskId, long userId) {
+        List<Solution> queryResults = jdbcTemplate.query(queryFindSolution, new Object[]{taskId, userId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
     }
 
     @Override

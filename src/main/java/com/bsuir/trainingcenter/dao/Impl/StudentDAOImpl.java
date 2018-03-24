@@ -1,5 +1,6 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
+import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.dao.StudentDAO;
 import com.bsuir.trainingcenter.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO {
@@ -21,7 +23,6 @@ public class StudentDAOImpl implements StudentDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Student> rowMapper = ((resultSet, i) -> {
         Student student = new Student();
         student.setStudentId(resultSet.getLong("student_id"));
@@ -44,8 +45,9 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public Student findStudent(long studentId) {
-        return jdbcTemplate.queryForObject(queryFindStudentById, new Object[]{studentId}, rowMapper);
+    public Optional<Student> findStudent(long studentId) {
+        List<Student> queryResults = jdbcTemplate.query(queryFindStudentById, new Object[]{studentId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
     }
 
     @Override

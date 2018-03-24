@@ -45,7 +45,7 @@ public class StudentDAOImplTest {
     @Test
     public void findStudent() {
         Student student = new Student(61);
-        assertEquals(student, studentDAO.findStudent(61));
+        assertEquals(student, studentDAO.findStudent(61).get());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class StudentDAOImplTest {
     public void updateStudent() {
         Student student = new Student(61);
         assertTrue(studentDAO.updateStudent(student));
-        assertEquals(student, studentDAO.findStudent(61));
+        assertEquals(student, studentDAO.findStudent(61).get());
     }
 
     @Test

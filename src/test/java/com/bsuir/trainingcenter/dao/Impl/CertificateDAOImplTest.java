@@ -45,7 +45,7 @@ public class CertificateDAOImplTest {
     @Test
     public void findCertificate() {
         Certificate certificate = new Certificate(9, 63, 10);
-        assertEquals(certificate, certificateDAO.findCertificate(9));
+        assertEquals(certificate, certificateDAO.findCertificate(9).get());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class CertificateDAOImplTest {
     public void updateCertificate() {
         Certificate certificate = new Certificate(11, 62, 13);
         assertTrue(certificateDAO.updateCertificate(certificate));
-        assertEquals(certificate, certificateDAO.findCertificate(11));
+        assertEquals(certificate, certificateDAO.findCertificate(11).get());
     }
 
     @Test

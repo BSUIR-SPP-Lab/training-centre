@@ -45,7 +45,7 @@ public class GroupDAOImplTest {
     @Test
     public void findGroup() {
         Group group = new Group(13, 8, 45);
-        assertEquals(group, groupDAO.findGroup(13));
+        assertEquals(group, groupDAO.findGroup(13).get());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class GroupDAOImplTest {
     public void updateGroup() {
         Group group = new Group(13, 8, 50);
         assertTrue(groupDAO.updateGroup(group));
-        assertEquals(group, groupDAO.findGroup(13));
+        assertEquals(group, groupDAO.findGroup(13).get());
     }
 
     @Test

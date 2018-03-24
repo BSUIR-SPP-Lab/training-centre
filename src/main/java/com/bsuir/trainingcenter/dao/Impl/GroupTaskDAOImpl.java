@@ -18,12 +18,11 @@ public class GroupTaskDAOImpl implements GroupTaskDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Task> rowMapper = ((resultSet, i) -> {
         Task task = new Task();
         task.setTaskId(resultSet.getLong("task_id"));
-        task.setTeacherId(resultSet.getLong("teacher_id"));
         task.setGroupId(resultSet.getLong("group_id"));
+        task.setTeacherId(resultSet.getLong("teacher_id"));
         task.setTaskInfoId(resultSet.getLong("task_info_id"));
         task.setUploadTime(resultSet.getTimestamp("upload_time").toLocalDateTime());
         return task;

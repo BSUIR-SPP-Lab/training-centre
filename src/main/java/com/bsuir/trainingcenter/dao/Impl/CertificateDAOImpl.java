@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
 import com.bsuir.trainingcenter.dao.CertificateDAO;
+import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.entity.Certificate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CertificateDAOImpl implements CertificateDAO {
@@ -26,12 +28,6 @@ public class CertificateDAOImpl implements CertificateDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private RowMapper<Certificate> rowMapper = ((resultSet, i) -> {
         Certificate certificate = new Certificate();
         certificate.setCertificateId(resultSet.getLong("certificate_id"));
@@ -39,6 +35,11 @@ public class CertificateDAOImpl implements CertificateDAO {
         certificate.setGroupId(resultSet.getLong("group_id"));
         return certificate;
     });
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public boolean addCertificate(Certificate certificate) {
@@ -51,8 +52,9 @@ public class CertificateDAOImpl implements CertificateDAO {
     }
 
     @Override
-    public Certificate findCertificate(long certificateId) {
-        return jdbcTemplate.queryForObject(queryFindCertificate, new Object[]{certificateId}, rowMapper);
+    public Optional<Certificate> findCertificate(long certificateId) {
+        List<Certificate> queryResults = jdbcTemplate.query(queryFindCertificate, new Object[]{certificateId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
     }
 
     @Override

@@ -56,7 +56,7 @@ public class SolutionDAOImplTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Solution solution = new Solution(26, 43, null, "/main/answer/file16.txt",
                 "Отлично", 10L, LocalDateTime.parse("2018-03-12 19:45:57", formatter));
-        assertEquals(solution, solutionDAO.findSolution(solution.getTaskId(), solution.getUserId()));
+        assertEquals(solution, solutionDAO.findSolution(solution.getTaskId(), solution.getUserId()).get());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class SolutionDAOImplTest {
                 LocalDateTime.parse("2018-03-12 19:45:57", formatter));
 
         assertTrue(solutionDAO.updateSolution(solution));
-        assertEquals(solution, solutionDAO.findSolution(solution.getTaskId(), solution.getUserId()));
+        assertEquals(solution, solutionDAO.findSolution(solution.getTaskId(), solution.getUserId()).get());
     }
 
     @Test
@@ -78,7 +78,7 @@ public class SolutionDAOImplTest {
                 "Отлично", 0L, LocalDateTime.parse("2018-03-12 19:45:57", formatter));
         assertTrue(solutionDAO.updateSolutionMark(solution.getTaskId(), solution.getUserId(),
                 solution.getTeacherNotes(), solution.getMark()));
-        assertEquals(solution, solutionDAO.findSolution(solution.getTaskId(), solution.getUserId()));
+        assertEquals(solution, solutionDAO.findSolution(solution.getTaskId(), solution.getUserId()).get());
     }
 
     @Test

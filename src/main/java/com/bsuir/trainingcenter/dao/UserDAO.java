@@ -4,6 +4,7 @@ import com.bsuir.trainingcenter.entity.Role;
 import com.bsuir.trainingcenter.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserDAO {
 
@@ -13,7 +14,7 @@ public interface UserDAO {
 
     List<User> findUsers();
 
-    User findUser(long userId);
+    Optional<User> findUser(long userId);
 
     boolean updateUser(User user);
 

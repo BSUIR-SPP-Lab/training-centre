@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
 import com.bsuir.trainingcenter.dao.CourseDAO;
+import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CourseDAOImpl implements CourseDAO {
@@ -25,12 +27,11 @@ public class CourseDAOImpl implements CourseDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Course> rowMapper = ((resultSet, i) -> {
         Course course = new Course();
         course.setCourseId(resultSet.getLong("course_id"));
-        course.setCourseInfoId(resultSet.getLong("course_info_id"));
         course.setCoordinatorId(resultSet.getLong("coordinator_id"));
+        course.setCourseInfoId(resultSet.getLong("course_info_id"));
         course.setStart(resultSet.getTimestamp("start").toLocalDateTime());
         course.setEnd(resultSet.getTimestamp("end").toLocalDateTime());
         return course;
@@ -53,8 +54,9 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    public Course findCourse(long courseId) {
-        return jdbcTemplate.queryForObject(queryFindCourse, new Object[]{courseId}, rowMapper);
+    public Optional<Course> findCourse(long courseId) {
+        List<Course> queryResults = jdbcTemplate.query(queryFindCourse, new Object[]{courseId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
     }
 
     @Override

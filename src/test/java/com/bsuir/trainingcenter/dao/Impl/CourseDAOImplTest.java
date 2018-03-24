@@ -53,7 +53,7 @@ public class CourseDAOImplTest {
         Course course = new Course(9, 2, 50,
                 LocalDateTime.parse("2012-02-12 00:00", formatter),
                 LocalDateTime.parse("2013-02-18 00:00", formatter));
-        assertEquals(course, courseDAO.findCourse(9));
+        assertEquals(course, courseDAO.findCourse(9).get());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class CourseDAOImplTest {
                 LocalDateTime.parse("2018-01-01 00:00", formatter),
                 LocalDateTime.parse("2018-02-01 00:00", formatter));
         assertTrue(courseDAO.updateCourse(course));
-        assertEquals(course, courseDAO.findCourse(10));
+        assertEquals(course, courseDAO.findCourse(10).get());
     }
 
     @Test

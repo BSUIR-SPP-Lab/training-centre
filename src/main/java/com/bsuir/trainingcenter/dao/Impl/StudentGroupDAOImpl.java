@@ -1,5 +1,6 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
+import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.dao.StudentGroupDAO;
 import com.bsuir.trainingcenter.entity.StudentGroup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class StudentGroupDAOImpl implements StudentGroupDAO {
@@ -28,7 +30,6 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<StudentGroup> rowMapper = ((resultSet, i) -> {
         StudentGroup studentGroup = new StudentGroup();
         studentGroup.setStudentId(resultSet.getLong("student_id"));
@@ -54,8 +55,9 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
     }
 
     @Override
-    public StudentGroup findStudentGroup(long studentId, long groupId) {
-        return jdbcTemplate.queryForObject(queryFindStudentGroup, new Object[]{studentId, groupId}, rowMapper);
+    public Optional<StudentGroup> findStudentGroup(long studentId, long groupId) {
+        List<StudentGroup> queryResults = jdbcTemplate.query(queryFindStudentGroup, new Object[]{studentId, groupId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
     }
 
     @Override

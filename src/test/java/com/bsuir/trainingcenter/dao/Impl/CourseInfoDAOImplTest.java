@@ -46,7 +46,12 @@ public class CourseInfoDAOImplTest {
     public void findCourseInfo() {
         CourseInfo courseInfo = new CourseInfo(5, "Курс смекалки",
                 "Курс развивающий вашу смекалку.");
-        assertEquals(courseInfo, courseInfoDAO.findCourseInfo(5));
+        assertEquals(courseInfo, courseInfoDAO.findCourseInfo(5).get());
+    }
+
+    @Test
+    public void findCourseInfoNegative() {
+        assertEquals(false, courseInfoDAO.findCourseInfo(20).isPresent());
     }
 
     @Test
@@ -55,7 +60,7 @@ public class CourseInfoDAOImplTest {
         CourseInfo courseInfo = new CourseInfo(5, "Курс смекалки",
                 "Курс развивающий вашу смекалистость.");
         assertTrue(courseInfoDAO.updateCourseInfo(courseInfo));
-        assertEquals(courseInfo, courseInfoDAO.findCourseInfo(5));
+        assertEquals(courseInfo, courseInfoDAO.findCourseInfo(5).get());
     }
 
     @Test

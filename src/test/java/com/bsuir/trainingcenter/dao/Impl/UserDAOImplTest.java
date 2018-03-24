@@ -48,7 +48,7 @@ public class UserDAOImplTest {
     public void findUser() {
         User user = new User(48, "cat1566", "$2a$10$4E6uT21RneB9FkHJ.2DZP.vwLo/GgXHAtCNORPCqxpUVvyXD4Qoqe",
                 Role.USER, "cat@ya.ru", "1688442", "Катя", "Катина");
-        assertEquals(user, userDAO.findUser(48));
+        assertEquals(user, userDAO.findUser(48).get());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class UserDAOImplTest {
         User user = new User(48, "cat1566", "$2a$10$4E6uT21RneB9FkHJ.2DZP.vwLo/GgXHAtCNORPCqxpUVvyXD4Qoqe",
                 Role.USER, "cat@ya.ru", "1688442", "Катя", "Катрина");
         assertTrue(userDAO.updateUser(user));
-        assertEquals(user, userDAO.findUser(48));
+        assertEquals(user, userDAO.findUser(48).get());
     }
 
     @Test

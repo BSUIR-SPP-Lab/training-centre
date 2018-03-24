@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
 import com.bsuir.trainingcenter.dao.GroupDAO;
+import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.entity.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class GroupDAOImpl implements GroupDAO {
@@ -24,7 +26,6 @@ public class GroupDAOImpl implements GroupDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Group> rowMapper = ((resultSet, i) -> {
         Group group = new Group();
         group.setGroupId(resultSet.getLong("group_id"));
@@ -49,8 +50,9 @@ public class GroupDAOImpl implements GroupDAO {
     }
 
     @Override
-    public Group findGroup(long groupId) {
-        return jdbcTemplate.queryForObject(queryFindGroupById, new Object[]{groupId}, rowMapper);
+    public Optional<Group> findGroup(long groupId) {
+        List<Group> queryResults = jdbcTemplate.query(queryFindGroupById, new Object[]{groupId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
     }
 
     @Override

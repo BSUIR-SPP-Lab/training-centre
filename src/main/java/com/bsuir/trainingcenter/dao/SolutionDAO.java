@@ -3,6 +3,7 @@ package com.bsuir.trainingcenter.dao;
 import com.bsuir.trainingcenter.entity.Solution;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SolutionDAO {
 
@@ -12,7 +13,7 @@ public interface SolutionDAO {
 
     List<Solution> findSolutionsByUserId(long userId);
 
-    Solution findSolution(long taskId, long userId);
+    Optional<Solution> findSolution(long taskId, long userId);
 
     boolean updateSolution(Solution solution);
 

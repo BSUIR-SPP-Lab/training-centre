@@ -51,7 +51,7 @@ public class TaskDAOImplTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         Task task = new Task(26, 55, 7, 3,
                 LocalDateTime.parse("0034-03-21 04:01", formatter));
-        assertEquals(task, taskDAO.findTask(26));
+        assertEquals(task, taskDAO.findTask(26).get());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class TaskDAOImplTest {
         Task task = new Task(26, 55, 7, 5,
                 LocalDateTime.parse("2018-01-01 00:00", formatter));
         assertTrue(taskDAO.updateTask(task));
-        assertEquals(task, taskDAO.findTask(26));
+        assertEquals(task, taskDAO.findTask(26).get());
     }
 
     @Test

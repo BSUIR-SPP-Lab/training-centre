@@ -46,7 +46,7 @@ public class TaskInfoDAOImplTest {
     public void findTaskInfo() {
         TaskInfo taskInfo = new TaskInfo(2, "Проверка знаний по курсу тестирования. вопрос 1",
                 "Что такое тест?");
-        assertEquals(taskInfo, taskInfoDAO.findTaskInfo(2));
+        assertEquals(taskInfo, taskInfoDAO.findTaskInfo(2).get());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class TaskInfoDAOImplTest {
         TaskInfo taskInfo = new TaskInfo(2, "Проверка знаний по курсу тестирования. вопрос 0001",
                 "Что такое тест?");
         assertTrue(taskInfoDAO.updateTaskInfo(taskInfo));
-        assertEquals(taskInfo, taskInfoDAO.findTaskInfo(2));
+        assertEquals(taskInfo, taskInfoDAO.findTaskInfo(2).get());
     }
 
     @Test

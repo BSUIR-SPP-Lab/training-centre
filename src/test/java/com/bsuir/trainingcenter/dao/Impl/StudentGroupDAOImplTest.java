@@ -48,7 +48,7 @@ public class StudentGroupDAOImplTest {
         StudentGroup studentGroup = new StudentGroup(67, 13, false);
         assertTrue(studentGroupDAO.updateStudentGroup(studentGroup));
         assertEquals(studentGroup, studentGroupDAO.findStudentGroup(studentGroup.getStudentId(),
-                studentGroup.getGroupId()));
+                studentGroup.getGroupId()).get());
     }
 
     @Test

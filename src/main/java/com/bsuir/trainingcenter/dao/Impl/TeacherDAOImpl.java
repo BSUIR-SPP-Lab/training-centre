@@ -20,7 +20,6 @@ public class TeacherDAOImpl implements TeacherDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Teacher> rowMapper = ((resultSet, i) -> {
         Teacher teacher = new Teacher();
         teacher.setTeacherId(resultSet.getLong("teacher_id"));
