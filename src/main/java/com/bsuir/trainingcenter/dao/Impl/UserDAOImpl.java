@@ -18,7 +18,7 @@ public class UserDAOImpl implements UserDAO {
 
     private static final String queryAddUser = "INSERT INTO `user` (`login`, `password`, `role`, `email`, `phone`, " +
             "`first_name`, `last_name`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String queryCheckLoginUnique = "SELECT (COUNT(*) > 0) FROM `user` WHERE `user`.`login` = ?";
+    private static final String queryCheckLoginUnique = "SELECT (COUNT(*) = 0) FROM `user` WHERE `user`.`login` = ?";
     private static final String queryFindUsers = "SELECT `user`.`user_id`, `user`.`login`, `user`.`password`, " +
             "`user`.`role`, `user`.`email`, `user`.`phone`, `user`.`first_name`, `user`.`last_name`  FROM `user`";
     private static final String queryFindUserById = "SELECT `user`.`user_id`, `user`.`login`, `user`.`password`, " +
@@ -59,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean isLoginUnique(String login) {
-        return jdbcTemplate.queryForObject(queryCheckLoginUnique, Boolean.class);
+        return jdbcTemplate.queryForObject(queryCheckLoginUnique, Boolean.class,login);
     }
 
     @Override

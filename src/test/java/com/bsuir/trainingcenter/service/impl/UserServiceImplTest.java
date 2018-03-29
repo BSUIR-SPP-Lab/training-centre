@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
@@ -79,7 +80,7 @@ public class UserServiceImplTest {
 
     @Test
     public void findUser() {
-        given(userDAO.findUser(1)).willReturn(user);
+        given(userDAO.findUser(1)).willReturn(Optional.of(user));
         assertEquals(userService.findUser(1),user);
     }
 

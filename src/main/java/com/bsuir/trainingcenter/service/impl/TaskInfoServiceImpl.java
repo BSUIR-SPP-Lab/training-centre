@@ -30,7 +30,7 @@ public class TaskInfoServiceImpl implements TaskInfoService {
 
     @Override
     public TaskInfo findTaskInfo(long taskInfoId) {
-        return taskInfoDAO.findTaskInfo(taskInfoId);
+        return taskInfoDAO.findTaskInfo(taskInfoId).get();
     }
 
     @Override

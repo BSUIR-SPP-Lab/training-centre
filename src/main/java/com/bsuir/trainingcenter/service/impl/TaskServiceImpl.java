@@ -39,7 +39,7 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public TaskView findTask(long taskId) {
 
-        Task task =taskDAO.findTask(taskId);
+        Task task =taskDAO.findTask(taskId).get();
         return new TaskView(task.getTaskId(),task.getTeacherId(),task.getGroupId(),task.getTaskInfoId(),task.getUploadTime().toString());
     }
 

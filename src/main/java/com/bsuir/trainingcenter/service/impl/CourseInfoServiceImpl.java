@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseInfoServiceImpl implements CourseInfoService {
@@ -30,7 +31,7 @@ public class CourseInfoServiceImpl implements CourseInfoService {
 
     @Override
     public CourseInfo findCourseInfo(long courseInfoId) {
-        return courseInfoDAO.findCourseInfo(courseInfoId);
+        return courseInfoDAO.findCourseInfo(courseInfoId).get();
     }
 
     @Override

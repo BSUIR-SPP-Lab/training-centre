@@ -30,7 +30,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Group findGroup(long groupId) {
-        return groupDAO.findGroup(groupId);
+        return groupDAO.findGroup(groupId).get();
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -38,8 +39,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseView findCourse(long courseId) {
-        Course course = courseDAO.findCourse(courseId);
-        return new CourseView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(), course.getStart().toString(), course.getEnd().toString());
+        Optional<Course> foundedCourse = courseDAO.findCourse(courseId);
+        CourseView view = null;
+        if(foundedCourse.isPresent()){
+            Course course = foundedCourse.get();
+            view=new CourseView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(), course.getStart().toString(), course.getEnd().toString());
+        }
+        return view;
     }
 
     @Override

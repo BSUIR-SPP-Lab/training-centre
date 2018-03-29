@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -54,7 +55,7 @@ public class GroupServiceImplTest {
 
     @Test
     public void findGroup() {
-        given(groupDAO.findGroup(1)).willReturn(group);
+        given(groupDAO.findGroup(1)).willReturn(Optional.of(group));
         assertEquals(groupService.findGroup(1),group);
     }
 

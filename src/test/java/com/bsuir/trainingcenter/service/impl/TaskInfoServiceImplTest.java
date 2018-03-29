@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -53,7 +54,7 @@ public class TaskInfoServiceImplTest {
 
     @Test
     public void findTaskInfo() {
-        given(taskInfoDAO.findTaskInfo(1)).willReturn(taskInfo);
+        given(taskInfoDAO.findTaskInfo(1)).willReturn(Optional.of(taskInfo));
         assertEquals(taskInfoService.findTaskInfo(1),taskInfo);
     }
 

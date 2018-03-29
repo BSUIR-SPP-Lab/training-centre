@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -61,7 +62,7 @@ public class TaskServiceImplTest {
 
     @Test
     public void findTask() {
-        given(taskDAO.findTask(1)).willReturn(task);
+        given(taskDAO.findTask(1)).willReturn(Optional.of(task));
         assertEquals(taskService.findTask(1),taskView);
     }
 
