@@ -20,9 +20,9 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String queryUsersByUsername = "SELECT `user`.`login` AS `username`, `user`.`password`, " +
-            "`user`.`enabled` FROM `user` WHERE `user`.`login` = ?";
-    private static final String queryAuthoritiesByUsername = "SELECT `user`.`login` AS `user`.`username`, " +
-            "`user`.`role` FROM `user` WHERE `user`.`login` = ?";
+             "count(*)>0 as`enabled` FROM `user` WHERE `user`.`login` = ?";
+    private static final String queryAuthoritiesByUsername = "SELECT `user`.`login` AS `username`,`user`.`role` " +
+            "FROM `user` WHERE `user`.`login` = ?";
 
     @Autowired
     private DataSource dataSource;
@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/add").permitAll()
                 .antMatchers("/login.html", "/swagger-ui.html", "/webjars/**").permitAll()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
