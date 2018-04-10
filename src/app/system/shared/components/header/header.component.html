@@ -1,0 +1,48 @@
+<header class="header">
+  <div class="header-block header-block-search">
+    {{date }}
+  </div>
+  <div class="header-block header-block-nav">
+    <ul class="nav-profile">
+      <li class="profile dropdown" tcDropdown>
+        <a class="nav-link dropdown-toggle"  role="button">
+          <span class="name">
+              Здравствуйте, {{userName}}
+          </span>
+        </a>
+
+        <div class="dropdown-menu profile-dropdown-menu">
+
+          <div *ngIf="isLogginIn">
+            <a class="dropdown-item" [routerLink]="['/system', 'start-page']">
+              <i class="fa fa-gear icon"></i>TODO: сделать тут что-нибудь
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click) ="onLogout()">
+              <i class="fa fa-power-off icon"></i>Выйти
+            </a>
+          </div>
+
+          <div *ngIf="!isLogginIn">
+
+            <div>
+              <a class="dropdown-item" [routerLink]="['','registration']">
+                <i class="fa fa-user-plus"></i>Регистрация
+              </a>
+            </div>
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['','login']"  >
+              <i class="fa fa-sign-in"></i>Войти
+            </a>
+
+          </div>
+
+
+        </div>
+
+      </li>
+    </ul>
+  </div>
+</header>
+
