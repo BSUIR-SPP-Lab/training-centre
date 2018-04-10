@@ -14,6 +14,8 @@ export class TaskTemplateService {
 
   constructor (private http: Http) {}
 
+  public lastId = 1;
+
   getTaskTemplates() {
     // console.log('get func');
     return this.http.get('http://localhost:8080/taskInfo/all')

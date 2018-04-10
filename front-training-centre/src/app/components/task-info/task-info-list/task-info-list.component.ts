@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit} from '@angular/core';
 import { TaskTemplateService } from '../../../services/taskTemplate.service';
-import { Router, RouterEvent } from '@angular/router';
+import {NavigationEnd, NavigationStart, Router, RouterEvent} from '@angular/router';
 
 
 class TaskTemplate {
@@ -18,13 +18,19 @@ export class TaskInfoListComponent implements OnInit, AfterViewInit {
 
   tasks: TaskTemplate[] = [];
   task: TaskTemplate;
-
   constructor(private taskTemplateService: TaskTemplateService, private router: Router) {
-    router.events.filter(event => event instanceof RouterEvent).subscribe(event => {
-      if (event['url'] === '/taskTemplate' ) {
-         this.loadTaskTemplate();
-        console.log(event['url'], 'update url (task-template)');
+    router.events.filter(event => (event instanceof RouterEvent) ).subscribe(event => {
+      if ((event['url'] === '/taskTemplate')) {
+        if (event instanceof NavigationStart || event instanceof  NavigationEnd) {
+          // console.log('lasId', this.taskTemplateService.lastId);
+          // console.log('eventId', +event['id']);
+          // this.taskTemplateService.lastId++;
+          // console.log(event.toString());
+          this.loadTaskTemplate();
+          console.log('update url (task-template)', event instanceof RouterEvent);
+        }
       }
+
     });
 
   }
@@ -34,7 +40,6 @@ export class TaskInfoListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.task = new TaskTemplate();
-    // this.loadTaskTemplate();
   }
 
 

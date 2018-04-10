@@ -17,6 +17,8 @@ interface User {
 export class UsersService {
     constructor(private http: Http ) {}
 
+    public lastId = 1;
+
     getUsers() {
         return this.http.get('http://localhost:8080/user/all')
             .map((response: Response ) =>  response.json())
