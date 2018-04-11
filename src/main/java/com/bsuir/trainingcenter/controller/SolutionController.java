@@ -1,6 +1,6 @@
 package com.bsuir.trainingcenter.controller;
 
-import com.bsuir.trainingcenter.entity.Solution;
+import com.bsuir.trainingcenter.entity.view.SolutionView;
 import com.bsuir.trainingcenter.service.SolutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class SolutionController {
 
 
     @PostMapping("/add")
-    public ResponseEntity addSolution(@RequestBody Solution solution){
+    public ResponseEntity addSolution(@RequestBody SolutionView solution){
         ResponseEntity response;
         if(solutionService.addSolution(solution)){
             response=new ResponseEntity( HttpStatus.OK);
@@ -30,18 +30,18 @@ public class SolutionController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Solution>> findSolutions(){
+    public ResponseEntity<List<SolutionView>> findSolutions(){
         return new ResponseEntity<>(solutionService.findSolutions(), HttpStatus.OK);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Solution>> findSolution(@PathVariable Long id){
+    public ResponseEntity<List<SolutionView>> findSolution(@PathVariable Long id){
         return new ResponseEntity<>(solutionService.findSolutions(id), HttpStatus.OK);
     }
 
     @PostMapping("/update/{taskId}/{userId}")
-    public ResponseEntity updateSolution(@PathVariable Long taskId,@PathVariable Long userId,@RequestBody Solution solution){
+    public ResponseEntity updateSolution(@PathVariable Long taskId,@PathVariable Long userId,@RequestBody SolutionView solution){
         ResponseEntity response;
         solution.setUserId(userId);
         solution.setTaskId(taskId);
@@ -53,6 +53,7 @@ public class SolutionController {
         return response;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{taskId}/{userId}")
     public ResponseEntity deleteSolution(@PathVariable Long taskId,@PathVariable Long userId){
         ResponseEntity response;

@@ -3,6 +3,7 @@ package com.bsuir.trainingcenter.dao;
 import com.bsuir.trainingcenter.entity.Task;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskDAO {
 
@@ -10,7 +11,7 @@ public interface TaskDAO {
 
     List<Task> findTasks();
 
-    Task findTask(long taskId);
+    Optional<Task> findTask(long taskId);
 
     boolean updateTask(Task task);
 

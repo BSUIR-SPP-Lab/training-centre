@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
 import com.bsuir.trainingcenter.dao.CourseInfoDAO;
+import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.entity.CourseInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CourseInfoDAOImpl implements CourseInfoDAO {
@@ -26,7 +28,6 @@ public class CourseInfoDAOImpl implements CourseInfoDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<CourseInfo> rowMapper = ((resultSet, i) -> {
         CourseInfo courseInfo = new CourseInfo();
         courseInfo.setCourseInfoId(resultSet.getLong("course_info_id"));
@@ -51,8 +52,9 @@ public class CourseInfoDAOImpl implements CourseInfoDAO {
     }
 
     @Override
-    public CourseInfo findCourseInfo(long courseInfoId) {
-        return jdbcTemplate.queryForObject(queryFindCourseInfoById, new Object[]{courseInfoId}, rowMapper);
+    public Optional<CourseInfo> findCourseInfo(long courseInfoId) {
+        List<CourseInfo> queryResults = jdbcTemplate.query(queryFindCourseInfoById, new Object[]{courseInfoId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
     }
 
     @Override

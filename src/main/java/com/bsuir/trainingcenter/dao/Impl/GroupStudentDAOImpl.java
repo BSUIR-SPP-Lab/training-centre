@@ -18,7 +18,6 @@ public class GroupStudentDAOImpl implements GroupStudentDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Student> rowMapper = ((resultSet, i) -> {
         Student student = new Student();
         student.setStudentId(resultSet.getLong("student_id"));

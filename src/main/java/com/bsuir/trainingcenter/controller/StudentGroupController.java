@@ -35,10 +35,9 @@ public class StudentGroupController {
     }
 
 
-    @PostMapping("/update/{id}")
-    public ResponseEntity updateTask(@PathVariable Long id,@RequestBody StudentGroup studentGroup){
+    @PostMapping("/update")
+    public ResponseEntity updateTask(@RequestBody StudentGroup studentGroup){
         ResponseEntity response;
-        studentGroup.setStudentId(id);
         if(studentGroupService.updateStudentGroup(studentGroup)){
             response=new ResponseEntity( HttpStatus.OK);
         }else {

@@ -19,7 +19,6 @@ public class CourseStudentDAOImpl implements CourseStudentDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Student> rowMapper = ((resultSet, i) -> {
         Student student = new Student();
         student.setStudentId(resultSet.getLong("student_id"));

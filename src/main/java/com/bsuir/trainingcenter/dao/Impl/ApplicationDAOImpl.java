@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
 import com.bsuir.trainingcenter.dao.ApplicationDAO;
+import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.entity.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ApplicationDAOImpl implements ApplicationDAO {
@@ -26,17 +28,17 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Application> rowMapper = ((resultSet, i) -> {
         Application application = new Application();
-        application.setApplicationId(resultSet.getLong("application_id"));
         application.setStudentId(resultSet.getLong("student_id"));
+        application.setApplicationId(resultSet.getLong("application_id"));
         application.setCourseId(resultSet.getLong("course_id"));
         return application;
     });
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
+
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -51,8 +53,9 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     }
 
     @Override
-    public Application findApplication(long applicationId) {
-        return jdbcTemplate.queryForObject(queryFindApplication, new Object[]{applicationId}, rowMapper);
+    public Optional<Application> findApplication(long applicationId) {
+        List<Application> queryResults = jdbcTemplate.query(queryFindApplication, new Object[]{applicationId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
     }
 
     @Override

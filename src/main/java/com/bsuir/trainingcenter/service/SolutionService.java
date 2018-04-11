@@ -1,17 +1,17 @@
 package com.bsuir.trainingcenter.service;
 
-import com.bsuir.trainingcenter.entity.Solution;
+import com.bsuir.trainingcenter.entity.view.SolutionView;
 
 import java.util.List;
 
 public interface SolutionService {
-    boolean addSolution(Solution solution);
+    boolean addSolution(SolutionView solution);
 
-    List<Solution> findSolutions();
+    List<SolutionView> findSolutions();
 
-    List<Solution> findSolutions(long userId);
+    List<SolutionView> findSolutions(long userId);
 
-    boolean updateSolution(Solution solution);
+    boolean updateSolution(SolutionView solution);
 
     boolean updateSolutionMark(long taskId, long userId, String teacherNotes, long mark);
 

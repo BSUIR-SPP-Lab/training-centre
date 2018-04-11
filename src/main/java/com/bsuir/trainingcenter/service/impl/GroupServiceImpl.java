@@ -11,31 +11,35 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService {
 
+    private final GroupDAO groupDAO;
+
     @Autowired
-    private GroupDAO groupServiceDAO;
+    public GroupServiceImpl(GroupDAO groupDAO) {
+        this.groupDAO = groupDAO;
+    }
 
     @Override
     public boolean addGroup(Group group) {
-        return groupServiceDAO.addGroup(group);
+        return groupDAO.addGroup(group);
     }
 
     @Override
     public List<Group> findGroups() {
-        return groupServiceDAO.findGroups();
+        return groupDAO.findGroups();
     }
 
     @Override
     public Group findGroup(long groupId) {
-        return groupServiceDAO.findGroup(groupId);
+        return groupDAO.findGroup(groupId).get();
     }
 
     @Override
     public boolean updateGroup(Group group) {
-        return groupServiceDAO.updateGroup(group);
+        return groupDAO.updateGroup(group);
     }
 
     @Override
     public boolean deleteGroup(long groupId) {
-        return groupServiceDAO.deleteGroup(groupId);
+        return groupDAO.deleteGroup(groupId);
     }
 }

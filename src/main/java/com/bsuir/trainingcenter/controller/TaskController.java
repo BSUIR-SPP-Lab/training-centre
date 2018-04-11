@@ -1,13 +1,12 @@
 package com.bsuir.trainingcenter.controller;
 
-import com.bsuir.trainingcenter.entity.Task;
+import com.bsuir.trainingcenter.entity.view.TaskView;
 import com.bsuir.trainingcenter.service.TaskService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class TaskController {
 
 
     @PostMapping("/add")
-    public ResponseEntity addTask(@RequestBody Task task){
+    public ResponseEntity addTask(@RequestBody TaskView task){
         ResponseEntity response;
         if(taskService.addTask(task)){
             response=new ResponseEntity( HttpStatus.OK);
@@ -34,16 +33,15 @@ public class TaskController {
     }
 
     @GetMapping("/all")
-    @Secured({"TEACHER"})
-    public ResponseEntity<List<Task>> findTasksInfo(){
+    public ResponseEntity<List<TaskView>> findTasksInfo(){
         return new ResponseEntity<>(taskService.findTasks(), HttpStatus.OK);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> findUser(@PathVariable Long id){
+    public ResponseEntity<TaskView> findUser(@PathVariable Long id){
         ResponseEntity response;
-        Task task = taskService.findTask(id);
+        TaskView task = taskService.findTask(id);
         if(task!=null){
             response=new ResponseEntity<>(task, HttpStatus.OK);
         }else {
@@ -53,7 +51,7 @@ public class TaskController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity updateTask(@PathVariable Long id,@RequestBody Task task){
+    public ResponseEntity updateTask(@PathVariable Long id,@RequestBody TaskView task){
         ResponseEntity response;
         task.setTaskId(id);
         if(taskService.updateTask(task)){
@@ -64,6 +62,7 @@ public class TaskController {
         return response;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteTask(@PathVariable Long id){
         ResponseEntity response;

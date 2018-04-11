@@ -1,78 +1,66 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
-import com.ibatis.common.jdbc.ScriptRunner;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import com.bsuir.trainingcenter.config.TestConfig;
+import com.bsuir.trainingcenter.entity.Application;
 import org.junit.Test;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.sql.SQLException;
-import java.util.Properties;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {TestConfig.class})
+@SpringBootTest
+@Transactional
 public class ApplicationDAOImplTest {
-    private static ScriptRunner scriptRunner;
-    private static ApplicationDAOImpl applicationDAO;
 
-    @BeforeClass
-    public static void beforeClass() throws IOException, SQLException {
-        Properties properties = new Properties();
-        properties.load(ApplicationDAOImplTest.class.getResourceAsStream("/db.properties"));
-        scriptRunner = new ScriptRunner(properties.getProperty("driver_name"),"jdbc:mysql://localhost:3306/?useUnicode=true&useSSL=false&serverTimezone=GMT",
-                properties.getProperty("user"), properties.getProperty("password"),false, true);
-        scriptRunner.runScript(new InputStreamReader(ApplicationDAOImplTest.class.getResourceAsStream("/Insert.sql")));
-        DataSource dataSource = DataSourceBuilder.create()
-                .driverClassName(properties.getProperty("driver_name"))
-                .url(properties.getProperty("connection_string"))
-                .password(properties.getProperty("password"))
-                .username(properties.getProperty("user"))
-                .build();
-        applicationDAO = new ApplicationDAOImpl();
+    private ApplicationDAOImpl applicationDAO = new ApplicationDAOImpl();
+
+    @Autowired
+    private void setDataSource(DataSource dataSource) {
         applicationDAO.setDataSource(dataSource);
     }
 
-
-    @AfterClass
-    public void tearDown() throws Exception {
-        Reader reader = new InputStreamReader(ApplicationDAOImplTest.class.getResourceAsStream("/Drop.sql"));
-        scriptRunner.runScript(reader);
-
-
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        scriptRunner.runScript(new InputStreamReader(ApplicationDAOImplTest.class.getResourceAsStream("/insert/insert_address.sql")));
-    }
-
-
-
-
     @Test
-    public void setDataSource() {
-    }
-
-    @Test
+    @Rollback
     public void addApplication() {
+        Application application = new Application(41, 5);
+        assertTrue(applicationDAO.addApplication(application));
+        assertEquals(13, applicationDAO.findApplications().size());
     }
 
     @Test
     public void findApplications() {
+        assertEquals(12, applicationDAO.findApplications().size());
     }
 
     @Test
     public void findApplication() {
+        Application app = new Application(5, 61, 5);
+        assertEquals(app, applicationDAO.findApplication(5).get());
     }
 
     @Test
+    @Rollback
     public void updateApplication() {
+        Application app = new Application(5, 61, 2);
+        assertTrue(applicationDAO.updateApplication(app));
+        assertEquals(app, applicationDAO.findApplication(5).get());
     }
 
     @Test
+    @Rollback
     public void deleteApplication() {
+        assertTrue(applicationDAO.deleteApplication(5));
+        assertEquals(11, applicationDAO.findApplications().size());
     }
+
 }

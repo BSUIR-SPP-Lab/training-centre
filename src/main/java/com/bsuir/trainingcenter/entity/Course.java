@@ -14,6 +14,14 @@ public class Course {
     public Course() {
     }
 
+    public Course(long courseInfoId, long coordinatorId, LocalDateTime start, LocalDateTime end) {
+        this.courseId = 0;
+        this.courseInfoId = courseInfoId;
+        this.coordinatorId = coordinatorId;
+        this.start = start;
+        this.end = end;
+    }
+
     public Course(long courseId, long courseInfoId, long coordinatorId, LocalDateTime start, LocalDateTime end) {
         this.courseId = courseId;
         this.courseInfoId = courseInfoId;

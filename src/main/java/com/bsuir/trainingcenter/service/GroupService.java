@@ -5,6 +5,7 @@ import com.bsuir.trainingcenter.entity.Group;
 import java.util.List;
 
 public interface GroupService {
+
     boolean addGroup(Group group);
 
     List<Group> findGroups();

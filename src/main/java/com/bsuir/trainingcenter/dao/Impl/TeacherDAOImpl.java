@@ -14,13 +14,12 @@ import java.util.List;
 public class TeacherDAOImpl implements TeacherDAO {
 
     private static final String queryAddTeacher = "INSERT INTO `teacher` (`teacher_id`, `group_id`) VALUES (?, ?)";
-    private static final String queryFindTeachers = "SELECT `teacher_id`, `group_id` `teacher` FROM `teacher`";
-    private static final String queryFindTeacherByUserId = "SELECT `teacher_id`, `group_id` `teacher` FROM `teacher` " +
+    private static final String queryFindTeachers = "SELECT `teacher_id`, `group_id` FROM `teacher`";
+    private static final String queryFindTeacherByUserId = "SELECT `teacher_id`, `group_id` FROM `teacher` " +
             "WHERE `group_id` = ?";
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Teacher> rowMapper = ((resultSet, i) -> {
         Teacher teacher = new Teacher();
         teacher.setTeacherId(resultSet.getLong("teacher_id"));
@@ -44,7 +43,7 @@ public class TeacherDAOImpl implements TeacherDAO {
     }
 
     @Override
-    public List<Teacher> findTeacher(long groupId) {
+    public List<Teacher> findGroupTeachers(long groupId) {
         return jdbcTemplate.query(queryFindTeacherByUserId, new Object[]{groupId}, rowMapper);
     }
 

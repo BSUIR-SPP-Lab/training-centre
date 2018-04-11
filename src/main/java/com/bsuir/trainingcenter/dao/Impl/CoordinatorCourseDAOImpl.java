@@ -17,7 +17,6 @@ public class CoordinatorCourseDAOImpl implements CoordinatorCourseDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Course> rowMapper = ((resultSet, i) -> {
         Course course = new Course();
         course.setCourseId(resultSet.getLong("course_id"));

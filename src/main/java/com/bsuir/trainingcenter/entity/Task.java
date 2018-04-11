@@ -14,6 +14,22 @@ public class Task {
     public Task() {
     }
 
+    public Task(long teacherId, long groupId, long taskInfoId, LocalDateTime uploadTime) {
+        this.taskId = 0;
+        this.teacherId = teacherId;
+        this.groupId = groupId;
+        this.taskInfoId = taskInfoId;
+        this.uploadTime = uploadTime;
+    }
+
+    public Task(long taskId, long teacherId, long groupId, long taskInfoId, LocalDateTime uploadTime) {
+        this.taskId = taskId;
+        this.teacherId = teacherId;
+        this.groupId = groupId;
+        this.taskInfoId = taskInfoId;
+        this.uploadTime = uploadTime;
+    }
+
     public long getTaskId() {
         return taskId;
     }

@@ -4,6 +4,8 @@ import com.bsuir.trainingcenter.entity.TaskInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface TaskInfoDAO {
 
@@ -11,7 +13,7 @@ public interface TaskInfoDAO {
 
     List<TaskInfo> findTasksInfo();
 
-    TaskInfo findTaskInfo(long taskInfoId);
+    Optional<TaskInfo> findTaskInfo(long taskInfoId);
 
     boolean updateTaskInfo(TaskInfo taskInfo);
 

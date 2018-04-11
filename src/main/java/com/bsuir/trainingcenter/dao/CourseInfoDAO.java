@@ -3,6 +3,7 @@ package com.bsuir.trainingcenter.dao;
 import com.bsuir.trainingcenter.entity.CourseInfo;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseInfoDAO {
 
@@ -10,10 +11,10 @@ public interface CourseInfoDAO {
 
     List<CourseInfo> findCoursesInfo();
 
-    CourseInfo findCourseInfo(long courseInfoId);
+    Optional<CourseInfo> findCourseInfo(long courseInfoId);
 
     boolean updateCourseInfo(CourseInfo courseInfo);
 
     boolean deleteCourseInfo(long courseInfoId);
-    
+
 }

@@ -1,24 +1,33 @@
 package com.bsuir.trainingcenter.controller;
 
-import com.bsuir.trainingcenter.entity.Course;
+import com.bsuir.trainingcenter.entity.CourseWithInfo;
+import com.bsuir.trainingcenter.entity.view.CourseView;
+import com.bsuir.trainingcenter.entity.view.CourseWithInfoView;
 import com.bsuir.trainingcenter.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.annotation.MultipartConfig;
+import javax.xml.ws.http.HTTPBinding;
 import java.util.List;
 
 @RestController
 @RequestMapping("/course")
 public class CourseController {
 
+    private final CourseService courseService;
+
     @Autowired
-    private CourseService courseService;
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
 
     @PostMapping("/add")
-    public ResponseEntity addCourse(@RequestBody Course course){
+    public ResponseEntity addCourse(@RequestBody CourseView course){
         ResponseEntity response;
         if(courseService.addCourse(course)){
             response=new ResponseEntity( HttpStatus.OK);
@@ -29,15 +38,15 @@ public class CourseController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Course>> findCourses(){
+    public ResponseEntity<List<CourseView>> findCourses(){
         return new ResponseEntity<>(courseService.findCourses(), HttpStatus.OK);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findCourse(@PathVariable Long id){
+    public ResponseEntity<CourseView> findCourse(@PathVariable Long id){
         ResponseEntity response;
-        Course course = courseService.findCourse(id);
+        CourseView course = courseService.findCourse(id);
         if(course!=null){
             response=new ResponseEntity<>(course, HttpStatus.OK);
         }else {
@@ -47,7 +56,7 @@ public class CourseController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity updateCourse(@PathVariable Long id,@RequestBody Course course){
+    public ResponseEntity updateCourse(@PathVariable Long id,@RequestBody CourseView course){
         ResponseEntity response;
         course.setCourseId(id);
         if(courseService.updateCourse(course)){
@@ -58,6 +67,7 @@ public class CourseController {
         return response;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteCourse(@PathVariable Long id){
         ResponseEntity response;
@@ -67,5 +77,14 @@ public class CourseController {
             response=new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return response;
+    }
+    @GetMapping("/get/coursesWithInfo")
+    public ResponseEntity<List<CourseWithInfo>> findCoursesWithInfo(){
+        return new ResponseEntity<>(courseService.findCoursesWithInfo(),HttpStatus.OK);
+    }
+
+    @GetMapping("/get/courseWithInfo/{courseId}")
+    public ResponseEntity<CourseWithInfoView> findCourseWithInfo(@PathVariable long courseId){
+        return new ResponseEntity<>(courseService.findCourseWithInfo(courseId), HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.bsuir.trainingcenter.dao.Impl;
 
+import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.dao.SolutionDAO;
 import com.bsuir.trainingcenter.entity.Solution;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class SolutionDAOImpl implements SolutionDAO {
@@ -21,6 +23,9 @@ public class SolutionDAOImpl implements SolutionDAO {
     private static final String queryFindSolutionsByUserId = "SELECT `solution`.`task_id`, `solution`.`user_id`," +
             "`solution`.`notes`, `solution`.`filepath`, `solution`.`teacher_notes`, `solution`.`upload_time`, " +
             "`solution`.`mark` FROM `solution` WHERE `solution`.`user_id` = ?";
+    private static final String queryFindSolution = "SELECT `solution`.`task_id`, `solution`.`user_id`," +
+            "`solution`.`notes`, `solution`.`filepath`, `solution`.`teacher_notes`, `solution`.`upload_time`, " +
+            "`solution`.`mark` FROM `solution` WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
     private static final String queryUpdateSolution = "UPDATE `solution` SET `solution`.`notes` = ?, " +
             "`solution`.`filepath` = ?, `solution`.`teacher_notes` = ?, `solution`.`mark` = ? " +
             "WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
@@ -31,7 +36,6 @@ public class SolutionDAOImpl implements SolutionDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Solution> rowMapper = ((resultSet, i) -> {
         Solution solution = new Solution();
         solution.setTaskId(resultSet.getLong("task_id"));
@@ -60,13 +64,19 @@ public class SolutionDAOImpl implements SolutionDAO {
     }
 
     @Override
-    public List<Solution> findSolutions() {
+    public List<Solution> findSolutionsByUserId() {
         return jdbcTemplate.query(queryFindSolutions, rowMapper);
     }
 
     @Override
-    public List<Solution> findSolutions(long userId) {
+    public List<Solution> findSolutionsByUserId(long userId) {
         return jdbcTemplate.query(queryFindSolutionsByUserId, new Object[]{userId}, rowMapper);
+    }
+
+    @Override
+    public Optional<Solution> findSolution(long taskId, long userId) {
+        List<Solution> queryResults = jdbcTemplate.query(queryFindSolution, new Object[]{taskId, userId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
     }
 
     @Override

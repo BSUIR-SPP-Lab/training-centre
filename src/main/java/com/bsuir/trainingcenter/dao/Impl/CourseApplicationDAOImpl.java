@@ -19,7 +19,6 @@ public class CourseApplicationDAOImpl implements CourseApplicationDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-
     private RowMapper<Application> rowMapper = ((resultSet, i) -> {
         Application application = new Application();
         application.setApplicationId(resultSet.getLong("application_id"));

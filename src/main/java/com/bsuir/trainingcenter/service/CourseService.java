@@ -1,17 +1,23 @@
 package com.bsuir.trainingcenter.service;
 
-import com.bsuir.trainingcenter.entity.Course;
+import com.bsuir.trainingcenter.entity.CourseWithInfo;
+import com.bsuir.trainingcenter.entity.view.CourseView;
+import com.bsuir.trainingcenter.entity.view.CourseWithInfoView;
 
 import java.util.List;
 
 public interface CourseService {
-    boolean addCourse(Course course);
+    boolean addCourse(CourseView course);
 
-    List<Course> findCourses();
+    List<CourseView> findCourses();
 
-    Course findCourse(long courseId);
+    CourseView findCourse(long courseId);
 
-    boolean updateCourse(Course course);
+    boolean updateCourse(CourseView course);
 
     boolean deleteCourse(long courseId);
+
+    List<CourseWithInfo> findCoursesWithInfo();
+
+    CourseWithInfoView findCourseWithInfo(long courseId);
 }
