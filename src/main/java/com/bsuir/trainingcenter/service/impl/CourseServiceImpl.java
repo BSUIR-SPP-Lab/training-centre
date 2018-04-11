@@ -2,7 +2,9 @@ package com.bsuir.trainingcenter.service.impl;
 
 import com.bsuir.trainingcenter.dao.CourseDAO;
 import com.bsuir.trainingcenter.entity.Course;
+import com.bsuir.trainingcenter.entity.CourseWithInfo;
 import com.bsuir.trainingcenter.entity.view.CourseView;
+import com.bsuir.trainingcenter.entity.view.CourseWithInfoView;
 import com.bsuir.trainingcenter.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,5 +60,21 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public boolean deleteCourse(long courseId) {
         return courseDAO.deleteCourse(courseId);
+    }
+
+    @Override
+    public List<CourseWithInfo> findCoursesWithInfo() {
+        return courseDAO.findCoursesWithInfo();
+    }
+
+    @Override
+    public CourseWithInfoView findCourseWithInfo(long courseId) {
+        Optional<CourseWithInfo> foundedCourse = courseDAO.findCourseWithInfo(courseId);
+        CourseWithInfoView view = null;
+        if(foundedCourse.isPresent()){
+            CourseWithInfo course = foundedCourse.get();
+            view=new CourseWithInfoView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(), course.getStart().toString(), course.getEnd().toString(),course.getName(),course.getDescription());
+        }
+        return view;
     }
 }

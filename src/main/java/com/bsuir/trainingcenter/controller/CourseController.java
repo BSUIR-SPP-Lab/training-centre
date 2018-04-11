@@ -1,12 +1,17 @@
 package com.bsuir.trainingcenter.controller;
 
+import com.bsuir.trainingcenter.entity.CourseWithInfo;
 import com.bsuir.trainingcenter.entity.view.CourseView;
+import com.bsuir.trainingcenter.entity.view.CourseWithInfoView;
 import com.bsuir.trainingcenter.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.annotation.MultipartConfig;
+import javax.xml.ws.http.HTTPBinding;
 import java.util.List;
 
 @RestController
@@ -72,5 +77,14 @@ public class CourseController {
             response=new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return response;
+    }
+    @GetMapping("/get/coursesWithInfo")
+    public ResponseEntity<List<CourseWithInfo>> findCoursesWithInfo(){
+        return new ResponseEntity<>(courseService.findCoursesWithInfo(),HttpStatus.OK);
+    }
+
+    @GetMapping("/get/courseWithInfo/{courseId}")
+    public ResponseEntity<CourseWithInfoView> findCourseWithInfo(@PathVariable long courseId){
+        return new ResponseEntity<>(courseService.findCourseWithInfo(courseId), HttpStatus.OK);
     }
 }
