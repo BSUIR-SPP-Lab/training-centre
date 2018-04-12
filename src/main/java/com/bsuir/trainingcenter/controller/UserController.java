@@ -73,4 +73,13 @@ public class UserController {
         }
         return response;
     }
+
+    @GetMapping("/login")
+    public ResponseEntity login(@RequestBody String login, @RequestBody String password){
+        if(userService.login(login, password)){
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

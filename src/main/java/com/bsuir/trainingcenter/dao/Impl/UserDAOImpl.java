@@ -24,6 +24,9 @@ public class UserDAOImpl implements UserDAO {
     private static final String queryFindUserById = "SELECT `user`.`user_id`, `user`.`login`, `user`.`password`, " +
             "`user`.`role`, `user`.`email`, `user`.`phone`, `user`.`first_name`, `user`.`last_name`  FROM `user` " +
             "WHERE `user`.`user_id` = ?";
+    private static final String queryFindUserByLogin = "SELECT `user`.`user_id`, `user`.`login`, `user`.`password`, " +
+            "`user`.`role`, `user`.`email`, `user`.`phone`, `user`.`first_name`, `user`.`last_name`  FROM `user` " +
+            "WHERE `user`.`login` = ?";
     private static final String queryUpdateUser = "UPDATE `user` SET `user`.`login` = ?, `user`.`password` = ?, " +
             "`user`.`role` = ?, `user`.`email` = ?, `user`.`phone` = ?, `user`.`first_name` = ?, " +
             "`user`.`last_name` = ? WHERE `user`.`user_id` = ?";
@@ -69,6 +72,12 @@ public class UserDAOImpl implements UserDAO {
 
     public Optional<User> findUser(long userId) {
         List<User> queryResults = jdbcTemplate.query(queryFindUserById, new Object[]{userId}, rowMapper);
+        return ListHelper.getFirst(queryResults);
+    }
+
+    @Override
+    public Optional<User> findUser(String login) {
+        List<User> queryResults = jdbcTemplate.query(queryFindUserById, new Object[]{login}, rowMapper);
         return ListHelper.getFirst(queryResults);
     }
 

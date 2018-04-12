@@ -16,6 +16,8 @@ public interface UserDAO {
 
     Optional<User> findUser(long userId);
 
+    Optional<User> findUser(String login);
+
     boolean updateUser(User user);
 
     boolean updateUserRole(long userId, Role newRole);
