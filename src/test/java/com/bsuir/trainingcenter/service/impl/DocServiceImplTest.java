@@ -8,6 +8,6 @@ public class DocServiceImplTest {
 
     @Test
     public void find() {
-    //    System.out.println(cretor.find());
+        System.out.println(cretor.generateCSVCertificate(1));
     }
 }
