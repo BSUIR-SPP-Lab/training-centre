@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -55,5 +56,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteUser(long id) {
         return userDAO.deleteUser(id);
+    }
+
+    @Override
+    public boolean login(String login, String password) {
+        Optional<User> user = userDAO.findUser(login);
+        return user.map(user1 -> user1.getPassword().equalsIgnoreCase(passwordEncoder.encode(password))).orElse(false);
     }
 }
