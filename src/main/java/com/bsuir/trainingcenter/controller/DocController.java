@@ -21,7 +21,28 @@ public class DocController {
         Resource body = docServiceImpl.generatePdfCertificate(id);
 
         if (body!=null) {
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "Certificate.pdf" + "\"").body(body);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "CertificatePDF.pdf" + "\"").body(body);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @GetMapping("/xlsCertificate/{id}")
+    public ResponseEntity<Resource> xlsCertificate(@PathVariable int id){
+        Resource body = docServiceImpl.generateXLSCertificate(id);
+
+        if (body!=null) {
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "CertificateXLS.xls" + "\"").body(body);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/csvCertificate/{id}")
+    public ResponseEntity<Resource> csvCertificate(@PathVariable int id){
+        Resource body = docServiceImpl.generateCSVCertificate(id);
+
+        if (body!=null) {
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "CertificateCSV.csv" + "\"").body(body);
         } else {
             return ResponseEntity.badRequest().build();
         }
