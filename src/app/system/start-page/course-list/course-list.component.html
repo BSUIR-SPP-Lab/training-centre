@@ -1,5 +1,28 @@
 <section class="section">
   <div class="row">
-    <tc-list-item></tc-list-item>
+
+    <div *ngFor="let c of courseList">
+      <div class="col-md-4 ">
+        <div class="card">
+          <div class="cell" >
+            <h3>
+              {{c.name}}
+            </h3>
+
+            <div>
+              Описание: {{c.description}}
+            </div>
+
+            <div>
+              Курс ведет: {{c.coordinatorId}}
+            </div>
+
+            <div class="buttonDes">
+              <button type="button" class="btn btn-primary btn-block" (click)="onEnroll(c.courseId)">Записаться</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

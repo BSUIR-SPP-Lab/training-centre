@@ -24,13 +24,23 @@
       </ul>
     </nav>
 
-    <nav class="menu" *ngIf="role != 'GUEST'">
+    <nav class="menu" *ngIf="role == 'USER'">
       <ul class="nav metismenu">
+
         <li routerLinkActive="active">
-          <a [routerLink]="['', 'registration']"> <i class="fa fa-user-plus"></i> Эта часть меню еще не дописана </a>
+          <a [routerLink]="['', 'registration']"> <i class="fa fa-user-plus"></i> Мои курсы</a>
         </li>
+
         <li routerLinkActive="active">
-          <a [routerLink]="['', 'login']"> <i class="fa fa-sign-in"></i> TODO </a>
+          <a [routerLink]="['', 'registration']"> <i class="fa fa-user-plus"></i> Мои сертификаты </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['', 'registration']"> <i class="fa fa-user-plus"></i> Отправить решение </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['', 'login']"> <i class="fa fa-sign-in"></i> Выйти </a>
         </li>
       </ul>
     </nav>

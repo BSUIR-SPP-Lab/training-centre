@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Course } from '../../../shared/models/course.model';
+
 
 @Component({
   selector: 'tc-course-list',
@@ -7,10 +8,16 @@ import { Course } from '../../../shared/models/course.model';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
-  @Input() courseList: Course;
+  @Input() courseList: Course[];
+  @Output() enRollEvent = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onEnroll(courseID) {
+    this.enRollEvent.emit(courseID);
   }
 
 }

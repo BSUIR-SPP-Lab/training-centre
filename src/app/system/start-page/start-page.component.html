@@ -1,19 +1,29 @@
+<div
+  @fade
+  class="alert alert-{{message.type}}"
+  *ngIf="message.text"
+>
+  {{message.text}}
+</div>
 <div class="title-block">
   <h3 class="title" pull-left>
     Список курсов <span class="sparkline bar"></span>
   </h3>
 
-  <div class="pull-right">
-    <!--<button class="btn-sm btn btn-primary-outline" (click)="opentFilter()">-->
-      <button class="btn-sm btn btn-primary-outline">
-      <i class="fa fa-filter"></i>
-    </button>
-  </div>
+  <!--<div class="pull-right">-->
+    <!--&lt;!&ndash;<button class="btn-sm btn btn-primary-outline" (click)="opentFilter()">&ndash;&gt;-->
+      <!--<button class="btn-sm btn btn-primary-outline">-->
+      <!--<i class="fa fa-filter"></i>-->
+    <!--</button>-->
+  <!--</div>-->
 
 </div>
-<div *ngIf="isLoaded"><tc-loader></tc-loader> </div>
+<div *ngIf="!isLoaded"><tc-loader></tc-loader> </div>
 
-<div *ngIf="!isLoaded">
-  <tc-course-list></tc-course-list>
+<div *ngIf="isLoaded">
+  <tc-course-list
+    [courseList]="courses"
+    (enRollEvent)="onEnrollEvent($event)"
+  ></tc-course-list>
 
 </div>

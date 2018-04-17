@@ -1,6 +1,14 @@
+import {User} from "../models/user.model";
+
 export  class AuthService {
 
-  private isAuthenticated = false;
+  constructor() {
+    const user = new User('test@gmail.com', 'firstName', 'lastNme', 'login', 'password', 'phone', 'USER');
+    window.localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  //TODO def value = false
+  private isAuthenticated = true;
 
   login() {
     this.isAuthenticated = true;
@@ -16,7 +24,7 @@ export  class AuthService {
   }
 
   getRole(): string {
-    let role ='GUEST';
+    let role = 'GUEST';
     if (this.isLoggedIn()) {
       const user = JSON.parse(window.localStorage.getItem('user'));
       role = user.role;

@@ -8,15 +8,6 @@ import {Course} from "../models/course.model";
 @Injectable()
 export  class CourseService extends BaseApi {
 
-  constructor(public  http: Http) {
-    super(http);
-  }
-
-
-  getCourse(): Observable<Course> {
-      return this.courseTemp;
-  }
-
   courseTemp: Course[] = [
     { name: 'Первый курс', description: 'Мы будем изучать основы выживания в универе.', coordinatorId: 5, courseId: 1},
     { name: 'Второй курс', description: 'Мы будем изучать основы выживания в универе.', coordinatorId: 6, courseId: 2},
@@ -25,5 +16,15 @@ export  class CourseService extends BaseApi {
     { name: 'Агонь курс', description: 'Мы будем изучать основы выживания в универе.', coordinatorId: 8, courseId: 4},
     { name: 'Ну такой себе курс', description: 'Мы будем изучать основы выживания в универе.', coordinatorId: 9, courseId: 5}
   ];
+
+  constructor(public  http: Http) {
+    super(http);
+  }
+
+
+  getCourse() {
+       return this.courseTemp;
+  }
+
 
 }
