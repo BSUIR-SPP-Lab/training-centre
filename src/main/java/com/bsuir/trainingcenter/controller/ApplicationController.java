@@ -46,7 +46,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity updateApplication(Application application) {
+    public ResponseEntity updateApplication(@RequestBody Application application) {
         if (service.updateApplication(application)) {
             return ResponseEntity.ok().build();
         } else {
