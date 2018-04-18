@@ -2,7 +2,7 @@ package com.bsuir.trainingcenter.entity;
 
 import java.util.Objects;
 
-public class TaskInfo {
+public class    TaskInfo {
 
     private long taskInfoId;
     private String name;

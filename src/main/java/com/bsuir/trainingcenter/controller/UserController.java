@@ -50,6 +50,18 @@ public class UserController {
         return response;
     }
 
+    @GetMapping("/{login}")
+    public ResponseEntity<User> findUser(@PathVariable String login){
+        ResponseEntity response;
+        User user = userService.findUser(login);
+        if(user!=null){
+            response=new ResponseEntity<>(user, HttpStatus.OK);
+        }else {
+            response=new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return response;
+    }
+
     @PostMapping("/update/{id}")
     public ResponseEntity updateUser(@PathVariable Long id,@RequestBody User user){
         ResponseEntity response;

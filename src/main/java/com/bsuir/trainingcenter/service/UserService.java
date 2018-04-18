@@ -12,6 +12,8 @@ public interface UserService {
 
     User findUser(long id);
 
+    User findUser(String login);
+
     boolean updateUser(User user);
 
     boolean updateUserRole(long userId, Role newRole);

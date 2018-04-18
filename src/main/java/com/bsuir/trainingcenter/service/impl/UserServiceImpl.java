@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(User user) {
-        if(userDAO.isLoginUnique(user.getLogin())) {
+        if (userDAO.isLoginUnique(user.getLogin())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userDAO.addUser(user);
         }
@@ -40,7 +40,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUser(long id) {
-        return userDAO.findUser(id).get();
+        Optional<User> user = userDAO.findUser(id);
+        if (user.isPresent()) {
+            return user.get();
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public User findUser(String login) {
+        Optional<User> user = userDAO.findUser(login);
+        if (user.isPresent()) {
+            return user.get();
+        }else {
+            return null;
+        }
+
     }
 
     @Override
