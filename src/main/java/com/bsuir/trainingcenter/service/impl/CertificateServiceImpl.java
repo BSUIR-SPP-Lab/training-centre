@@ -1,17 +1,23 @@
 package com.bsuir.trainingcenter.service.impl;
 
-import com.bsuir.trainingcenter.dao.*;
-import com.bsuir.trainingcenter.entity.*;
+import com.bsuir.trainingcenter.dao.CertificateDAO;
+import com.bsuir.trainingcenter.dao.CourseDAO;
+import com.bsuir.trainingcenter.dao.GroupDAO;
+import com.bsuir.trainingcenter.dao.UserDAO;
+import com.bsuir.trainingcenter.entity.Certificate;
+import com.bsuir.trainingcenter.entity.CourseWithInfo;
+import com.bsuir.trainingcenter.entity.Group;
+import com.bsuir.trainingcenter.entity.User;
 import com.bsuir.trainingcenter.entity.view.CertificateInfoView;
-import com.bsuir.trainingcenter.service.CertificateInfoService;
+import com.bsuir.trainingcenter.service.CertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.UserDataHandler;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CertificateInfoServiceImpl implements CertificateInfoService {
+public class CertificateServiceImpl implements CertificateService {
 
     private final CertificateDAO certificateDAO;
 
@@ -22,7 +28,7 @@ public class CertificateInfoServiceImpl implements CertificateInfoService {
     private final GroupDAO groupDAO;
 
     @Autowired
-    public CertificateInfoServiceImpl(CertificateDAO certificateDAO, UserDAO userDAO, CourseDAO courseDAO, GroupDAO groupDAO) {
+    public CertificateServiceImpl(CertificateDAO certificateDAO, UserDAO userDAO, CourseDAO courseDAO, GroupDAO groupDAO) {
         this.certificateDAO = certificateDAO;
         this.userDAO = userDAO;
         this.courseDAO = courseDAO;
@@ -49,5 +55,30 @@ public class CertificateInfoServiceImpl implements CertificateInfoService {
             return view;
         }
         return null;
+    }
+
+    @Override
+    public boolean addCertificate(Certificate certificate) {
+        return certificateDAO.addCertificate(certificate);
+    }
+
+    @Override
+    public List<Certificate> findCertificates() {
+        return certificateDAO.findCertificates();
+    }
+
+    @Override
+    public List<Certificate> findCertificates(long userId) {
+        return certificateDAO.findCertificates(userId);
+    }
+
+    @Override
+    public boolean updateCertificate(Certificate certificate) {
+        return certificateDAO.updateCertificate(certificate);
+    }
+
+    @Override
+    public boolean deleteCertificate(long certificateId) {
+        return certificateDAO.deleteCertificate(certificateId);
     }
 }

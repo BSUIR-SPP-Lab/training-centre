@@ -19,6 +19,8 @@ public class CertificateDAOImpl implements CertificateDAO {
             "VALUES (?, ?)";
     private static final String queryFindCertificates = "SELECT `certificate`.`certificate_id`, " +
             "`certificate`.`student_id`, `certificate`.`group_id` FROM `certificate`";
+    private static final String queryFindCertificatesByUserId = "SELECT `certificate`.`certificate_id`, " +
+            "`certificate`.`student_id`, `certificate`.`group_id` FROM `certificate` WHERE student_id=?";
     private static final String queryFindCertificate = "SELECT `certificate`.`certificate_id`, " +
             "`certificate`.`student_id`, `certificate`.`group_id` FROM `certificate` " +
             "WHERE `certificate`.certificate_id = ?";
@@ -49,6 +51,11 @@ public class CertificateDAOImpl implements CertificateDAO {
     @Override
     public List<Certificate> findCertificates() {
         return jdbcTemplate.query(queryFindCertificates, rowMapper);
+    }
+
+    @Override
+    public List<Certificate> findCertificates(long userId) {
+        return jdbcTemplate.query(queryFindCertificatesByUserId,new Object[]{userId}, rowMapper);
     }
 
     @Override

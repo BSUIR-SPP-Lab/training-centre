@@ -34,8 +34,8 @@ public class TeacherController {
         return ResponseEntity.ok(service.findTeachers());
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<List<Teacher>> findGroupTeachers(@PathVariable long id){
-        return ResponseEntity.ok(service.findGroupTeachers(id));
+    @GetMapping("/get/{groupId}")
+    public ResponseEntity<List<Teacher>> findGroupTeachers(@PathVariable long groupId){
+        return ResponseEntity.ok(service.findGroupTeachers(groupId));
     }
 }

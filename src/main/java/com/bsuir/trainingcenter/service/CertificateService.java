@@ -1,11 +1,12 @@
-package com.bsuir.trainingcenter.dao;
+package com.bsuir.trainingcenter.service;
 
 import com.bsuir.trainingcenter.entity.Certificate;
+import com.bsuir.trainingcenter.entity.view.CertificateInfoView;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface CertificateDAO {
+public interface CertificateService {
+    CertificateInfoView getCertificateInfo(int id);
 
     boolean addCertificate(Certificate certificate);
 
@@ -13,10 +14,7 @@ public interface CertificateDAO {
 
     List<Certificate> findCertificates(long userId);
 
-    Optional<Certificate> findCertificate(long certificateId);
-
     boolean updateCertificate(Certificate certificate);
 
     boolean deleteCertificate(long certificateId);
-
 }

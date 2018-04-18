@@ -2,7 +2,7 @@ package com.bsuir.trainingcenter.service.impl;
 
 
 import com.bsuir.trainingcenter.entity.view.CertificateInfoView;
-import com.bsuir.trainingcenter.service.CertificateInfoService;
+import com.bsuir.trainingcenter.service.CertificateService;
 import com.bsuir.trainingcenter.service.DocService;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.font.PdfFont;
@@ -27,7 +27,10 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -37,12 +40,12 @@ import static org.apache.poi.ss.util.CellUtil.createCell;
 public class DocServiceImpl implements DocService {
 
     @Autowired
-    private CertificateInfoService certificateInfoService;
+    private CertificateService certificateService;
 
 
     @Override
     public Resource generatePdfCertificate(int id) {
-        CertificateInfoView info = certificateInfoService.getCertificateInfo(id);
+        CertificateInfoView info = certificateService.getCertificateInfo(id);
         if (info == null) {
             return null;
         }
@@ -71,7 +74,7 @@ public class DocServiceImpl implements DocService {
 
     @Override
     public Resource generateXLSCertificate(int id) {
-        CertificateInfoView info = certificateInfoService.getCertificateInfo(id);
+        CertificateInfoView info = certificateService.getCertificateInfo(id);
         if (info == null) {
             return null;
         }
@@ -102,7 +105,7 @@ public class DocServiceImpl implements DocService {
 
     @Override
     public Resource generateCSVCertificate(int id) {
-        CertificateInfoView info = new CertificateInfoView(1, "Влад", "Белых", "Java", "1", "2"); // certificateInfoService.getCertificateInfo(id);
+        CertificateInfoView info = new CertificateInfoView(1, "Влад", "Белых", "Java", "1", "2"); // certificateService.getCertificateInfo(id);
         if (info == null) {
             return null;
         }
