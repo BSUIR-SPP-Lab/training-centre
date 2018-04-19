@@ -9,6 +9,9 @@ import {DropdownDirective} from "./shared/directives/dropdown.directive";
 import {CommonModule} from "@angular/common";
 import { CourseListComponent } from './start-page/course-list/course-list.component';
 import { ListItemComponent } from './start-page/course-list/list-item/list-item.component';
+import { PersonalCourseComponent } from './pages/personal-course/personal-course.component';
+import {MomentPipe} from "./shared/pipes/moment.pipe";
+import { PersonalSertificateComponent } from './pages/personal-sertificate/personal-sertificate.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { ListItemComponent } from './start-page/course-list/list-item/list-item.
     StarPageComponent,
     DropdownDirective,
     CourseListComponent,
-    ListItemComponent
+    ListItemComponent,
+    MomentPipe,
+    PersonalCourseComponent,
+    PersonalSertificateComponent
   ],
   providers: []
 })

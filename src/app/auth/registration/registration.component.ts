@@ -44,7 +44,7 @@ export class RegistrationComponent implements OnInit {
       });
   }
 
-  checkEmails(control: FormControl): Promise<any> {
+  checkEmails(control: FormControl) {//: Promise<any> {
     //TODO this
     // return new Promise((resolve, reject) => {
     //   this.userService.getUserByEmail(control.value)

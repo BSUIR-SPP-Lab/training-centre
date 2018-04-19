@@ -1,0 +1,68 @@
+<section class="section">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card">
+        <div class="card-header bordered">
+          <div class="header-block">
+            <h3 class="title">Мои курсы</h3>
+          </div>
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Название курса </th>
+            <th>Координатор</th>
+            <th>Дата начала</th>
+            <th>Дата окончания</th>
+            <th>Номер сертификата</th>
+            <th class="text-lg-center">Действие</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let s of sertificateList; let idx = index">
+            <th scope="row">{{idx + 1}}</th>
+            <td>{{s.courseName}}</td>
+            <td>{{s.coordinatorName}}</td>
+            <td>{{s.start | tcMoment}}</td>
+            <td>{{s.end | tcMoment}}</td>
+            <td class="text-lg-center" >{{s.sertificateId}}</td>
+
+            <td>
+              <ul >
+                <li class="profile dropdown" tcDropdown>
+                  <a class="nav-link dropdown-toggle"  role="button">
+                    <span class="name">
+                        Скачать сертификат
+                    </span>
+                  </a>
+                  <div class="dropdown-menu profile-dropdown-menu">
+
+                    <a class="dropdown-item" [routerLink]="['/system', 'start-page']">
+                      <i class="fa fa-gear icon"></i>PDF
+                    </a>
+
+                    <a class="dropdown-item" [routerLink]="['/system', 'start-page']">
+                      <i class="fa fa-gear icon"></i>CSV
+                    </a>
+                    <a class="dropdown-item" [routerLink]="['/system', 'start-page']">
+                      <i class="fa fa-gear icon"></i>XLS
+                    </a>
+
+                  </div>
+                </li>
+              </ul>
+            </td>
+
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</section>

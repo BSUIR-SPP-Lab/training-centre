@@ -1,0 +1,40 @@
+<section class="section">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card">
+        <div class="card-header bordered">
+          <div class="header-block">
+            <h3 class="title">Мои курсы</h3>
+          </div>
+        </div>
+
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Название</th>
+              <th>Описание</th>
+              <th>Дата начала</th>
+              <th>Дата окончания</th>
+              <th>Курс курирует</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let c of courseList; let idx = index">
+              <th scope="row">{{idx + 1}}</th>
+              <td>{{c.name}}</td>
+              <td>{{c.description}}</td>
+              <td>{{c.start | tcMoment}}</td>
+              <td>{{c.end | tcMoment}}</td>
+              <td>{{c.coordinatorId}}</td>
+            </tr>
+
+            </tbody>
+          </table>
+
+      </div>
+    </div>
+  </div>
+</section>

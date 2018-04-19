@@ -11,6 +11,7 @@ import {SystemModule} from "./system/system.module";
 import {UsersService} from "./shared/services/users.service";
 import {AuthService} from "./shared/services/auth.service";
 import {CourseService} from "./shared/services/course.service";
+import {SertificateService} from "./shared/services/sertificate.service";
 
 
 @NgModule({
@@ -25,7 +26,12 @@ import {CourseService} from "./shared/services/course.service";
     SystemModule,
     BrowserAnimationsModule
   ],
-  providers: [UsersService, AuthService, CourseService],
+  providers: [
+    UsersService,
+    AuthService,
+    CourseService,
+    SertificateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

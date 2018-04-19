@@ -3,5 +3,7 @@ export class Course {
               public name: string,
               public description: string,
               public coordinatorId: number,
-              public courseId?: number) {}
+              public courseId?: number,
+              public end?: Date,
+              public start?: Date) {}
 }
