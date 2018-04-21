@@ -10,9 +10,9 @@ public interface CertificateService {
 
     boolean addCertificate(Certificate certificate);
 
-    List<Certificate> findCertificates();
+    List<CertificateInfoView> findCertificates();
 
-    List<Certificate> findCertificates(long userId);
+    List<CertificateInfoView> findCertificates(long userId);
 
     boolean updateCertificate(Certificate certificate);
 

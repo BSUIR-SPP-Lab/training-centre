@@ -10,6 +10,8 @@ public interface UserService {
 
     List<User> findUsers();
 
+    List<User> findTeachers();
+
     User findUser(long id);
 
     User findUser(String login);

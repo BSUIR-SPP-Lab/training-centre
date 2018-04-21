@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.controller;
 
 import com.bsuir.trainingcenter.entity.Certificate;
+import com.bsuir.trainingcenter.entity.view.CertificateInfoView;
 import com.bsuir.trainingcenter.service.CertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,12 @@ public class CertificateController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<Certificate>> findCertificates(){
+    public ResponseEntity<List<CertificateInfoView>> findCertificates(){
         return ResponseEntity.ok(service.findCertificates());
     }
 
     @GetMapping("/get/{userId}")
-    public ResponseEntity<List<Certificate>> findCertificates(long userId){
+    public ResponseEntity<List<CertificateInfoView>> findCertificates(long userId){
         return ResponseEntity.ok(service.findCertificates(userId));
     }
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CertificateServiceImpl implements CertificateService {
@@ -39,19 +40,7 @@ public class CertificateServiceImpl implements CertificateService {
     public CertificateInfoView getCertificateInfo(int id) {
         Optional<Certificate> certificate= certificateDAO.findCertificate(id);
         if(certificate.isPresent()){
-            CertificateInfoView view = new CertificateInfoView();
-            view.setCertificateId(certificate.get().getCertificateId());
-
-            User user = userDAO.findUser(certificate.get().getStudentId()).get();
-            view.setFirstName(user.getFirstName());
-            view.setLastName(user.getLastName());
-
-            Group group = groupDAO.findGroup(certificate.get().getGroupId()).get();
-            CourseWithInfo course = courseDAO.findCourseWithInfo(group.getCourseId()).get();
-
-            view.setName(course.getName());
-            view.setStart(course.getStart().toString());
-            view.setEnd(course.getEnd().toString());
+            CertificateInfoView view = getCertificateInfoView(certificate.get());
             return view;
         }
         return null;
@@ -63,13 +52,13 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
-    public List<Certificate> findCertificates() {
-        return certificateDAO.findCertificates();
+    public List<CertificateInfoView> findCertificates() {
+        return certificateDAO.findCertificates().stream().map(this::getCertificateInfoView).collect(Collectors.toList());
     }
 
     @Override
-    public List<Certificate> findCertificates(long userId) {
-        return certificateDAO.findCertificates(userId);
+    public List<CertificateInfoView> findCertificates(long userId) {
+        return certificateDAO.findCertificates(userId).stream().map(this::getCertificateInfoView).collect(Collectors.toList());
     }
 
     @Override
@@ -80,5 +69,22 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public boolean deleteCertificate(long certificateId) {
         return certificateDAO.deleteCertificate(certificateId);
+    }
+
+    private CertificateInfoView getCertificateInfoView(Certificate certificate) {
+        CertificateInfoView view = new CertificateInfoView();
+        view.setCertificateId(certificate.getCertificateId());
+
+        User user = userDAO.findUser(certificate.getStudentId()).get();
+        view.setFirstName(user.getFirstName());
+        view.setLastName(user.getLastName());
+
+        Group group = groupDAO.findGroup(certificate.getGroupId()).get();
+        CourseWithInfo course = courseDAO.findCourseWithInfo(group.getCourseId()).get();
+
+        view.setName(course.getName());
+        view.setStart(course.getStart().toString());
+        view.setEnd(course.getEnd().toString());
+        return view;
     }
 }

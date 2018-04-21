@@ -38,6 +38,12 @@ public class UserController {
 
     }
 
+    @GetMapping("/teachers")
+    public ResponseEntity<List<User>> findTeachers(){
+        return new ResponseEntity<>(userService.findTeachers(), HttpStatus.OK);
+
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> findUser(@PathVariable Long id){
         ResponseEntity response;
