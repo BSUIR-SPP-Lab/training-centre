@@ -24,19 +24,19 @@ public class CourseDAOImpl implements CourseDAO {
             "            `course`.`start`, `course`.`end`, `course`.`coordinator_id`,\n" +
             "            `course_info`.`name`, `course_info`.`description`,`user`.`first_name`,`user`.`last_name` FROM `course` \n" +
             "            JOIN `course_info` ON `course`.`course_info_id` = `course_info`.`course_info_id`\n" +
-            "            JOIN `user` ON course.coordinator_id = user.user_id\n";
+            "            JOIN `user` ON course.coordinator_id = `user`.user_id\n";
     private static final String queryFindCourse = "SELECT `course`.`course_id`, `course`.`course_info_id`, " +
             "`course`.`start`, `course`.`end`, `course`.`coordinator_id` FROM `course` WHERE `course`.`course_id` = ?";
     private static final String queryFindCourseWithInfo = "SELECT `course`.`course_id`, `course`.`course_info_id`, \n" +
             "            `course`.`start`, `course`.`end`, `course`.`coordinator_id`,\n" +
             "            `course_info`.`name`, `course_info`.`description`,`user`.`first_name`,`user`.last_name FROM `course` \n" +
             "            JOIN `course_info` ON `course`.`course_info_id` = `course_info`.`course_info_id`\n" +
-            "            JOIN `user` ON course.coordinator_id = user.user_id\n" +
+            "            JOIN `user` ON course.coordinator_id = `user`.user_id\n" +
             "            WHERE `course`.`course_id` = ?";
     private static final String queryUpdateCourse = "UPDATE `course` SET `course`.`course_info_id` = ?, " +
             "`course`.`coordinator_id` = ?, `course`.`start` = ?, `course`.`end` = ? WHERE `course`.`course_id` = ?";
     private static final String queryDeleteCourse = "DELETE FROM `course` WHERE `course_id` = ?";
-    private static final String getQueryFindCoursesByUserId = "SELECT\n" +
+    private static final String queryFindCoursesByUserId = "SELECT\n" +
             "  `course`.`course_id`, `course`.`course_info_id`,`course`.`start`,`course`.`end`,\n" +
             "  `course`.`coordinator_id`, `course_info`.`name`,`course_info`.`description`, `user`.`first_name`,`user`.last_name\n" +
             "FROM `student_group`\n" +
@@ -45,6 +45,13 @@ public class CourseDAOImpl implements CourseDAO {
             "  JOIN course_info ON course.course_info_id = course_info.course_info_id\n" +
             "  JOIN user ON course.coordinator_id = `user`.user_id\n" +
             "WHERE student_group.student_id = ?";
+    private static final String queryFindCoursesByCoordinatorId = "SELECT\n" +
+            "  `course`.`course_id`,`course`.`course_info_id`, `course`.`start`,`course`.`end`,\n" +
+            "  `course`.`coordinator_id`,`course_info`.`name`,`course_info`.`description`,`user`.`first_name`,`user`.`last_name`\n" +
+            "FROM `course`\n" +
+            "  JOIN `course_info` ON `course`.`course_info_id` = `course_info`.`course_info_id`\n" +
+            "  JOIN `user` ON course.coordinator_id = `user`.user_id\n" +
+            " WHERE coordinator_id=?";
 
     private JdbcTemplate jdbcTemplate;
     private RowMapper<Course> rowMapper = ((resultSet, i) -> {
@@ -94,7 +101,12 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     public List<CourseWithInfo> findCoursesWithInfoByUserId(long userId) {
-        return jdbcTemplate.query(getQueryFindCoursesByUserId, new Object[]{userId}, rowMapperWithInfo);
+        return jdbcTemplate.query(queryFindCoursesByUserId, new Object[]{userId}, rowMapperWithInfo);
+    }
+
+    @Override
+    public List<CourseWithInfo> findCoursesWithInfoByCoordinatorId(long userId) {
+        return jdbcTemplate.query(queryFindCoursesByCoordinatorId, new Object[]{userId}, rowMapperWithInfo);
     }
 
     @Override

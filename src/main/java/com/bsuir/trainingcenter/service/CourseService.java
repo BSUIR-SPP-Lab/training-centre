@@ -22,4 +22,6 @@ public interface CourseService {
     CourseWithInfoView findCourseWithInfo(long courseId);
 
     List<CourseWithInfo> findCoursesWithInfoByUserId(long userId);
+
+    List<CourseWithInfo> findCoursesWithInfoByCoordinatorId(long userId);
 }

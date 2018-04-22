@@ -88,4 +88,8 @@ public class CourseController {
     public ResponseEntity<List<CourseWithInfo>> findCourseWithInfoByUserId(@PathVariable long userId){
         return new ResponseEntity<>(courseService.findCoursesWithInfoByUserId(userId), HttpStatus.OK);
     }
+    @GetMapping("/get/coursesWithInfoByCoordinatorId/{coordinatorId}")
+    public ResponseEntity<List<CourseWithInfo>> findCourseWithInfoByCoordinatorId(@PathVariable long coordinatorId){
+        return new ResponseEntity<>(courseService.findCoursesWithInfoByCoordinatorId(coordinatorId), HttpStatus.OK);
+    }
 }
