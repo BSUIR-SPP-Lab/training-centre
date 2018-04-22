@@ -1,14 +1,15 @@
 package com.bsuir.trainingcenter.entity;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CourseWithInfo {
     private long courseId;
     private long courseInfoId;
     private long coordinatorId;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private String firstName;
+    private String lastName;
+    private String start;
+    private String end;
     private String name;
     //can be null
     private String description;
@@ -16,10 +17,12 @@ public class CourseWithInfo {
     public CourseWithInfo() {
     }
 
-    public CourseWithInfo(long courseId, long courseInfoId, long coordinatorId, LocalDateTime start, LocalDateTime end, String name, String description) {
+    public CourseWithInfo(long courseId, long courseInfoId, long coordinatorId, String firstName, String lastName, String start, String end, String name, String description) {
         this.courseId = courseId;
         this.courseInfoId = courseInfoId;
         this.coordinatorId = coordinatorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.start = start;
         this.end = end;
         this.name = name;
@@ -50,19 +53,19 @@ public class CourseWithInfo {
         this.coordinatorId = coordinatorId;
     }
 
-    public LocalDateTime getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public LocalDateTime getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDateTime end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 
@@ -82,6 +85,22 @@ public class CourseWithInfo {
         this.description = description;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,6 +109,8 @@ public class CourseWithInfo {
         return courseId == that.courseId &&
                 courseInfoId == that.courseInfoId &&
                 coordinatorId == that.coordinatorId &&
+                Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName) &&
                 Objects.equals(start, that.start) &&
                 Objects.equals(end, that.end) &&
                 Objects.equals(name, that.name) &&
@@ -99,7 +120,7 @@ public class CourseWithInfo {
     @Override
     public int hashCode() {
 
-        return Objects.hash(courseId, courseInfoId, coordinatorId, start, end, name, description);
+        return Objects.hash(courseId, courseInfoId, coordinatorId, firstName, lastName, start, end, name, description);
     }
 
     @Override
@@ -108,10 +129,13 @@ public class CourseWithInfo {
                 "courseId=" + courseId +
                 ", courseInfoId=" + courseInfoId +
                 ", coordinatorId=" + coordinatorId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", start=" + start +
                 ", end=" + end +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
+
 }

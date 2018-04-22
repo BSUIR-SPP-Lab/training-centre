@@ -20,17 +20,19 @@ public class CourseDAOImpl implements CourseDAO {
             "`start`, `end`) VALUES (?, ?, ?, ?)";
     private static final String queryFindCourses = "SELECT `course`.`course_id`, `course`.`course_info_id`, " +
             "`course`.`start`, `course`.`end`, `course`.`coordinator_id` FROM `course`";
-    private static final String queryFindCoursesWithInfo = "SELECT `course`.`course_id`, `course`.`course_info_id`, " +
-            "`course`.`start`, `course`.`end`, `course`.`coordinator_id`, " +
-            "`course_info`.`name`, `course_info`.`description` FROM `course` " +
-            "JOIN `course_info` ON `course`.`course_info_id` = `course_info`.`course_info_id`";
+    private static final String queryFindCoursesWithInfo = "SELECT `course`.`course_id`, `course`.`course_info_id`, \n" +
+            "            `course`.`start`, `course`.`end`, `course`.`coordinator_id`,\n" +
+            "            `course_info`.`name`, `course_info`.`description`,`user`.`first_name`,`user`.`last_name` FROM `course` \n" +
+            "            JOIN `course_info` ON `course`.`course_info_id` = `course_info`.`course_info_id`\n" +
+            "            JOIN `user` ON course.coordinator_id = user.user_id\n";
     private static final String queryFindCourse = "SELECT `course`.`course_id`, `course`.`course_info_id`, " +
             "`course`.`start`, `course`.`end`, `course`.`coordinator_id` FROM `course` WHERE `course`.`course_id` = ?";
-    private static final String queryFindCourseWithInfo = "SELECT `course`.`course_id`, `course`.`course_info_id`, " +
-            "`course`.`start`, `course`.`end`, `course`.`coordinator_id`, " +
-            "`course_info`.`name`, `course_info`.`description` FROM `course` " +
-            "JOIN `course_info` ON `course`.`course_info_id` = `course_info`.`course_info_id` " +
-            "WHERE `course`.`course_id` = ?";
+    private static final String queryFindCourseWithInfo = "SELECT `course`.`course_id`, `course`.`course_info_id`, \n" +
+            "            `course`.`start`, `course`.`end`, `course`.`coordinator_id`,\n" +
+            "            `course_info`.`name`, `course_info`.`description`,`user`.`first_name`,`user`.last_name FROM `course` \n" +
+            "            JOIN `course_info` ON `course`.`course_info_id` = `course_info`.`course_info_id`\n" +
+            "            JOIN `user` ON course.coordinator_id = user.user_id\n" +
+            "            WHERE `course`.`course_id` = ?";
     private static final String queryUpdateCourse = "UPDATE `course` SET `course`.`course_info_id` = ?, " +
             "`course`.`coordinator_id` = ?, `course`.`start` = ?, `course`.`end` = ? WHERE `course`.`course_id` = ?";
     private static final String queryDeleteCourse = "DELETE FROM `course` WHERE `course_id` = ?";
@@ -52,10 +54,12 @@ public class CourseDAOImpl implements CourseDAO {
         courseWithInfo.setCourseId(resultSet.getLong("course_id"));
         courseWithInfo.setCoordinatorId(resultSet.getLong("coordinator_id"));
         courseWithInfo.setCourseInfoId(resultSet.getLong("course_info_id"));
-        courseWithInfo.setStart(resultSet.getTimestamp("start").toLocalDateTime());
-        courseWithInfo.setEnd(resultSet.getTimestamp("end").toLocalDateTime());
+        courseWithInfo.setStart(resultSet.getTimestamp("start").toLocalDateTime().toString());
+        courseWithInfo.setEnd(resultSet.getTimestamp("end").toLocalDateTime().toString());
         courseWithInfo.setName(resultSet.getString("name"));
         courseWithInfo.setDescription(resultSet.getString("description"));
+        courseWithInfo.setFirstName(resultSet.getString("first_name"));
+        courseWithInfo.setLastName(resultSet.getString("last_name"));
         return courseWithInfo;
     });
 
