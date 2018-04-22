@@ -77,4 +77,9 @@ public class CourseServiceImpl implements CourseService {
         }
         return view;
     }
+
+    @Override
+    public List<CourseWithInfo> findCoursesWithInfoByUserId(long userId) {
+        return courseDAO.findCoursesWithInfoByUserId(userId);
+    }
 }

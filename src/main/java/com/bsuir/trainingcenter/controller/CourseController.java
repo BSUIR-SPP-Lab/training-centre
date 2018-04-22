@@ -5,13 +5,10 @@ import com.bsuir.trainingcenter.entity.view.CourseView;
 import com.bsuir.trainingcenter.entity.view.CourseWithInfoView;
 import com.bsuir.trainingcenter.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.annotation.MultipartConfig;
-import javax.xml.ws.http.HTTPBinding;
 import java.util.List;
 
 @RestController
@@ -86,5 +83,9 @@ public class CourseController {
     @GetMapping("/get/courseWithInfo/{courseId}")
     public ResponseEntity<CourseWithInfoView> findCourseWithInfo(@PathVariable long courseId){
         return new ResponseEntity<>(courseService.findCourseWithInfo(courseId), HttpStatus.OK);
+    }
+    @GetMapping("/get/coursesWithInfoByUserId/{userId}")
+    public ResponseEntity<List<CourseWithInfo>> findCourseWithInfoByUserId(@PathVariable long userId){
+        return new ResponseEntity<>(courseService.findCoursesWithInfoByUserId(userId), HttpStatus.OK);
     }
 }

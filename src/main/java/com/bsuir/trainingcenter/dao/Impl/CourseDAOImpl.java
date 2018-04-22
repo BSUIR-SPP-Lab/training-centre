@@ -36,7 +36,15 @@ public class CourseDAOImpl implements CourseDAO {
     private static final String queryUpdateCourse = "UPDATE `course` SET `course`.`course_info_id` = ?, " +
             "`course`.`coordinator_id` = ?, `course`.`start` = ?, `course`.`end` = ? WHERE `course`.`course_id` = ?";
     private static final String queryDeleteCourse = "DELETE FROM `course` WHERE `course_id` = ?";
-
+    private static final String getQueryFindCoursesByUserId = "SELECT\n" +
+            "  `course`.`course_id`, `course`.`course_info_id`,`course`.`start`,`course`.`end`,\n" +
+            "  `course`.`coordinator_id`, `course_info`.`name`,`course_info`.`description`, `user`.`first_name`,`user`.last_name\n" +
+            "FROM `student_group`\n" +
+            "  JOIN `group` ON student_group.group_id = `group`.group_id\n" +
+            "  JOIN course ON `group`.course_id = course.course_id\n" +
+            "  JOIN course_info ON course.course_info_id = course_info.course_info_id\n" +
+            "  JOIN user ON course.coordinator_id = `user`.user_id\n" +
+            "WHERE student_group.student_id = ?";
 
     private JdbcTemplate jdbcTemplate;
     private RowMapper<Course> rowMapper = ((resultSet, i) -> {
@@ -82,6 +90,11 @@ public class CourseDAOImpl implements CourseDAO {
     @Override
     public List<CourseWithInfo> findCoursesWithInfo() {
         return jdbcTemplate.query(queryFindCoursesWithInfo, rowMapperWithInfo);
+    }
+
+    @Override
+    public List<CourseWithInfo> findCoursesWithInfoByUserId(long userId) {
+        return jdbcTemplate.query(getQueryFindCoursesByUserId, new Object[]{userId}, rowMapperWithInfo);
     }
 
     @Override

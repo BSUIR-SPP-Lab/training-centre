@@ -14,6 +14,8 @@ public interface CourseDAO {
 
     List<CourseWithInfo> findCoursesWithInfo();
 
+    List<CourseWithInfo> findCoursesWithInfoByUserId(long userId);
+
     Optional<Course> findCourse(long courseId);
 
     Optional<CourseWithInfo> findCourseWithInfo(long courseId);
