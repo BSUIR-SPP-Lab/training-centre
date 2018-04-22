@@ -12,6 +12,8 @@ public interface GroupService {
 
     Group findGroup(long groupId);
 
+    List<Long> findGroupIdByCourseAndUserId(long userId, long courseId);
+
     boolean updateGroup(Group group);
 
     boolean deleteGroup(long groupId);

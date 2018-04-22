@@ -34,6 +34,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public List<Long> findGroupIdByCourseAndUserId(long userId, long courseId) {
+        return groupDAO.findGroupIdByCourseAndUserId(userId,courseId);
+    }
+
+    @Override
     public boolean updateGroup(Group group) {
         return groupDAO.updateGroup(group);
     }

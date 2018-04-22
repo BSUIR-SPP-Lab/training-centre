@@ -17,47 +17,55 @@ public class GroupController {
     private GroupService groupService;
 
     @PostMapping("/add")
-    public ResponseEntity addGroup(@RequestBody Group group){
+    public ResponseEntity addGroup(@RequestBody Group group) {
         ResponseEntity response;
-        if(groupService.addGroup(group)){
-            response=new ResponseEntity( HttpStatus.OK);
-        }else {
-            response=new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (groupService.addGroup(group)) {
+            response = new ResponseEntity(HttpStatus.OK);
+        } else {
+            response = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return response;
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Group>> findGroups(){
+    public ResponseEntity<List<Group>> findGroups() {
         return new ResponseEntity<>(groupService.findGroups(), HttpStatus.OK);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Group> findGroup(@PathVariable Long id){
+    public ResponseEntity<Group> findGroup(@PathVariable Long id) {
         return new ResponseEntity<>(groupService.findGroup(id), HttpStatus.OK);
     }
 
     @PostMapping("/update/{groupId}")
-    public ResponseEntity updateGroup(@PathVariable Long groupId,@RequestBody Group group){
+    public ResponseEntity updateGroup(@PathVariable Long groupId, @RequestBody Group group) {
         ResponseEntity response;
         group.setGroupId(groupId);
-        if(groupService.updateGroup(group)){
-            response=new ResponseEntity( HttpStatus.OK);
-        }else {
-            response=new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (groupService.updateGroup(group)) {
+            response = new ResponseEntity(HttpStatus.OK);
+        } else {
+            response = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return response;
     }
 
+    @GetMapping("/groupId/{courseId}/{userId}")
+    public ResponseEntity<List<Long>> findGroupIdByCourseAndUserId(@PathVariable Long userId, @PathVariable Long courseId) {
+        List<Long> result = groupService.findGroupIdByCourseAndUserId(userId, courseId);
+        return ResponseEntity.ok(result);
+
+
+    }
+
     @CrossOrigin
     @DeleteMapping("/delete/{groupId}")
-    public ResponseEntity deleteGroup(@PathVariable Long groupId){
+    public ResponseEntity deleteGroup(@PathVariable Long groupId) {
         ResponseEntity response;
-        if(groupService.deleteGroup(groupId)){
-            response=new ResponseEntity( HttpStatus.OK);
-        }else {
-            response=new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (groupService.deleteGroup(groupId)) {
+            response = new ResponseEntity(HttpStatus.OK);
+        } else {
+            response = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return response;
     }

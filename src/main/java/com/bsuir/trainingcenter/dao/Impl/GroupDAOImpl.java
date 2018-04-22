@@ -23,6 +23,9 @@ public class GroupDAOImpl implements GroupDAO {
     private static final String queryUpdateGroup = "UPDATE `group` SET `group`.`course_id` = ?, " +
             "`group`.`coordinator_id` = ? WHERE `group`.`group_id` = ?";
     private static final String queryDeleteGroup = "DELETE FROM `group` WHERE `group_id` = ?";
+    private static final String queryFindGroupIdByCourseAndUserId ="SELECT g.group_id FROM student_group\n" +
+            "JOIN `group` g ON student_group.group_id = g.group_id\n" +
+            "WHERE student_group.student_id=? AND g.course_id=?";
 
 
     private JdbcTemplate jdbcTemplate;
@@ -53,6 +56,12 @@ public class GroupDAOImpl implements GroupDAO {
     public Optional<Group> findGroup(long groupId) {
         List<Group> queryResults = jdbcTemplate.query(queryFindGroupById, new Object[]{groupId}, rowMapper);
         return ListHelper.getFirst(queryResults);
+    }
+
+    @Override
+    public List<Long> findGroupIdByCourseAndUserId(long userId, long courseId){
+        return jdbcTemplate.query(queryFindGroupIdByCourseAndUserId, new Object[]{userId, courseId}, (resultSet, i) -> resultSet.getLong("group_id"));
+
     }
 
     @Override
