@@ -12,6 +12,7 @@ import { ListItemComponent } from './start-page/course-list/list-item/list-item.
 import { PersonalCourseComponent } from './pages/personal-course/personal-course.component';
 import {MomentPipe} from "./shared/pipes/moment.pipe";
 import { PersonalSertificateComponent } from './pages/personal-sertificate/personal-sertificate.component';
+import { RoleControllerComponent } from './pages/role-controller/role-controller.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { PersonalSertificateComponent } from './pages/personal-sertificate/perso
     ListItemComponent,
     MomentPipe,
     PersonalCourseComponent,
-    PersonalSertificateComponent
+    PersonalSertificateComponent,
+    RoleControllerComponent
   ],
   providers: []
 })

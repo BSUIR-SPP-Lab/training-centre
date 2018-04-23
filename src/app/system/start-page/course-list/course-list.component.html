@@ -14,7 +14,19 @@
             </div>
 
             <div>
-              Курс ведет: {{c.coordinatorId}}
+              Курс ведет: {{c.firstName}} {{c.lastName}}
+            </div>
+
+            <div>
+              Дата начала: {{c.start | tcMoment }}
+            </div>
+
+            <div>
+              Дата окончания: {{c.end | tcMoment }}
+            </div>
+
+            <div>
+              Описание: {{c.description}}
             </div>
 
             <div class="buttonDes">

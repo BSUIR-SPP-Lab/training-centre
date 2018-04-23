@@ -24,7 +24,7 @@
       </ul>
     </nav>
 
-    <nav class="menu" *ngIf="role == 'USER'">
+    <nav class="menu" *ngIf="role == 'STUDENT'">
       <ul class="nav metismenu">
 
         <li routerLinkActive="active">
@@ -37,6 +37,20 @@
 
         <li routerLinkActive="active">
           <a [routerLink]="['', 'registration']"> <i class="fa fa-user-plus"></i> Отправить решение </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['', 'login']"> <i class="fa fa-sign-in"></i> Выйти </a>
+        </li>
+      </ul>
+    </nav>
+
+    <nav class="menu" *ngIf="role == 'ADMIN'">
+      <ul class="nav metismenu">
+
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'role-controller']"> <i class="fa fa-sign-in"></i> Управление ролями </a>
         </li>
 
         <li routerLinkActive="active">

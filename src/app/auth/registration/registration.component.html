@@ -18,9 +18,31 @@
     >
       <span *ngIf="form.get('email')['errors']['required']"> Email должен быть заполнен. </span>
       <span *ngIf="form.get('email')['errors']['email']"> Введите корректный email.</span>
-      <span *ngIf="form.get('email')['errors']['forbiddenEmail']"> Такой email уже используется.</span>
     </span>
   </div>
+
+  <div
+    class="form-group"
+    [ngClass]="{'has-error': form.get('login').invalid && form.get('login').touched}"
+  >
+    <label for="login">login</label>
+    <input
+      type="text"
+      class="form-control underlined"
+      id="login"
+      placeholder="Введите login"
+      formControlName="login"
+    >
+    <span
+      class="form-help-text"
+      *ngIf="form.get('login').invalid && form.get('login').touched"
+    >
+      <span *ngIf="form.get('login')['errors']['required']"> login должен быть заполнен. </span>
+      <span *ngIf="form.get('login')['errors']['email']"> Введите корректный login.</span>
+      <span *ngIf="form.get('login')['errors']['forbiddenLogin']"> Такой login уже используется.</span>
+    </span>
+  </div>
+
   <div
     class="form-group"
     [ngClass]="{'has-error': form.get('password').invalid && form.get('password').touched}">

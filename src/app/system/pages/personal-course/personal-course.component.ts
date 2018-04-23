@@ -21,8 +21,8 @@ export class PersonalCourseComponent implements OnInit {
     //TODO Sub ant other
     this.user = JSON.parse(window.localStorage.getItem('user'));
 
-    this.courseList = this.courseService.getCourseForID(this.user.id);
-    console.log(this.courseList);
+    //this.courseList = this.courseService.getCourseForID(this.user.id);
+    //console.log(this.courseList);
 
   }
 
