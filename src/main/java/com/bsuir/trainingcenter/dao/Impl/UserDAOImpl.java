@@ -77,7 +77,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Optional<User> findUser(String login) {
-        List<User> queryResults = jdbcTemplate.query(queryFindUserById, new Object[]{login}, rowMapper);
+        List<User> queryResults = jdbcTemplate.query(queryFindUserByLogin, new Object[]{login}, rowMapper);
         return ListHelper.getFirst(queryResults);
     }
 

@@ -56,7 +56,7 @@ public class UserController {
         return response;
     }
 
-    @GetMapping("/{login}")
+    @GetMapping("/byLogin/{login}")
     public ResponseEntity<User> findUser(@PathVariable String login){
         ResponseEntity response;
         User user = userService.findUser(login);
