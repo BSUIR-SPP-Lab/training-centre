@@ -1,34 +1,23 @@
 <section class="section">
   <div class="row">
-
+<style>
+  p.short20{
+    max-height: 70px;
+    overflow: hidden;
+  }
+</style>
     <div *ngFor="let c of courseList">
       <div class="col-md-4 ">
-        <div class="card">
-          <div class="cell" >
-            <h3>
-              {{c.name}}
-            </h3>
-
-            <div>
-              Описание: {{c.description}}
+        <div class="card" style="height: 420px">
+          <div class="cell" style="max-height: 420px; overflow: hidden">
+            <div style="height: 340px; overflow: hidden">
+              <h3>{{c.name}}</h3>
+              <p class="short20" title="{{c.description}}">Описание: {{c.description}}</p>
+              <p class="short20" title="{{c.firstName}} {{c.lastName}}">Курс ведет: {{c.firstName}} {{c.lastName}}</p>
+              <p class="short20" title="{{c.start | tcMoment }}">Дата начала: {{c.start | tcMoment }}</p>
+              <p class="short20" title="{{c.end | tcMoment }}">Дата окончания: {{c.end | tcMoment }}</p>
+              <p class="short20" title="{{c.description}}">Описание: {{c.description}}</p>
             </div>
-
-            <div>
-              Курс ведет: {{c.firstName}} {{c.lastName}}
-            </div>
-
-            <div>
-              Дата начала: {{c.start | tcMoment }}
-            </div>
-
-            <div>
-              Дата окончания: {{c.end | tcMoment }}
-            </div>
-
-            <div>
-              Описание: {{c.description}}
-            </div>
-
             <div class="buttonDes">
               <button type="button" class="btn btn-primary btn-block" (click)="onEnroll(c.courseId)">Записаться</button>
             </div>

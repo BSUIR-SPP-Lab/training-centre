@@ -18,6 +18,7 @@
               <th>Дата начала</th>
               <th>Дата окончания</th>
               <th>Курс курирует</th>
+              <th>Действие </th>
             </tr>
             </thead>
 
@@ -28,7 +29,11 @@
               <td>{{c.description}}</td>
               <td>{{c.start | tcMoment}}</td>
               <td>{{c.end | tcMoment}}</td>
-              <td>{{c.coordinatorId}}</td>
+              <td>{{c.firstName}} {{c.lastName}}</td>
+              <td class="text-lg-center">
+                <a [routerLink]="['/system/course-detail', c.courseId]" class="btn btn-primary-outline">Открыть подробности</a>
+              </td>
+
             </tr>
 
             </tbody>

@@ -1,0 +1,98 @@
+<div class="text-center" *ngIf="!isLoaded">
+
+</div>
+<div *ngIf="isLoaded">
+  <div class="title-block">
+    <h3 class="title">
+      <a [routerLink]="['/system/personal-course']"><i class="fa fa-arrow-left"></i></a>
+      Информация о курсе № {{courseInfo.courseId}}
+      <span class="sparkline bar"></span>
+    </h3>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+          <div class="card">
+
+            <div class="card-block ">
+              <h4 class="card-title ">{{courseInfo.name}}</h4>
+              <p class="card-text">{{courseInfo.description}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"> Куратор курса: <strong>{{courseInfo.firstName}} {{courseInfo.lastName}}</strong></li>
+              <li class="list-group-item">Дата начала: <strong>{{courseInfo.start | tcMoment}}</strong> </li>
+              <li class="list-group-item">Дата окончания: <strong>{{courseInfo.end | tcMoment}}</strong></li>
+
+              <li class="list-group-item">
+                    <ul >
+                      <li class="profile dropdown" tcDropdown>
+
+                        <a class="nav-link dropdown-toggle"  role="button">
+                          <span class="name">
+                              Список курса
+                          </span>
+                        </a>
+
+                        <div class="dropdown-menu profile-dropdown-menu">
+
+                          <a href="{{documentServerRoute}}{{routeCourseListPDF}}{{courseID}}" class="dropdown-item">
+                            <i class="fa fa-gear icon"></i>PDF
+                          </a>
+
+                          <a href="{{documentServerRoute}}{{routeCourseListCVS}}{{courseID}}" class="dropdown-item">
+                            <i class="fa fa-gear icon"></i>CSV
+                          </a>
+
+                          <a href="{{documentServerRoute}}{{routeCourseListXLS}}{{courseID}}" class="dropdown-item">
+                            <i class="fa fa-gear icon"></i>XLS
+                          </a>
+
+                        </div>
+                      </li>
+                    </ul>
+              </li>
+
+              <li class="list-group-item">
+                <ul >
+                  <li class="profile dropdown" tcDropdown>
+
+                    <a class="nav-link dropdown-toggle"  role="button">
+                          <span class="name">
+                              Список группы
+                          </span>
+                    </a>
+
+                    <div class="dropdown-menu profile-dropdown-menu">
+
+                      <a href="{{documentServerRoute}}{{routeGroupListPDF}}{{groupID}}" class="dropdown-item">
+                        <i class="fa fa-gear icon"></i>PDF
+                      </a>
+
+                      <a href="{{documentServerRoute}}{{routeGroupListCVS}}{{groupID}}" class="dropdown-item">
+                        <i class="fa fa-gear icon"></i>CSV
+                      </a>
+
+                      <a href="{{documentServerRoute}}{{routeGroupListXLS}}{{groupID}}" class="dropdown-item">
+                        <i class="fa fa-gear icon"></i>XLS
+                      </a>
+
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">
+                <a [routerLink]="['/system/task-list', courseInfo.courseId ]" class="card-link">Открыть список заданий</a>
+              </li>
+
+
+            </ul>
+          </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!--<a href="http://localhost:8181/pdfCertificate/3" class="card-link">Список группы</a>-->

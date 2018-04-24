@@ -20,4 +20,9 @@ export  class CourseService extends BaseApi {
     return this.get(`/course/get/coursesWithInfoByUserId/${id}`);
   }
 
+  getCourseForCourseID(id: number): Observable<Course> {
+    return this.get(`/course/get/courseWithInfo/${id}`);
+  }
+
+
 }

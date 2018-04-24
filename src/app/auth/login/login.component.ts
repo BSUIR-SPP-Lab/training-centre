@@ -5,6 +5,7 @@ import {AuthService} from "../../shared/services/auth.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Message} from "../../shared/models/message.model";
 import {fadeStateTrigger} from "../../shared/animations/fade.animation";
+import {User} from "../../shared/models/user.model";
 
 
 @Component({
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
       });
 
     this.form = new FormGroup({
-      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'login': new FormControl(null, [Validators.required]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
     });
   }
@@ -64,16 +65,17 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const formData = this.form.value;
-    console.log("Ты не написал реализацию для этого метода.");
-    //TODO
-    // this.usersService.getUserByEmail(formData.email)
+    console.log(formData);
+    console.log('This is stub.');
+    // this.usersService.getUserByLogin(formData.login)
     //   .subscribe( (user: User) => {
+    //     console.log(user);
     //     if (user) {
     //       if (user.password === formData.password) {
     //         this.message.text = '';
     //         this.authService.login();
     //         window.localStorage.setItem('user', JSON.stringify(user));
-    //         this.router.navigate(['/system', 'bill']);
+    //         this.router.navigate(['/system', 'start-page']);
     //       } else {
     //         this.showMessage( {
     //           text: 'пароль не верный!',

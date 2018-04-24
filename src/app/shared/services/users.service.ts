@@ -40,7 +40,7 @@ export  class UsersService extends BaseApi {
   }
 
   getUserByLogin(login: string): Observable<User> {
-    return this.get(`user/${login}`)
+    return this.get(`/user/byLogin/${login}`)
       .catch((error: any) =>  null );
   }
 

@@ -33,6 +33,10 @@ export class BaseApi {
       .map((response: Response) => response.json());
   }
 
+  public getDocumentServerRoute(): string {
+    return this.baseUrl ;
+  }
+
   errorHandler(error: any): void {
     console.log(error);
   }

@@ -25,21 +25,21 @@
     class="form-group"
     [ngClass]="{'has-error': form.get('login').invalid && form.get('login').touched}"
   >
-    <label for="login">login</label>
+    <label for="login">Логин</label>
     <input
       type="text"
       class="form-control underlined"
       id="login"
-      placeholder="Введите login"
+      placeholder="Введите логин"
       formControlName="login"
     >
     <span
       class="form-help-text"
       *ngIf="form.get('login').invalid && form.get('login').touched"
     >
-      <span *ngIf="form.get('login')['errors']['required']"> login должен быть заполнен. </span>
-      <span *ngIf="form.get('login')['errors']['email']"> Введите корректный login.</span>
-      <span *ngIf="form.get('login')['errors']['forbiddenLogin']"> Такой login уже используется.</span>
+      <span *ngIf="form.get('login')['errors']['required']"> Логин должен быть заполнен. </span>
+      <span *ngIf="form.get('login')['errors']['email']"> Введите корректный Логин.</span>
+      <span *ngIf="form.get('login')['errors']['forbiddenLogin']"> Такой Логин уже используется.</span>
     </span>
   </div>
 
