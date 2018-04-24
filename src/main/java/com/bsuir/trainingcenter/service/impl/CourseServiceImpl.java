@@ -63,8 +63,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseWithInfo> findCoursesWithInfo() {
-        return courseDAO.findCoursesWithInfo();
+    public List<CourseWithInfoView> findCoursesWithInfo() {
+        List<CourseWithInfoView> list = new ArrayList<>();
+        for (CourseWithInfo course : courseDAO.findCoursesWithInfo()) {
+            list.add(new CourseWithInfoView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(),course.getFirstName(),course.getLastName(), course.getStart().toString(), course.getEnd().toString(),course.getName(),course.getDescription()));
+        }
+        return list;
     }
 
     @Override
@@ -73,18 +77,26 @@ public class CourseServiceImpl implements CourseService {
         CourseWithInfoView view = null;
         if(foundedCourse.isPresent()){
             CourseWithInfo course = foundedCourse.get();
-            view=new CourseWithInfoView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(), course.getStart().toString(), course.getEnd().toString(),course.getName(),course.getDescription());
+            view=new CourseWithInfoView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(),course.getFirstName(),course.getLastName(), course.getStart().toString(), course.getEnd().toString(),course.getName(),course.getDescription());
         }
         return view;
     }
 
     @Override
-    public List<CourseWithInfo> findCoursesWithInfoByUserId(long userId) {
-        return courseDAO.findCoursesWithInfoByUserId(userId);
+    public List<CourseWithInfoView> findCoursesWithInfoByUserId(long userId) {
+        List<CourseWithInfoView> list = new ArrayList<>();
+        for (CourseWithInfo course : courseDAO.findCoursesWithInfoByUserId(userId)) {
+            list.add(new CourseWithInfoView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(),course.getFirstName(),course.getLastName(), course.getStart().toString(), course.getEnd().toString(),course.getName(),course.getDescription()));
+        }
+        return list;
     }
 
     @Override
-    public List<CourseWithInfo> findCoursesWithInfoByCoordinatorId(long userId) {
-        return courseDAO.findCoursesWithInfoByCoordinatorId(userId);
+    public List<CourseWithInfoView> findCoursesWithInfoByCoordinatorId(long userId) {
+        List<CourseWithInfoView> list = new ArrayList<>();
+        for (CourseWithInfo course : courseDAO.findCoursesWithInfo()) {
+            list.add(new CourseWithInfoView(course.getCourseId(), course.getCourseInfoId(), course.getCoordinatorId(),course.getFirstName(),course.getLastName(), course.getStart().toString(), course.getEnd().toString(),course.getName(),course.getDescription()));
+        }
+        return list;
     }
 }

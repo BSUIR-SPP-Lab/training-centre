@@ -1,6 +1,5 @@
 package com.bsuir.trainingcenter.service;
 
-import com.bsuir.trainingcenter.entity.CourseWithInfo;
 import com.bsuir.trainingcenter.entity.view.CourseView;
 import com.bsuir.trainingcenter.entity.view.CourseWithInfoView;
 
@@ -17,11 +16,11 @@ public interface CourseService {
 
     boolean deleteCourse(long courseId);
 
-    List<CourseWithInfo> findCoursesWithInfo();
+    List<CourseWithInfoView> findCoursesWithInfo();
 
     CourseWithInfoView findCourseWithInfo(long courseId);
 
-    List<CourseWithInfo> findCoursesWithInfoByUserId(long userId);
+    List<CourseWithInfoView> findCoursesWithInfoByUserId(long userId);
 
-    List<CourseWithInfo> findCoursesWithInfoByCoordinatorId(long userId);
+    List<CourseWithInfoView> findCoursesWithInfoByCoordinatorId(long userId);
 }

@@ -76,7 +76,7 @@ public class CourseController {
         return response;
     }
     @GetMapping("/get/coursesWithInfo")
-    public ResponseEntity<List<CourseWithInfo>> findCoursesWithInfo(){
+    public ResponseEntity<List<CourseWithInfoView>> findCoursesWithInfo(){
         return new ResponseEntity<>(courseService.findCoursesWithInfo(),HttpStatus.OK);
     }
 
@@ -85,11 +85,11 @@ public class CourseController {
         return new ResponseEntity<>(courseService.findCourseWithInfo(courseId), HttpStatus.OK);
     }
     @GetMapping("/get/coursesWithInfoByUserId/{userId}")
-    public ResponseEntity<List<CourseWithInfo>> findCourseWithInfoByUserId(@PathVariable long userId){
+    public ResponseEntity<List<CourseWithInfoView>> findCourseWithInfoByUserId(@PathVariable long userId){
         return new ResponseEntity<>(courseService.findCoursesWithInfoByUserId(userId), HttpStatus.OK);
     }
     @GetMapping("/get/coursesWithInfoByCoordinatorId/{coordinatorId}")
-    public ResponseEntity<List<CourseWithInfo>> findCourseWithInfoByCoordinatorId(@PathVariable long coordinatorId){
+    public ResponseEntity<List<CourseWithInfoView>> findCourseWithInfoByCoordinatorId(@PathVariable long coordinatorId){
         return new ResponseEntity<>(courseService.findCoursesWithInfoByCoordinatorId(coordinatorId), HttpStatus.OK);
     }
 }

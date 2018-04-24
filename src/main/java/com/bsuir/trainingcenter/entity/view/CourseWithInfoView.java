@@ -7,16 +7,20 @@ public class CourseWithInfoView {
     private long courseId;
     private long courseInfoId;
     private long coordinatorId;
+    private String firstName;
+    private String lastName;
     private String start;
     private String end;
     private String name;
     //can be null
     private String description;
 
-    public CourseWithInfoView(long courseId, long courseInfoId, long coordinatorId, String start, String end, String name, String description) {
+    public CourseWithInfoView(long courseId, long courseInfoId, long coordinatorId, String firstName, String lastName, String start, String end, String name, String description) {
         this.courseId = courseId;
         this.courseInfoId = courseInfoId;
         this.coordinatorId = coordinatorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.start = start;
         this.end = end;
         this.name = name;
@@ -82,6 +86,22 @@ public class CourseWithInfoView {
         this.description = description;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,6 +110,8 @@ public class CourseWithInfoView {
         return courseId == that.courseId &&
                 courseInfoId == that.courseInfoId &&
                 coordinatorId == that.coordinatorId &&
+                Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName) &&
                 Objects.equals(start, that.start) &&
                 Objects.equals(end, that.end) &&
                 Objects.equals(name, that.name) &&
@@ -99,7 +121,7 @@ public class CourseWithInfoView {
     @Override
     public int hashCode() {
 
-        return Objects.hash(courseId, courseInfoId, coordinatorId, start, end, name, description);
+        return Objects.hash(courseId, courseInfoId, coordinatorId, firstName, lastName, start, end, name, description);
     }
 
     @Override
@@ -108,6 +130,8 @@ public class CourseWithInfoView {
                 "courseId=" + courseId +
                 ", courseInfoId=" + courseInfoId +
                 ", coordinatorId=" + coordinatorId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", start='" + start + '\'' +
                 ", end='" + end + '\'' +
                 ", name='" + name + '\'' +
