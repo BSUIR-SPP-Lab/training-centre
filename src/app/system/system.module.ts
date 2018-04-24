@@ -15,6 +15,7 @@ import { PersonalSertificateComponent } from './pages/personal-sertificate/perso
 import { RoleControllerComponent } from './pages/role-controller/role-controller.component';
 import { CourseDetailComponent } from './pages/course-detail/course-detail.component';
 import { TasksListComponent } from './pages/tasks-list/tasks-list.component';
+import { SolutionComponent } from './pages/solution/solution.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { TasksListComponent } from './pages/tasks-list/tasks-list.component';
     PersonalSertificateComponent,
     RoleControllerComponent,
     CourseDetailComponent,
-    TasksListComponent
+    TasksListComponent,
+    SolutionComponent
   ],
   providers: []
 })

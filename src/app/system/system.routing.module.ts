@@ -7,6 +7,7 @@ import {PersonalSertificateComponent} from "./pages/personal-sertificate/persona
 import {RoleControllerComponent} from "./pages/role-controller/role-controller.component";
 import {CourseDetailComponent} from "./pages/course-detail/course-detail.component";
 import {TasksListComponent} from "./pages/tasks-list/tasks-list.component";
+import {SolutionComponent} from "./pages/solution/solution.component";
 
 const routes: Routes = [
   {path: 'system', component: SystemComponent, children: [
@@ -15,7 +16,8 @@ const routes: Routes = [
     {path: 'personal-sertificate', component: PersonalSertificateComponent},
     {path: 'role-controller', component: RoleControllerComponent},
     {path: 'course-detail/:id', component: CourseDetailComponent},
-    {path: 'task-list/:id', component: TasksListComponent}
+    {path: 'task-list/:id', component: TasksListComponent},
+    {path: 'solution/:id', component: SolutionComponent}
   ]}
 ];
 

@@ -1,3 +1,58 @@
-<p>
-  tasks-list works!
-</p>
+<div class="text-center" *ngIf="!isLoaded">
+Loading...
+</div>
+<div *ngIf="isLoaded">
+  <div class="title-block">
+    <h3 class="title">
+      <a [routerLink]="['/system/personal-course']"><i class="fa fa-arrow-left"></i></a>
+      Информация о курсах
+      <span class="sparkline bar"></span>
+    </h3>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="card">
+          <div class="card-header bordered">
+            <div class="header-block">
+              <h3 class="title">Задания курса</h3>
+            </div>
+          </div>
+
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Название</th>
+              <th>Описание</th>
+              <th>Дата сдачи</th>
+              <th>Преподователь</th>
+              <th>Действие </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let t of tasks; let idx = index">
+              <th scope="row">{{idx + 1}}</th>
+              <td>{{t.name}}</td>
+              <td>{{t.body}}</td>
+              <td>{{t.uploadTime | tcMoment}}</td>
+              <td>{{t.firstName}} {{t.lastName}}</td>
+
+              <td>
+                <a [routerLink]="['/system/solution', t.taskId]" class="btn btn-primary-outline">Отправить задание </a>
+              </td>
+
+            </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

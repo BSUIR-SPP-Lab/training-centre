@@ -14,6 +14,7 @@ import {CourseService} from "./shared/services/course.service";
 import {SertificateService} from "./shared/services/sertificate.service";
 import {ApplicationService} from "./shared/services/application.service";
 import {GroupService} from "./shared/services/group.service";
+import {TaskService} from "./shared/services/task.service";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {GroupService} from "./shared/services/group.service";
     CourseService,
     SertificateService,
     ApplicationService,
-    GroupService
+    GroupService,
+    TaskService
   ],
   bootstrap: [AppComponent]
 })

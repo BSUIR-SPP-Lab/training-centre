@@ -1,15 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from "@angular/router";
+import {CourseService} from "../../../shared/services/course.service";
+import {AuthService} from "../../../shared/services/auth.service";
+import {GroupService} from "../../../shared/services/group.service";
+import {Subscription} from "rxjs/Subscription";
+import {TaskService} from "../../../shared/services/task.service";
+import {Task} from "../../../shared/models/task.model";
 
 @Component({
   selector: 'tc-tasks-list',
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.scss']
 })
-export class TasksListComponent implements OnInit {
+export class TasksListComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  sub1: Subscription;
+  isLoaded = false;
+  tasks: Task[] = [];
+
+
+  constructor(private route: ActivatedRoute,
+              private courseService: CourseService,
+              private authService: AuthService,
+              private groupService: GroupService,
+              private taskService: TaskService) { }
 
   ngOnInit() {
+    // this.sub1 = this.route.params
+    //   .mergeMap((params: Params) => this.taskService.getTaskForGroup(params['id']))
+    //   .subscribe((tasks: Task[]) => {
+    //     this.tasks = tasks;
+    //     this.isLoaded = true;
+    //   });
+    // TODO FIX STUB!!!
+    this.tasks = this.taskService.getTasksForGroup(42);
+    this.isLoaded = true;
+  }
+
+  ngOnDestroy() {
+    if (this.sub1) {
+      this.sub1.unsubscribe();
+    }
   }
 
 }
