@@ -93,9 +93,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody String login, @RequestBody String password){
-        if(userService.login(login, password)){
-            return ResponseEntity.ok().build();
+    public ResponseEntity<User> login(@RequestBody String login, @RequestBody String password){
+        User user = userService.login(login, password);
+        if(user!=null){
+            return ResponseEntity.ok(user);
         }else{
             return ResponseEntity.badRequest().build();
         }
