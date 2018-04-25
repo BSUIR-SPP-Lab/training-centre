@@ -30,7 +30,11 @@ public class GroupController {
     @GetMapping("/all")
     public ResponseEntity<List<Group>> findGroups() {
         return new ResponseEntity<>(groupService.findGroups(), HttpStatus.OK);
+    }
 
+    @GetMapping("/byCourseId/{courseId}")
+    public ResponseEntity<List<Group>> findGroupsByCourseId(@PathVariable long courseId) {
+        return new ResponseEntity<>(groupService.findGroupsByCourseId(courseId), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

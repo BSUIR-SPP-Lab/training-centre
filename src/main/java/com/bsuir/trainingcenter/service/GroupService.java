@@ -10,6 +10,8 @@ public interface GroupService {
 
     List<Group> findGroups();
 
+    List<Group> findGroupsByCourseId(long courseId);
+
     Group findGroup(long groupId);
 
     List<Long> findGroupIdByCourseAndUserId(long userId, long courseId);

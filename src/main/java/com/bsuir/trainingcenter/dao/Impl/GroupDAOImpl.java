@@ -18,6 +18,8 @@ public class GroupDAOImpl implements GroupDAO {
     private static final String queryAddGroup = "INSERT INTO `group` (`course_id`, `coordinator_id`) VALUES (?, ?)";
     private static final String queryFindGroups = "SELECT `group`.`group_id`, `group`.`course_id`, " +
             "`group`.`coordinator_id` FROM `group`";
+    private static final String queryFindGroupsByCourseId = "SELECT `group`.`group_id`, `group`.`course_id`, " +
+            "`group`.`coordinator_id` FROM `group` WHERE course_id=?";
     private static final String queryFindGroupById = "SELECT `group`.`group_id`, `group`.`course_id`, " +
             "`group`.`coordinator_id` FROM `group` WHERE `group`.`group_id` = ?";
     private static final String queryUpdateGroup = "UPDATE `group` SET `group`.`course_id` = ?, " +
@@ -50,6 +52,11 @@ public class GroupDAOImpl implements GroupDAO {
     @Override
     public List<Group> findGroups() {
         return jdbcTemplate.query(queryFindGroups, rowMapper);
+    }
+
+    @Override
+    public List<Group> findGroupsByCourseId(long courseId) {
+        return jdbcTemplate.query(queryFindGroupsByCourseId, new Object[]{courseId}, rowMapper);
     }
 
     @Override

@@ -11,6 +11,8 @@ public interface GroupDAO {
 
     List<Group> findGroups();
 
+    List<Group> findGroupsByCourseId(long courseId);
+
     Optional<Group> findGroup(long groupId);
 
     List<Long> findGroupIdByCourseAndUserId(long userId, long courseId);
