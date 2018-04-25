@@ -16,6 +16,8 @@ public interface ApplicationDAO {
 
     Optional<Application> findApplication(long applicationId);
 
+    boolean isApplicationfind(long courseId, long studentId);
+
     boolean updateApplication(Application application);
 
     boolean deleteApplication(long applicationId);

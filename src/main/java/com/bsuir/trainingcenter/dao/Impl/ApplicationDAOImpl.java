@@ -27,6 +27,9 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     private static final String queryFindApplication = "SELECT `application`.`application_id`, " +
             "`application`.`student_id`, `application`.`course_id` FROM `application` " +
             "WHERE `application`.`application_id` = ?";
+    private static final String queryFindApplicationByCourseAndUser = "SELECT `application`.`application_id`" +
+            " FROM `application` " +
+            "WHERE `application`.`course_id` = ? AND student_id=?";
     private static final String queryUpdateApplication = "UPDATE `application` SET `application`.`student_id` = ?," +
             "`application`.`course_id` = ? WHERE `application`.`application_id` = ?";
     private static final String queryDeleteApplication = "DELETE FROM `application` WHERE `application_id` = ?";
@@ -75,6 +78,12 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     public Optional<Application> findApplication(long applicationId) {
         List<Application> queryResults = jdbcTemplate.query(queryFindApplication, new Object[]{applicationId}, rowMapper);
         return ListHelper.getFirst(queryResults);
+    }
+
+    @Override
+    public boolean isApplicationfind(long courseId,long studentId) {
+        List<Long> queryResults = jdbcTemplate.query(queryFindApplicationByCourseAndUser, new Object[]{courseId,studentId},(resultSet,i)->resultSet.getLong(1));
+        return !queryResults.isEmpty();
     }
 
     @Override

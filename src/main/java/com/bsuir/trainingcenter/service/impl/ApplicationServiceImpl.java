@@ -22,7 +22,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public boolean addApplication(Application application) {
-        return dao.addApplication(application);
+
+        return !dao.isApplicationfind(application.getCourseId(),application.getStudentId())&&dao.addApplication(application);
     }
 
     @Override
