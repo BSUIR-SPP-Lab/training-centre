@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.controller;
 
 import com.bsuir.trainingcenter.entity.view.TaskView;
+import com.bsuir.trainingcenter.entity.view.TaskWIthInfoView;
 import com.bsuir.trainingcenter.service.TaskService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,6 +38,12 @@ public class TaskController {
         return new ResponseEntity<>(taskService.findTasks(), HttpStatus.OK);
 
     }
+
+    @GetMapping("/byGroup/{groupId}")
+    public ResponseEntity<List<TaskWIthInfoView>> findTasksByGroupId(@PathVariable long groupId){
+        return ResponseEntity.ok(taskService.findTasksByGroupId(groupId));
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskView> findUser(@PathVariable Long id){

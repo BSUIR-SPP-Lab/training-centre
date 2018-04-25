@@ -2,7 +2,9 @@ package com.bsuir.trainingcenter.service.impl;
 
 import com.bsuir.trainingcenter.dao.TaskDAO;
 import com.bsuir.trainingcenter.entity.Task;
+import com.bsuir.trainingcenter.entity.TaskWithInfo;
 import com.bsuir.trainingcenter.entity.view.TaskView;
+import com.bsuir.trainingcenter.entity.view.TaskWIthInfoView;
 import com.bsuir.trainingcenter.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,15 @@ public class TaskServiceImpl implements TaskService{
         List<TaskView> list = new ArrayList<>();
         for(Task task : taskDAO.findTasks()){
             list.add(new TaskView(task.getTaskId(),task.getTeacherId(),task.getGroupId(),task.getTaskInfoId(),task.getUploadTime().toString()));
+        }
+        return list;
+    }
+
+    @Override
+    public List<TaskWIthInfoView> findTasksByGroupId(long groupId) {
+        List<TaskWIthInfoView> list = new ArrayList<>();
+        for(TaskWithInfo task : taskDAO.findTasksByGroupId(groupId)){
+            list.add(new TaskWIthInfoView(task.getTaskId(),task.getFirstName(),task.getLastName(),task.getGroupId(),task.getName(),task.getBody(),task.getUploadTime().toString()));
         }
         return list;
     }
