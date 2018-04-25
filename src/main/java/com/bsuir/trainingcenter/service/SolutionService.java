@@ -10,7 +10,9 @@ public interface SolutionService {
 
     List<SolutionWithTaskView> findSolutions();
 
-    List<SolutionWithTaskView> findSolutions(long userId);
+    List<SolutionWithTaskView> findSolutionsByUserId(long userId);
+
+    List<SolutionWithTaskView> findSolutionsByGroupId(long groupId);
 
     boolean updateSolution(SolutionView solution);
 

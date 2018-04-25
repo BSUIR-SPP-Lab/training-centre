@@ -39,9 +39,18 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     @Override
-    public List<SolutionWithTaskView> findSolutions(long userId) {
+    public List<SolutionWithTaskView> findSolutionsByUserId(long userId) {
         List<SolutionWithTaskView> list = new ArrayList<>();
         for(SolutionWithTask solution :solutionDAO.findSolutionsByUserId(userId)){
+            list.add(new SolutionWithTaskView(solution.getTaskId(),solution.getUserId(),solution.getNotes(),solution.getFilepath(),solution.getTeacherNotes(),solution.getMark(), solution.getUploadTime().toString(),solution.getName(),solution.getBody(),solution.getFirstName(),solution.getLastName()));
+        }
+        return list;
+    }
+
+    @Override
+    public List<SolutionWithTaskView> findSolutionsByGroupId(long groupId) {
+        List<SolutionWithTaskView> list = new ArrayList<>();
+        for(SolutionWithTask solution :solutionDAO.findSolutionsByGroupId(groupId)){
             list.add(new SolutionWithTaskView(solution.getTaskId(),solution.getUserId(),solution.getNotes(),solution.getFilepath(),solution.getTeacherNotes(),solution.getMark(), solution.getUploadTime().toString(),solution.getName(),solution.getBody(),solution.getFirstName(),solution.getLastName()));
         }
         return list;

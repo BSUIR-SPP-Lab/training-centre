@@ -14,7 +14,7 @@ public interface SolutionDAO {
 
     List<SolutionWithTask> findSolutionsByUserId(long userId);
 
-    //List<SolutionWithTask> findSolutionsByGroupId(long userId);
+    List<SolutionWithTask> findSolutionsByGroupId(long groupId);
 
     Optional<SolutionWithTask> findSolution(long taskId, long userId);
 

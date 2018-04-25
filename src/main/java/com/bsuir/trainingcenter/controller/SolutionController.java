@@ -36,9 +36,14 @@ public class SolutionController {
 
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<SolutionWithTaskView>> findSolution(@PathVariable Long id){
-        return new ResponseEntity<>(solutionService.findSolutions(id), HttpStatus.OK);
+    @GetMapping("/byUserId/{userId}")
+    public ResponseEntity<List<SolutionWithTaskView>> findSolutionUserId(@PathVariable Long userId){
+        return new ResponseEntity<>(solutionService.findSolutionsByUserId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/byGroupId/{groupId}")
+    public ResponseEntity<List<SolutionWithTaskView>> findSolutionByGroupId(@PathVariable Long groupId){
+        return new ResponseEntity<>(solutionService.findSolutionsByGroupId(groupId), HttpStatus.OK);
     }
 
     @PostMapping("/update/{taskId}/{userId}")

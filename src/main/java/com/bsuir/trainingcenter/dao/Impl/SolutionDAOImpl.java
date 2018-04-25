@@ -30,6 +30,13 @@ public class SolutionDAOImpl implements SolutionDAO {
             "  JOIN task t ON solution.task_id = t.task_id\n" +
             "  JOIN task_info t2 ON t.task_info_id = t2.task_info_id " +
             "JOIN `user` u ON u.user_id=solution.user_id WHERE `solution`.`user_id` = ?";
+    private static final String queryFindSolutionsByGroupId = "SELECT\n" +
+            "  `solution`.`task_id`, `solution`.`user_id`, `solution`.`notes`, `solution`.`filepath`,`solution`.`teacher_notes`,`solution`.`upload_time`,`solution`.`mark`,`t2`.`body`,`t2`.name\n" +
+            ", u.first_name,u.last_name FROM `solution`\n" +
+            "  JOIN task t ON solution.task_id = t.task_id\n" +
+            "  JOIN task_info t2 ON t.task_info_id = t2.task_info_id " +
+            "JOIN `user` u ON u.user_id=solution.user_id WHERE group_id = ?";
+
     private static final String queryFindSolution = "SELECT\n" +
             "  `solution`.`task_id`, `solution`.`user_id`, `solution`.`notes`, `solution`.`filepath`,`solution`.`teacher_notes`,`solution`.`upload_time`,`solution`.`mark`,`t2`.`body`,`t2`.name,\n" +
             "u.first_name,u.last_name FROM `solution`\n" +
@@ -85,6 +92,11 @@ public class SolutionDAOImpl implements SolutionDAO {
     @Override
     public List<SolutionWithTask> findSolutionsByUserId(long userId) {
         return jdbcTemplate.query(queryFindSolutionsByUserId, new Object[]{userId}, rowMapper);
+    }
+
+    @Override
+    public List<SolutionWithTask> findSolutionsByGroupId(long groupId) {
+        return jdbcTemplate.query(queryFindSolutionsByGroupId, new Object[]{groupId}, rowMapper);
     }
 
     @Override
