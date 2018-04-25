@@ -92,8 +92,8 @@ public class UserController {
         return response;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody String login, @RequestBody String password){
+    @PostMapping("/login/{login}")
+    public ResponseEntity<User> login(@PathVariable String login, @RequestBody String password){
         User user = userService.login(login, password);
         if(user!=null){
             return ResponseEntity.ok(user);
