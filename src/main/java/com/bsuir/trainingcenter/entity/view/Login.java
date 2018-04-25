@@ -12,6 +12,9 @@ public class Login {
         this.login = login;
     }
 
+    public Login() {
+    }
+
     public String getPassword() {
         return password;
     }
