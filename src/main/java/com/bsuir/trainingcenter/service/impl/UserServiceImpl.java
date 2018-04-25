@@ -40,10 +40,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findTeachers() {
+    public List<User> findUsersWithRole(Role role) {
         return userDAO.findUsers().stream().filter(user -> {
-            return user.getRole()==Role.TEACHER;
+            return user.getRole() == role;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> findTeachers() {
+        return findUsersWithRole(Role.TEACHER);
     }
 
     @Override
@@ -51,7 +56,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userDAO.findUser(id);
         if (user.isPresent()) {
             return user.get();
-        }else {
+        } else {
             return null;
         }
     }
@@ -61,7 +66,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userDAO.findUser(login);
         if (user.isPresent()) {
             return user.get();
-        }else {
+        } else {
             return null;
         }
 
@@ -85,6 +90,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String login, String password) {
         Optional<User> user = userDAO.findUser(login);
-        return user.map(user1 -> passwordEncoder.matches(password,user1.getPassword()) ? user1 : null).orElse(null);
+        return user.map(user1 -> passwordEncoder.matches(password, user1.getPassword()) ? user1 : null).orElse(null);
     }
 }

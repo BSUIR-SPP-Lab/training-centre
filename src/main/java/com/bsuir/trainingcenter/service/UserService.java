@@ -10,6 +10,8 @@ public interface UserService {
 
     List<User> findUsers();
 
+    List<User> findUsersWithRole(Role role);
+
     List<User> findTeachers();
 
     User findUser(long id);

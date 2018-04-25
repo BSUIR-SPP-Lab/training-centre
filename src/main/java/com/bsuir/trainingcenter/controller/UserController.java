@@ -1,5 +1,6 @@
 package com.bsuir.trainingcenter.controller;
 
+import com.bsuir.trainingcenter.entity.Role;
 import com.bsuir.trainingcenter.entity.User;
 import com.bsuir.trainingcenter.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -41,6 +43,16 @@ public class UserController {
     @GetMapping("/teachers")
     public ResponseEntity<List<User>> findTeachers(){
         return new ResponseEntity<>(userService.findTeachers(), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/findByRole/{role}")
+    public ResponseEntity<List<User>> findByRole(@PathVariable String role){
+        if(Arrays.stream(Role.values()).anyMatch(role1 -> role1.toString().equalsIgnoreCase(role))){
+            return ResponseEntity.ok(userService.findUsersWithRole(Role.valueOf(role.toUpperCase())));
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
 
     }
 
