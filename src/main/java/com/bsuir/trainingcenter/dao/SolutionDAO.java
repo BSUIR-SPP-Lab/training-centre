@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.dao;
 
 import com.bsuir.trainingcenter.entity.Solution;
+import com.bsuir.trainingcenter.entity.SolutionWithTask;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,11 +10,13 @@ public interface SolutionDAO {
 
     boolean addSolution(Solution solution);
 
-    List<Solution> findSolutionsByUserId();
+    List<SolutionWithTask> findSolutions();
 
-    List<Solution> findSolutionsByUserId(long userId);
+    List<SolutionWithTask> findSolutionsByUserId(long userId);
 
-    Optional<Solution> findSolution(long taskId, long userId);
+    //List<SolutionWithTask> findSolutionsByGroupId(long userId);
+
+    Optional<SolutionWithTask> findSolution(long taskId, long userId);
 
     boolean updateSolution(Solution solution);
 

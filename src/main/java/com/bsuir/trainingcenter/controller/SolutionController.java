@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.controller;
 
 import com.bsuir.trainingcenter.entity.view.SolutionView;
+import com.bsuir.trainingcenter.entity.view.SolutionWithTaskView;
 import com.bsuir.trainingcenter.service.SolutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,13 +31,13 @@ public class SolutionController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<SolutionView>> findSolutions(){
+    public ResponseEntity<List<SolutionWithTaskView>> findSolutions(){
         return new ResponseEntity<>(solutionService.findSolutions(), HttpStatus.OK);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<SolutionView>> findSolution(@PathVariable Long id){
+    public ResponseEntity<List<SolutionWithTaskView>> findSolution(@PathVariable Long id){
         return new ResponseEntity<>(solutionService.findSolutions(id), HttpStatus.OK);
     }
 

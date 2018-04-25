@@ -38,12 +38,12 @@ public class SolutionDAOImplTest {
         Solution solution = new Solution(21, 41, "", "", "", 0L,
                 LocalDateTime.parse("2018-01-01 00:00", formatter));
         assertTrue(solutionDAO.addSolution(solution));
-        assertEquals(13, solutionDAO.findSolutionsByUserId().size());
+        assertEquals(13, solutionDAO.findSolutions().size());
     }
 
     @Test
     public void findSolutions() {
-        assertEquals(12, solutionDAO.findSolutionsByUserId().size());
+        assertEquals(12, solutionDAO.findSolutions().size());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class SolutionDAOImplTest {
     @Rollback
     public void deleteSolution() {
         assertTrue(solutionDAO.deleteSolution(22, 63));
-        assertEquals(11, solutionDAO.findSolutionsByUserId().size());
+        assertEquals(11, solutionDAO.findSolutions().size());
     }
 
 }

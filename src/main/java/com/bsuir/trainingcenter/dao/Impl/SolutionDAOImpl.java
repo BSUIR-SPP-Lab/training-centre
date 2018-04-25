@@ -3,6 +3,7 @@ package com.bsuir.trainingcenter.dao.Impl;
 import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.dao.SolutionDAO;
 import com.bsuir.trainingcenter.entity.Solution;
+import com.bsuir.trainingcenter.entity.SolutionWithTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,15 +18,24 @@ public class SolutionDAOImpl implements SolutionDAO {
 
     private static final String queryAddSolution = "INSERT INTO `solution` (`task_id`, `user_id`, `notes`, " +
             "`filepath`, `teacher_notes`, `mark`) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String queryFindSolutions = "SELECT `solution`.`task_id`, `solution`.`user_id`, " +
-            "`solution`.`notes`, `solution`.`filepath`, `solution`.`teacher_notes`, `solution`.`upload_time`, " +
-            "`solution`.`mark` FROM `solution`";
-    private static final String queryFindSolutionsByUserId = "SELECT `solution`.`task_id`, `solution`.`user_id`," +
-            "`solution`.`notes`, `solution`.`filepath`, `solution`.`teacher_notes`, `solution`.`upload_time`, " +
-            "`solution`.`mark` FROM `solution` WHERE `solution`.`user_id` = ?";
-    private static final String queryFindSolution = "SELECT `solution`.`task_id`, `solution`.`user_id`," +
-            "`solution`.`notes`, `solution`.`filepath`, `solution`.`teacher_notes`, `solution`.`upload_time`, " +
-            "`solution`.`mark` FROM `solution` WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
+    private static final String queryFindSolutions = "SELECT\n" +
+            "  `solution`.`task_id`, `solution`.`user_id`, `solution`.`notes`, `solution`.`filepath`,`solution`.`teacher_notes`,`solution`.`upload_time`,`solution`.`mark`,`t2`.`body`,`t2`.name\n" +
+            ", u.first_name,u.last_name FROM `solution`\n" +
+            "  JOIN task t ON solution.task_id = t.task_id\n" +
+            "  JOIN task_info t2 ON t.task_info_id = t2.task_info_id" +
+            "  JOIN `user` u ON u.user_id=solution.user_id";
+    private static final String queryFindSolutionsByUserId = "SELECT\n" +
+            "  `solution`.`task_id`, `solution`.`user_id`, `solution`.`notes`, `solution`.`filepath`,`solution`.`teacher_notes`,`solution`.`upload_time`,`solution`.`mark`,`t2`.`body`,`t2`.name\n" +
+            ", u.first_name,u.last_name FROM `solution`\n" +
+            "  JOIN task t ON solution.task_id = t.task_id\n" +
+            "  JOIN task_info t2 ON t.task_info_id = t2.task_info_id " +
+            "JOIN `user` u ON u.user_id=solution.user_id WHERE `solution`.`user_id` = ?";
+    private static final String queryFindSolution = "SELECT\n" +
+            "  `solution`.`task_id`, `solution`.`user_id`, `solution`.`notes`, `solution`.`filepath`,`solution`.`teacher_notes`,`solution`.`upload_time`,`solution`.`mark`,`t2`.`body`,`t2`.name,\n" +
+            "u.first_name,u.last_name FROM `solution`\n" +
+            "  JOIN task t ON solution.task_id = t.task_id\n" +
+            "  JOIN task_info t2 ON t.task_info_id = t2.task_info_id" +
+            "  JOIN `user` u ON u.user_id=solution.user_id WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
     private static final String queryUpdateSolution = "UPDATE `solution` SET `solution`.`notes` = ?, " +
             "`solution`.`filepath` = ?, `solution`.`teacher_notes` = ?, `solution`.`mark` = ? " +
             "WHERE (`solution`.`task_id` = ?) AND (`solution`.`user_id` = ?)";
@@ -36,8 +46,8 @@ public class SolutionDAOImpl implements SolutionDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-    private RowMapper<Solution> rowMapper = ((resultSet, i) -> {
-        Solution solution = new Solution();
+    private RowMapper<SolutionWithTask> rowMapper = ((resultSet, i) -> {
+        SolutionWithTask solution = new SolutionWithTask();
         solution.setTaskId(resultSet.getLong("task_id"));
         solution.setUserId(resultSet.getLong("user_id"));
         solution.setNotes(resultSet.getString("notes"));
@@ -48,6 +58,10 @@ public class SolutionDAOImpl implements SolutionDAO {
         } else {
             solution.setMark(resultSet.getLong("mark"));
         }
+        solution.setName(resultSet.getString("name"));
+        solution.setBody(resultSet.getString("body"));
+        solution.setFirstName(resultSet.getString("first_name"));
+        solution.setLastName(resultSet.getString("last_name"));
         solution.setUploadTime(resultSet.getTimestamp("upload_time").toLocalDateTime());
         return solution;
     });
@@ -64,18 +78,18 @@ public class SolutionDAOImpl implements SolutionDAO {
     }
 
     @Override
-    public List<Solution> findSolutionsByUserId() {
+    public List<SolutionWithTask> findSolutions() {
         return jdbcTemplate.query(queryFindSolutions, rowMapper);
     }
 
     @Override
-    public List<Solution> findSolutionsByUserId(long userId) {
+    public List<SolutionWithTask> findSolutionsByUserId(long userId) {
         return jdbcTemplate.query(queryFindSolutionsByUserId, new Object[]{userId}, rowMapper);
     }
 
     @Override
-    public Optional<Solution> findSolution(long taskId, long userId) {
-        List<Solution> queryResults = jdbcTemplate.query(queryFindSolution, new Object[]{taskId, userId}, rowMapper);
+    public Optional<SolutionWithTask> findSolution(long taskId, long userId) {
+        List<SolutionWithTask> queryResults = jdbcTemplate.query(queryFindSolution, new Object[]{taskId, userId}, rowMapper);
         return ListHelper.getFirst(queryResults);
     }
 

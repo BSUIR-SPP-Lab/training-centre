@@ -2,7 +2,9 @@ package com.bsuir.trainingcenter.service.impl;
 
 import com.bsuir.trainingcenter.dao.SolutionDAO;
 import com.bsuir.trainingcenter.entity.Solution;
+import com.bsuir.trainingcenter.entity.SolutionWithTask;
 import com.bsuir.trainingcenter.entity.view.SolutionView;
+import com.bsuir.trainingcenter.entity.view.SolutionWithTaskView;
 import com.bsuir.trainingcenter.service.SolutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,19 +30,19 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     @Override
-    public List<SolutionView> findSolutions() {
-        List<SolutionView> list = new ArrayList<>();
-        for(Solution solution :solutionDAO.findSolutionsByUserId()){
-            list.add(new SolutionView(solution.getTaskId(),solution.getUserId(),solution.getNotes(),solution.getFilepath(),solution.getTeacherNotes(),solution.getMark(), solution.getUploadTime().toString()));
+    public List<SolutionWithTaskView> findSolutions() {
+        List<SolutionWithTaskView> list = new ArrayList<>();
+        for(SolutionWithTask solution :solutionDAO.findSolutions()){
+            list.add(new SolutionWithTaskView(solution.getTaskId(),solution.getUserId(),solution.getNotes(),solution.getFilepath(),solution.getTeacherNotes(),solution.getMark(), solution.getUploadTime().toString(),solution.getName(),solution.getBody(),solution.getFirstName(),solution.getLastName()));
         }
         return list;
     }
 
     @Override
-    public List<SolutionView> findSolutions(long userId) {
-        List<SolutionView> list = new ArrayList<>();
-        for(Solution solution :solutionDAO.findSolutionsByUserId(userId)){
-            list.add(new SolutionView(solution.getTaskId(),solution.getUserId(),solution.getNotes(),solution.getFilepath(),solution.getTeacherNotes(),solution.getMark(), solution.getUploadTime().toString()));
+    public List<SolutionWithTaskView> findSolutions(long userId) {
+        List<SolutionWithTaskView> list = new ArrayList<>();
+        for(SolutionWithTask solution :solutionDAO.findSolutionsByUserId(userId)){
+            list.add(new SolutionWithTaskView(solution.getTaskId(),solution.getUserId(),solution.getNotes(),solution.getFilepath(),solution.getTeacherNotes(),solution.getMark(), solution.getUploadTime().toString(),solution.getName(),solution.getBody(),solution.getFirstName(),solution.getLastName()));
         }
         return list;
     }
