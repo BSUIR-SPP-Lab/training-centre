@@ -92,7 +92,7 @@ public class UserController {
         return response;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity login(@RequestBody String login, @RequestBody String password){
         if(userService.login(login, password)){
             return ResponseEntity.ok().build();
