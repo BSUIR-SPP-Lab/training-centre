@@ -36,7 +36,7 @@ public class CertificateController {
     }
 
     @GetMapping("/get/{userId}")
-    public ResponseEntity<List<CertificateInfoView>> findCertificates(long userId){
+    public ResponseEntity<List<CertificateInfoView>> findCertificates(@PathVariable long userId){
         return ResponseEntity.ok(service.findCertificates(userId));
     }
 
