@@ -32,7 +32,11 @@ public class UserDAOImpl implements UserDAO {
             "`user`.`last_name` = ? WHERE `user`.`user_id` = ?";
     private static final String queryUpdateUserRole = "UPDATE `user` SET `user`.`role` = ? WHERE `user`.`user_id` = ?";
     private static final String queryDeleteUser = "DELETE FROM `user` WHERE `user`.`user_id` = ?";
-
+    private static final String queryFindUsersByCourseId="SELECT `u`.`user_id`, `u`.`login`, `u`.`password`, `u`.`role`, `u`.`email`, `u`.`phone`, `u`.`first_name`, `u`.`last_name` FROM course\n" +
+            "JOIN `group` g ON course.course_id = g.course_id\n" +
+            "JOIN student_group s ON g.group_id = s.group_id\n" +
+            "JOIN `user` u ON s.student_id=u.user_id\n" +
+            "WHERE `course`.course_id=? AND `s`.course_complete=?";
 
     private JdbcTemplate jdbcTemplate;
     private RowMapper<User> rowMapper = ((resultSet, i) -> {
@@ -68,6 +72,11 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> findUsers() {
         return jdbcTemplate.query(queryFindUsers, rowMapper);
+    }
+
+    @Override
+    public List<User> findUsersByCourseId(long courseId, boolean finish) {
+        return jdbcTemplate.query(queryFindUsersByCourseId,new Object[]{courseId,finish}, rowMapper);
     }
 
     public Optional<User> findUser(long userId) {

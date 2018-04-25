@@ -37,7 +37,7 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
-    public CertificateInfoView getCertificateInfo(int id) {
+    public CertificateInfoView getCertificateInfo(long id) {
         Optional<Certificate> certificate= certificateDAO.findCertificate(id);
         if(certificate.isPresent()){
             CertificateInfoView view = getCertificateInfoView(certificate.get());

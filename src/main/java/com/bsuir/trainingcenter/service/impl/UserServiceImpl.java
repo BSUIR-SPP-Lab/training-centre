@@ -92,4 +92,9 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userDAO.findUser(login);
         return user.map(user1 -> passwordEncoder.matches(password, user1.getPassword()) ? user1 : null).orElse(null);
     }
+
+    @Override
+    public List<User> findUsersByCourseId(long courseId,boolean finish) {
+        return userDAO.findUsersByCourseId(courseId, finish);
+    }
 }

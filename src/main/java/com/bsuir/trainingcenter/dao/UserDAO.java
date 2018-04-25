@@ -14,6 +14,8 @@ public interface UserDAO {
 
     List<User> findUsers();
 
+    List<User> findUsersByCourseId(long courseId, boolean finish);
+
     Optional<User> findUser(long userId);
 
     Optional<User> findUser(String login);

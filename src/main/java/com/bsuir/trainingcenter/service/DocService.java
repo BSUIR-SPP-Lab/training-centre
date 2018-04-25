@@ -3,9 +3,16 @@ package com.bsuir.trainingcenter.service;
 import org.springframework.core.io.Resource;
 
 public interface DocService {
-    Resource generatePdfCertificate(int id);
+    Resource generatePdfCertificate(long id);
 
-    Resource generateXLSCertificate(int id);
+    Resource generateXLSCertificate(long id);
 
-    Resource generateCSVCertificate(int id);
+    Resource generateCSVCertificate(long id);
+
+
+    Resource generatePdfUsersOnCourse(long id, boolean finish);
+
+    Resource generateXLSUsersOnCourse(long id, boolean finish);
+
+    Resource generateCSVUsersOnCourse(long id, boolean finish);
 }

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DocController {
     @Autowired
-    DocServiceImpl docServiceImpl = new DocServiceImpl();
+    DocServiceImpl docServiceImpl;
 
     @GetMapping("/pdfCertificate/{id}")
-    public ResponseEntity<Resource> pdfCertificate(@PathVariable int id){
+    public ResponseEntity<Resource> pdfCertificate(@PathVariable long id){
         Resource body = docServiceImpl.generatePdfCertificate(id);
 
         if (body!=null) {
@@ -26,8 +26,9 @@ public class DocController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     @GetMapping("/xlsCertificate/{id}")
-    public ResponseEntity<Resource> xlsCertificate(@PathVariable int id){
+    public ResponseEntity<Resource> xlsCertificate(@PathVariable long id){
         Resource body = docServiceImpl.generateXLSCertificate(id);
 
         if (body!=null) {
@@ -38,11 +39,43 @@ public class DocController {
     }
 
     @GetMapping("/csvCertificate/{id}")
-    public ResponseEntity<Resource> csvCertificate(@PathVariable int id){
+    public ResponseEntity<Resource> csvCertificate(@PathVariable long id){
         Resource body = docServiceImpl.generateCSVCertificate(id);
 
         if (body!=null) {
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "CertificateCSV.csv" + "\"").body(body);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/pdfUserListCompleteCourse/{id}")
+    public ResponseEntity<Resource> pdfUserListCompleteCourse(@PathVariable long id){
+        Resource body = docServiceImpl.generatePdfUsersOnCourse(id,true);
+
+        if (body!=null) {
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "UserListCompleteCoursePDF.pdf" + "\"").body(body);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/xlsUserListCompleteCourse/{id}")
+    public ResponseEntity<Resource> xlsUserListCompleteCourse(@PathVariable long id){
+        Resource body = docServiceImpl.generateXLSUsersOnCourse(id,true);
+
+        if (body!=null) {
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "UserListCompleteCourseXLS.xls" + "\"").body(body);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @GetMapping("/csvUserListCompleteCourse/{id}")
+    public ResponseEntity<Resource> csvUserListCompleteCourse(@PathVariable long id){
+        Resource body = docServiceImpl.generateCSVUsersOnCourse(id,true);
+
+        if (body!=null) {
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "UserListCompleteCourseCSV.csv" + "\"").body(body);
         } else {
             return ResponseEntity.badRequest().build();
         }

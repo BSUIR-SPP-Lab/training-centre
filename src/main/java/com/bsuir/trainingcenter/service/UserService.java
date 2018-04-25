@@ -25,4 +25,6 @@ public interface UserService {
     boolean deleteUser(long id);
 
     User login(String login, String password);
+
+    List<User> findUsersByCourseId(long courseId, boolean finish);
 }

@@ -1,9 +1,13 @@
 package com.bsuir.trainingcenter.service.impl;
 
 
+import com.bsuir.trainingcenter.entity.User;
 import com.bsuir.trainingcenter.entity.view.CertificateInfoView;
+import com.bsuir.trainingcenter.entity.view.CourseWithInfoView;
 import com.bsuir.trainingcenter.service.CertificateService;
+import com.bsuir.trainingcenter.service.CourseService;
 import com.bsuir.trainingcenter.service.DocService;
+import com.bsuir.trainingcenter.service.UserService;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -31,6 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -39,12 +44,19 @@ import static org.apache.poi.ss.util.CellUtil.createCell;
 @Service
 public class DocServiceImpl implements DocService {
 
-    @Autowired
-    private CertificateService certificateService;
+    private final CertificateService certificateService;
+    private final UserService userService;
+    private final CourseService courseService;
 
+    @Autowired
+    public DocServiceImpl(CertificateService certificateService, UserService userService, CourseService courseService) {
+        this.certificateService = certificateService;
+        this.userService = userService;
+        this.courseService = courseService;
+    }
 
     @Override
-    public Resource generatePdfCertificate(int id) {
+    public Resource generatePdfCertificate(long id) {
         CertificateInfoView info = certificateService.getCertificateInfo(id);
         if (info == null) {
             return null;
@@ -73,7 +85,7 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public Resource generateXLSCertificate(int id) {
+    public Resource generateXLSCertificate(long id) {
         CertificateInfoView info = certificateService.getCertificateInfo(id);
         if (info == null) {
             return null;
@@ -104,12 +116,92 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public Resource generateCSVCertificate(int id) {
+    public Resource generateCSVCertificate(long id) {
         CertificateInfoView info = new CertificateInfoView(1, "Влад", "Белых", "Java", "1", "2"); // certificateService.getCertificateInfo(id);
         if (info == null) {
             return null;
         }
-        return createCSV(()-> String.format("%s;%s;%s;%s;%s;",info.getFirstName(),info.getLastName(),info.getName(),info.getStart(),info.getEnd()));
+        return createCSV(() -> String.format("%s;%s;%s;%s;%s;", info.getFirstName(), info.getLastName(), info.getName(), info.getStart(), info.getEnd()));
+    }
+
+    @Override
+    public Resource generatePdfUsersOnCourse(long id, boolean finish) {
+        List<User> list = userService.findUsersByCourseId(id, finish);
+        CourseWithInfoView course = courseService.findCourseWithInfo(id);
+        if (course == null) {
+            return null;
+        }
+        return createPdf(((Document doc) -> {
+            try {
+                PdfFont font = PdfFontFactory.createFont("src/main/resources/times.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                Paragraph paragraph = null;
+                if (finish) {
+
+                    paragraph = new Paragraph(String.format("Пользователи прошедшие курс \"%s\"", course.getName()))
+                            .setItalic()
+                            .setMarginBottom(20)
+                            .setTextAlignment(TextAlignment.CENTER)
+                            .setFont(font)
+                            .setFontSize(40);
+                    doc.add(paragraph);
+
+                } else {
+
+                    paragraph = new Paragraph(String.format("Пользователи обучающиеся на курсе \"%s\"", course.getName()))
+                            .setItalic()
+                            .setMarginBottom(20)
+                            .setTextAlignment(TextAlignment.CENTER)
+                            .setFont(font)
+                            .setFontSize(40);
+                    doc.add(paragraph);
+
+                }
+                paragraph = new Paragraph()
+                        .setFont(font)
+                        .setFontSize(20)
+                        .add("Имя Фамилия\n");
+                for (User user : list) {
+                    paragraph.add(user.getFirstName() + " " + user.getLastName() + "\n");
+                }
+                doc.add(paragraph);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
+    }
+
+    @Override
+    public Resource generateXLSUsersOnCourse(long id, boolean finish) {
+        List<User> list = userService.findUsersByCourseId(id, finish);
+        return createXLS((sheet, style) -> {
+            HSSFRow[] rows = new HSSFRow[list.size() + 1];
+            for (int i = 0; i < rows.length; i++) {
+                rows[i] = sheet.createRow(i);
+            }
+            createCell(rows[0], 0, "Имя", style);
+            createCell(rows[0], 1, "Фамилия", style);
+
+            for (int i = 0; i < list.size(); i++) {
+                createCell(rows[i + 1], 0, list.get(i).getFirstName(), style);
+                createCell(rows[i + 1], 1, list.get(i).getLastName(), style);
+
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+        });
+    }
+
+    @Override
+    public Resource generateCSVUsersOnCourse(long id, boolean finish) {
+        List<User> list = userService.findUsersByCourseId(id, finish);
+        return createCSV(() -> {
+            StringBuffer buf =new StringBuffer();
+            for (User user : list) {
+                buf.append(user.getFirstName()+" "+user.getLastName()+";");
+            }
+            return buf.toString();
+        });
     }
 
     public Resource createPdf(Consumer<Document> c) {
@@ -127,6 +219,7 @@ public class DocServiceImpl implements DocService {
             throw new RuntimeException(e);
         }
     }
+
     public Resource createCSV(Supplier<String> c) {
         try (ByteArrayOutputStream stream = new ByteArrayOutputStream();
              Writer writer = new OutputStreamWriter(stream)) {
@@ -138,6 +231,7 @@ public class DocServiceImpl implements DocService {
         }
 
     }
+
     public Resource createXLS(BiProcedure<HSSFSheet, CellStyle> p) {
 
         try (HSSFWorkbook workbook = new HSSFWorkbook();
@@ -153,6 +247,7 @@ public class DocServiceImpl implements DocService {
         }
 
     }
+
     private void createPdfTemplate(Document document) {
         try {
             Image logo = new Image(ImageDataFactory.create("src/main/resources/logo.jpg"));
@@ -162,7 +257,6 @@ public class DocServiceImpl implements DocService {
             throw new RuntimeException(e);
         }
     }
-
 
 
     private CellStyle createStyle(HSSFWorkbook workbook, HSSFSheet sheet) {
@@ -177,7 +271,6 @@ public class DocServiceImpl implements DocService {
         style.setVerticalAlignment(VerticalAlignment.TOP);
         return style;
     }
-
 
 
 }

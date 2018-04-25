@@ -6,7 +6,7 @@ import com.bsuir.trainingcenter.entity.view.CertificateInfoView;
 import java.util.List;
 
 public interface CertificateService {
-    CertificateInfoView getCertificateInfo(int id);
+    CertificateInfoView getCertificateInfo(long id);
 
     boolean addCertificate(Certificate certificate);
 
