@@ -101,4 +101,12 @@ public class UserServiceImplTest {
         given(userDAO.deleteUser(1)).willReturn(true);
         assertTrue(userService.deleteUser(1));
     }
+
+    @Test
+    public void login() {
+        String password = user.getPassword();
+        user.setPassword(  passwordEncoder.encode(password));
+        given(userDAO.findUser("test")).willReturn(Optional.of(user));
+        assertEquals(userService.login("test",password),user);
+    }
 }
