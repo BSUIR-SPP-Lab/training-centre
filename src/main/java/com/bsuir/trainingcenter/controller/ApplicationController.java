@@ -1,6 +1,7 @@
 package com.bsuir.trainingcenter.controller;
 
 import com.bsuir.trainingcenter.entity.Application;
+import com.bsuir.trainingcenter.entity.ApplicationWithInfo;
 import com.bsuir.trainingcenter.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,12 @@ public class ApplicationController {
     public ResponseEntity<List<Application>> findApplications() {
         return ResponseEntity.ok(service.findApplications());
     }
+
+    @GetMapping("/getByCourse/{courseId}")
+    public ResponseEntity<List<ApplicationWithInfo>> findApplicationsByCourse(@PathVariable long courseId){
+        return ResponseEntity.ok(service.findApplicationsByCourse(courseId));
+    }
+
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Application> findApplication(@PathVariable long id) {

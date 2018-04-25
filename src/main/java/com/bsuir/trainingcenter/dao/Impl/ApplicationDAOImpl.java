@@ -3,6 +3,7 @@ package com.bsuir.trainingcenter.dao.Impl;
 import com.bsuir.trainingcenter.dao.ApplicationDAO;
 import com.bsuir.trainingcenter.dao.Impl.Helpers.ListHelper;
 import com.bsuir.trainingcenter.entity.Application;
+import com.bsuir.trainingcenter.entity.ApplicationWithInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,6 +20,10 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             "VALUES (?, ?)";
     private static final String queryFindApplications = "SELECT `application`.`application_id`, " +
             "`application`.`student_id`, `application`.`course_id` FROM `application`";
+    private static final String queryFindApplicationsByCourseId = "SELECT `application`.`application_id`,`application`.`student_id`,`application`.`course_id`,`s`.`first_name`,`s`.`last_name`\n" +
+            "FROM `application`\n" +
+            "JOIN `user` s ON application.student_id = s.user_id\n" +
+            "WHERE course_id=?\n";
     private static final String queryFindApplication = "SELECT `application`.`application_id`, " +
             "`application`.`student_id`, `application`.`course_id` FROM `application` " +
             "WHERE `application`.`application_id` = ?";
@@ -35,6 +40,15 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         application.setCourseId(resultSet.getLong("course_id"));
         return application;
     });
+    private RowMapper<ApplicationWithInfo> applicationWithInfoRowMapper=(resultSet, i) -> {
+        ApplicationWithInfo application = new ApplicationWithInfo();
+        application.setStudentId(resultSet.getLong("student_id"));
+        application.setApplicationId(resultSet.getLong("application_id"));
+        application.setCourseId(resultSet.getLong("course_id"));
+        application.setFirstName(resultSet.getString("first_name"));
+        application.setLastName(resultSet.getString("last_name"));
+        return application;
+    };
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -50,6 +64,11 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     @Override
     public List<Application> findApplications() {
         return jdbcTemplate.query(queryFindApplications, rowMapper);
+    }
+
+    @Override
+    public List<ApplicationWithInfo> findApplicationsByCourse(long courseId) {
+        return jdbcTemplate.query(queryFindApplicationsByCourseId,new Object[]{courseId},applicationWithInfoRowMapper);
     }
 
     @Override

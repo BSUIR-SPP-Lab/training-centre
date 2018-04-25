@@ -2,6 +2,7 @@ package com.bsuir.trainingcenter.service.impl;
 
 import com.bsuir.trainingcenter.dao.ApplicationDAO;
 import com.bsuir.trainingcenter.entity.Application;
+import com.bsuir.trainingcenter.entity.ApplicationWithInfo;
 import com.bsuir.trainingcenter.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public List<Application> findApplications() {
         return dao.findApplications();
+    }
+
+    @Override
+    public List<ApplicationWithInfo> findApplicationsByCourse(long courseId) {
+        return dao.findApplicationsByCourse(courseId);
     }
 
     @Override
