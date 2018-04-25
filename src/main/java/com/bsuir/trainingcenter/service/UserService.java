@@ -22,5 +22,5 @@ public interface UserService {
 
     boolean deleteUser(long id);
 
-    boolean login(String login, String password);
+    User login(String login, String password);
 }

@@ -83,8 +83,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(String login, String password) {
+    public User login(String login, String password) {
         Optional<User> user = userDAO.findUser(login);
-        return user.map(user1 -> user1.getPassword().equalsIgnoreCase(passwordEncoder.encode(password))).orElse(false);
+        return user.map(user1 -> user1.getPassword().equalsIgnoreCase(passwordEncoder.encode(password))?user1:null).orElse(null);
     }
 }
