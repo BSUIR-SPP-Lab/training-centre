@@ -2,6 +2,7 @@ package com.bsuir.trainingcenter.controller;
 
 import com.bsuir.trainingcenter.entity.Role;
 import com.bsuir.trainingcenter.entity.User;
+import com.bsuir.trainingcenter.entity.view.Login;
 import com.bsuir.trainingcenter.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -104,9 +105,9 @@ public class UserController {
         return response;
     }
 
-    @PostMapping("/login/{login}")
-    public ResponseEntity<User> login(@PathVariable String login, @RequestBody String password){
-        User user = userService.login(login, password);
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody Login loginEntity){
+        User user = userService.login(loginEntity.getLogin(), loginEntity.getPassword());
         if(user!=null){
             return ResponseEntity.ok(user);
         }else{
