@@ -81,6 +81,17 @@ public class UserController {
         return response;
     }
 
+    @PostMapping("/updateRole/{id}")
+    public ResponseEntity updateUser(@PathVariable Long id,@RequestBody String role){
+        ResponseEntity response = new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(Arrays.stream(Role.values()).anyMatch(role1 -> role1.toString().equalsIgnoreCase(role))){
+
+            if (userService.updateUserRole(id, Role.valueOf(role))) {
+                response = new ResponseEntity(HttpStatus.OK);
+            }
+        }
+        return response;
+    }
     @PostMapping("/update/{id}")
     public ResponseEntity updateUser(@PathVariable Long id,@RequestBody User user){
         ResponseEntity response;
