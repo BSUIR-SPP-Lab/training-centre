@@ -13,6 +13,9 @@ import {CourseControllerComponent} from "./pages/course-controller/course-contro
 import {GroupControlComponent} from "./pages/group-control/group-control.component";
 import {AplicationsComponent} from "./pages/aplications/aplications.component";
 import {TaskControllComponent} from "./pages/task-controll/task-controll.component";
+import {SolutionControllerComponent} from "./pages/solution-controller/solution-controller.component";
+import {SolutionsGroupComponent} from "./components/solutions-group/solutions-group.component";
+import {SolutionTeacherComponent} from "./components/solution-teacher/solution-teacher.component";
 
 const routes: Routes = [
   {path: 'system', component: SystemComponent, children: [
@@ -21,6 +24,9 @@ const routes: Routes = [
     {path: 'personal-sertificate', component: PersonalSertificateComponent},
     {path: 'role-controller', component: RoleControllerComponent},
     {path: 'solutions', component: SolutionListComponent},
+    {path: 'solutions-teacher', component: SolutionControllerComponent},
+    {path: 'solutions-teacher/:groupID', component: SolutionsGroupComponent},
+    {path: 'solutions-teacher/:groupID/:taskId/:userId', component: SolutionTeacherComponent},
     {path: 'courses', component: CourseControllerComponent},
     {path: 'groups', component: GroupControlComponent},
     {path: 'applications', component: AplicationsComponent},

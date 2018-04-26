@@ -1,0 +1,56 @@
+<div class="text-center" *ngIf="!isLoaded">
+  Loading...
+</div>
+<div *ngIf="isLoaded">
+  <div class="title-block">
+    <h3 class="title">
+      <a [routerLink]="['/system/solutions-teacher']"><i class="fa fa-arrow-left"></i></a>
+      К информации о группах
+      <span class="sparkline bar"></span>
+    </h3>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="card">
+          <div class="card-header bordered">
+            <div class="header-block">
+              <h3 class="title">Решения группы #{{groupId}}</h3>
+            </div>
+          </div>
+
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th class="text-lg-center">Вопрос </th>
+              <th class="text-lg-center">Действие</th>
+              <th class="text-lg-center">Ученик</th>
+              <th class="text-lg-center">Deadline</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let s of solutions; let idx = index">
+              <th scope="row">{{idx + 1}}</th>
+              <td class="text-lg-center">{{s.name}}</td>
+              <td class="text-lg-center">
+                <a [routerLink]="['/system/solutions-teacher',groupId, s.taskId, s.userId ]" class="card-link">Подробности</a>
+              </td>
+              <td class="text-lg-center">{{s.firstName}} {{s.lastName}}</td>
+              <td class="text-lg-center">{{s.end | tcMoment}}</td>
+
+            </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</div>

@@ -4,8 +4,8 @@ import {UsersService} from "../../shared/services/users.service";
 import {AuthService} from "../../shared/services/auth.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Message} from "../../shared/models/message.model";
-import {fadeStateTrigger} from "../../shared/animations/fade.animation";
 import {User} from "../../shared/models/user.model";
+import {fadeStateTrigger} from "../../shared/animations/fade.animation";
 
 
 @Component({

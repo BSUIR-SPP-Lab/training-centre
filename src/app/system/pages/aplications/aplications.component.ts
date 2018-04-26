@@ -72,7 +72,6 @@ export class AplicationsComponent implements OnInit, OnDestroy {
           text: 'Пользователь успешно зачислен',
           type: 'info'
         });
-
       }));
 
   }

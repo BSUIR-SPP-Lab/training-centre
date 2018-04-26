@@ -1,3 +1,42 @@
-<p>
-  solution-list works!
-</p>
+<section class="section">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card">
+        <div class="card-header bordered">
+          <div class="header-block">
+            <h3 class="title">Мои решения</h3>
+          </div>
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Вопрос </th>
+            <th>Преподаватель</th>
+            <th>Deadline</th>
+            <th>Примечания преподавателя</th>
+            <th class="text-lg-center">Оценка</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let s of solutions; let idx = index">
+            <th scope="row">{{idx + 1}}</th>
+            <td class="text-lg-center">{{s.name}}</td>
+            <td class="text-lg-center">{{s.firstName}} {{s.lastName}}</td>
+            <td class="text-lg-center">{{s.end | tcMoment}}</td>
+            <td class="text-lg-center" >{{s.teacherNotes}}</td>
+
+            <td class="text-lg-center"> {{s.mark}}</td>
+
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</section>

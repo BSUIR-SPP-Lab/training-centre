@@ -1,0 +1,37 @@
+<section class="section">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card">
+        <div class="card-header bordered">
+          <div class="header-block">
+            <h3 class="title">Доступные группы для проверки</h3>
+          </div>
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th >#</th>
+            <th class="text-lg-center" >Номер группы</th>
+            <th class="text-lg-center">Действие </th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let c of teacherGroups; let idx = index">
+            <th scope="row">{{idx + 1}}</th>
+            <td class="text-lg-center">{{c.groupId}}</td>
+            <td class="text-lg-center">
+              <a [routerLink]="['/system/solutions-teacher',c.groupId]" class="card-link">Открыть группу</a>
+            </td>
+
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</section>

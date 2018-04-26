@@ -28,6 +28,9 @@ import { AplicationApproveComponent } from './components/aplication-approve/apli
 import { TaskControllComponent } from './pages/task-controll/task-controll.component';
 import { TasksInfoComponent } from './components/tasks-info/tasks-info.component';
 import { TasksAddComponent } from './components/tasks-add/tasks-add.component';
+import { SolutionControllerComponent } from './pages/solution-controller/solution-controller.component';
+import { SolutionsGroupComponent } from './components/solutions-group/solutions-group.component';
+import { SolutionTeacherComponent } from './components/solution-teacher/solution-teacher.component';
 
 
 @NgModule({
@@ -62,7 +65,10 @@ import { TasksAddComponent } from './components/tasks-add/tasks-add.component';
     AplicationApproveComponent,
     TaskControllComponent,
     TasksInfoComponent,
-    TasksAddComponent
+    TasksAddComponent,
+    SolutionControllerComponent,
+    SolutionsGroupComponent,
+    SolutionTeacherComponent
   ],
   providers: []
 })

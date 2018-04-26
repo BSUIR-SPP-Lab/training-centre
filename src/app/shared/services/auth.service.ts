@@ -3,12 +3,12 @@ import {User} from "../models/user.model";
 export  class AuthService {
 
   constructor() {
-    // user = new User('test@gmail.com', 'firstName', 'lastNme', 'login', 'password', 'phone', 'ADMIN', 41);
-    // window.localStorage.setItem('user', JSON.stringify(user));
+    const user = new User('test@gmail.com', 'firstName', 'lastNme', 'login', 'password', 'phone', 'ADMIN', 51);
+    window.localStorage.setItem('user', JSON.stringify(user));
   }
 
   //TODO def value = false
-  private isAuthenticated = false;
+  private isAuthenticated = true;
 
   login() {
     this.isAuthenticated = true;
