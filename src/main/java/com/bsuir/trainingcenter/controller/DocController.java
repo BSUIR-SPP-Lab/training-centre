@@ -80,4 +80,35 @@ public class DocController {
             return ResponseEntity.badRequest().build();
         }
     }
+    @GetMapping("/pdfUserListInGroup/{id}")
+    public ResponseEntity<Resource> pdfUserListInGroup(@PathVariable long id){
+        Resource body = docServiceImpl.generatePdfUsersInGroup(id);
+
+        if (body!=null) {
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "UserListInGroup"+id+".pdf" + "\"").body(body);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/xlsUserListInGroup/{id}")
+    public ResponseEntity<Resource> xlsUserListInGroup(@PathVariable long id){
+        Resource body = docServiceImpl.generateXLSUsersInGroup(id);
+
+        if (body!=null) {
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "UserListInGroup"+id+".xls" + "\"").body(body);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @GetMapping("/csvUserListInGroup/{id}")
+    public ResponseEntity<Resource> csvUserListInGroup(@PathVariable long id){
+        Resource body = docServiceImpl.generateCSVUsersInGroup(id);
+
+        if (body!=null) {
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + "UserListInGroup"+id+".csv" + "\"").body(body);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

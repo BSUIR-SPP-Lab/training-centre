@@ -27,4 +27,6 @@ public interface UserService {
     User login(String login, String password);
 
     List<User> findUsersByCourseId(long courseId, boolean finish);
+
+    List<User> findUsersByGroupId(long groupId);
 }

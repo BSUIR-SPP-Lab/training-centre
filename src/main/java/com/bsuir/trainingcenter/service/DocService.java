@@ -15,4 +15,10 @@ public interface DocService {
     Resource generateXLSUsersOnCourse(long id, boolean finish);
 
     Resource generateCSVUsersOnCourse(long id, boolean finish);
+
+    Resource generatePdfUsersInGroup(long grouoId);
+
+    Resource generateXLSUsersInGroup(long groupId);
+
+    Resource generateCSVUsersInGroup(long groupId);
 }

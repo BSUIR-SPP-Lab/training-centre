@@ -196,9 +196,72 @@ public class DocServiceImpl implements DocService {
     public Resource generateCSVUsersOnCourse(long id, boolean finish) {
         List<User> list = userService.findUsersByCourseId(id, finish);
         return createCSV(() -> {
-            StringBuffer buf =new StringBuffer();
+            StringBuffer buf = new StringBuffer();
             for (User user : list) {
-                buf.append(user.getFirstName()+" "+user.getLastName()+";");
+                buf.append(user.getFirstName() + " " + user.getLastName() + ";");
+            }
+            return buf.toString();
+        });
+    }
+
+    @Override
+    public Resource generatePdfUsersInGroup(long groupId) {
+        List<User> list = userService.findUsersByGroupId(groupId);
+        return createPdf(((Document doc) -> {
+            try {
+                PdfFont font = PdfFontFactory.createFont("src/main/resources/times.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                Paragraph paragraph = null;
+                paragraph = new Paragraph(String.format("Список пользователей группы %n",groupId))
+                        .setItalic()
+                        .setMarginBottom(20)
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setFont(font)
+                        .setFontSize(40);
+                doc.add(paragraph);
+                paragraph = new Paragraph()
+                        .setFont(font)
+                        .setFontSize(20)
+                        .add("Имя Фамилия\n");
+                for (User user : list) {
+                    paragraph.add(user.getFirstName() + " " + user.getLastName() + "\n");
+                }
+                doc.add(paragraph);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
+    }
+
+    @Override
+    public Resource generateXLSUsersInGroup(long groupId) {
+        List<User> list = userService.findUsersByGroupId(groupId);
+        return createXLS((sheet, style) -> {
+            HSSFRow[] rows = new HSSFRow[list.size() + 1];
+            for (int i = 0; i < rows.length; i++) {
+                rows[i] = sheet.createRow(i);
+            }
+
+            createCell(rows[0], 1, "Фамилия", style);
+            createCell(rows[0], 0, "Имя", style);
+
+            for (int i = 0; i < list.size(); i++) {
+                createCell(rows[i + 1], 0, list.get(i).getFirstName(), style);
+                createCell(rows[i + 1], 1, list.get(i).getLastName(), style);
+
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+        });
+    }
+
+    @Override
+    public Resource generateCSVUsersInGroup(long groupId) {
+        List<User> list = userService.findUsersByGroupId(groupId);
+        return createCSV(() -> {
+            StringBuffer buf = new StringBuffer();
+            for (User user : list) {
+                buf.append(String.format("%s %s;", user.getFirstName() , user.getLastName()));
             }
             return buf.toString();
         });
