@@ -41,15 +41,17 @@ public class ApprovmentServiceImpl implements ApprovmentService {
             Optional<Course> course = courseDAO.findCourse(app.get().getCourseId());
             List<Group> groups = groupDAO.findGroupsByCourseId(course.get().getCourseId());
             Group group =null;
+            appDAO.deleteApplication(appId);
             if(!groups.isEmpty()){
                 group = groups.get(0);
-
+                if(studentGroupDAO.findStudentGroup(app.get().getStudentId(),group.getGroupId()).isPresent()){
+                    return true;
+                }
             }else{
                 if(groupDAO.addGroup(new Group(course.get().getCourseId(),course.get().getCoordinatorId()))){
                     group = groupDAO.findGroupsByCourseId(course.get().getCourseId()).get(0);
                 }
             }
-            appDAO.deleteApplication(appId);
             return studentGroupDAO.addStudentGroup(new StudentGroup(app.get().getStudentId(),group.getGroupId(),false));
         }
         return false;

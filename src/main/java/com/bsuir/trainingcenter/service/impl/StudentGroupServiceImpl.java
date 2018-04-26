@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentGroupServiceImpl implements StudentGroupService {
@@ -26,6 +27,11 @@ public class StudentGroupServiceImpl implements StudentGroupService {
     @Override
     public List<StudentGroup> findStudentGroups() {
         return studentGroupDAO.findStudentGroups();
+    }
+
+    @Override
+    public Optional<StudentGroup> findStudentGroup(long studentId, long groupId) {
+        return studentGroupDAO.findStudentGroup(studentId, groupId);
     }
 
     @Override
