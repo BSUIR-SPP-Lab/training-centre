@@ -12,6 +12,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
 
   @HostBinding('@fade') a = true;
+
   destroy = true;
   constructor(private router: Router) {}
   ngOnInit(): void {
