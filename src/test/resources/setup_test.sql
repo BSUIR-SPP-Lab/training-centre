@@ -524,7 +524,7 @@ DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `training_service_db_test`.`user_BEFORE_INSERT` BEFORE INSERT ON `user` FOR EACH ROW
   BEGIN
     IF (NEW.`role` = 'student') THEN
-      IF ((SELECT COUNT(*) FROM `student` WHERE `student`.` student_id` = NEW.`user_id`) = 0) THEN
+      IF ((SELECT COUNT(*) FROM `student` WHERE `student`.`student_id` = NEW.`user_id`) = 0) THEN
         INSERT INTO `student` (`student_id`) VALUES (NEW.`user_id`);
       END IF;
     END IF;
@@ -546,7 +546,7 @@ DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `training_service_db_test`.`user_BEFORE_UPDATE` BEFORE UPDATE ON `user` FOR EACH ROW
   BEGIN
     IF (NEW.`role` = 'student') THEN
-      IF ((SELECT COUNT(*) FROM `student` WHERE `student`.` student_id` = NEW.`user_id`) = 0) THEN
+      IF ((SELECT COUNT(*) FROM `student` WHERE `student`.`student_id` = NEW.`user_id`) = 0) THEN
         INSERT INTO `student` (`student_id`) VALUES (NEW.`user_id`);
       END IF;
     END IF;
