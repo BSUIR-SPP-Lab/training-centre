@@ -288,16 +288,6 @@ UNLOCK TABLES;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ALLOW_INVALID_DATES,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `training_service_db`.`student_BEFORE_INSERT` BEFORE INSERT ON `student` FOR EACH ROW
-BEGIN
-	DECLARE user_count INT;
-	SET user_count = (SELECT COUNT(*) FROM `user` WHERE (NEW.`student_id` = `user`.`user_id`) AND (`user`.`role` = 'student'));
-	IF user_count != 1 THEN
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The specified user is not a student.';
-    END IF;
-END */;;
-DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
@@ -310,16 +300,6 @@ DELIMITER ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ALLOW_INVALID_DATES,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `training_service_db`.`student_BEFORE_UPDATE` BEFORE UPDATE ON `student` FOR EACH ROW
-BEGIN
-	DECLARE user_count INT;
-	SET user_count = (SELECT COUNT(*) FROM `user` WHERE (NEW.`student_id` = `user`.`user_id`) AND (`user`.`role` = 'student'));
-	IF user_count != 1 THEN
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The specified user is not a student.';
-    END IF;
-END */;;
-DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;

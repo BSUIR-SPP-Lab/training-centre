@@ -7,13 +7,9 @@ import java.util.Optional;
 
 public interface StudentDAO {
 
-    boolean addStudent(Student student);
-
     List<Student> findStudents();
 
     Optional<Student> findStudent(long studentId);
-
-    boolean updateStudent(Student student);
 
     boolean deleteStudent(long studentId);
 

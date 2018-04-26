@@ -15,7 +15,6 @@ import java.util.Optional;
 @Repository
 public class StudentDAOImpl implements StudentDAO {
 
-    private static final String queryAddStudent = "INSERT INTO `student` (`student_id`) VALUES (?)";
     private static final String queryFindStudents = "SELECT `student`.`student_id` FROM `student`";
     private static final String queryFindStudentById = "SELECT `student`.`student_id` FROM `student` " +
             "WHERE `student`.`student_id` = ?";
@@ -35,11 +34,6 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public boolean addStudent(Student student) {
-        return jdbcTemplate.update(queryAddStudent, student.getStudentId()) > 0;
-    }
-
-    @Override
     public List<Student> findStudents() {
         return jdbcTemplate.query(queryFindStudents, rowMapper);
     }
@@ -48,11 +42,6 @@ public class StudentDAOImpl implements StudentDAO {
     public Optional<Student> findStudent(long studentId) {
         List<Student> queryResults = jdbcTemplate.query(queryFindStudentById, new Object[]{studentId}, rowMapper);
         return ListHelper.getFirst(queryResults);
-    }
-
-    @Override
-    public boolean updateStudent(Student student) {
-        return true;
     }
 
     @Override
