@@ -8,7 +8,7 @@ import java.util.List;
 public interface ApplicationService {
     boolean addApplication(Application application);
 
-    List<Application> findApplications();
+    List<ApplicationWithInfo> findApplications();
 
     List<ApplicationWithInfo> findApplicationsByCourse(long courseId);
 

@@ -27,7 +27,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public List<Application> findApplications() {
+    public List<ApplicationWithInfo> findApplications() {
         return dao.findApplications();
     }
 

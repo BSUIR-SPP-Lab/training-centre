@@ -44,7 +44,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<Application>> findApplications() {
+    public ResponseEntity<List<ApplicationWithInfo>> findApplications() {
         return ResponseEntity.ok(service.findApplications());
     }
 

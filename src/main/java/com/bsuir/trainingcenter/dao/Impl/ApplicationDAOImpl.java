@@ -19,7 +19,9 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     private static final String queryAddApplication = "INSERT INTO `application` (`student_id`, `course_id`) " +
             "VALUES (?, ?)";
     private static final String queryFindApplications = "SELECT `application`.`application_id`, " +
-            "`application`.`student_id`, `application`.`course_id` FROM `application`";
+            "`application`.`student_id`,`s`.`first_name`,`s`.`last_name`, `application`.`course_id`" +
+            " FROM `application`" +
+            "JOIN `user` s ON application.student_id = s.user_id\n";
     private static final String queryFindApplicationsByCourseId = "SELECT `application`.`application_id`,`application`.`student_id`,`application`.`course_id`,`s`.`first_name`,`s`.`last_name`\n" +
             "FROM `application`\n" +
             "JOIN `user` s ON application.student_id = s.user_id\n" +
@@ -65,8 +67,8 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     }
 
     @Override
-    public List<Application> findApplications() {
-        return jdbcTemplate.query(queryFindApplications, rowMapper);
+    public List<ApplicationWithInfo> findApplications() {
+        return jdbcTemplate.query(queryFindApplications, applicationWithInfoRowMapper);
     }
 
     @Override
