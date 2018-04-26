@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import {BaseApi} from '../core/base-api';
 import {User} from "../models/user.model";
 import {Course} from "../models/course.model";
+import {CourseWithoutInfo} from "../models/courseWithoutInfo.model";
 
 @Injectable()
 export  class CourseService extends BaseApi {
@@ -24,5 +25,8 @@ export  class CourseService extends BaseApi {
     return this.get(`/course/get/courseWithInfo/${id}`);
   }
 
+  addCourse(course: CourseWithoutInfo): Promise<any> {
+    return this.post('course/add', course);
+  }
 
 }

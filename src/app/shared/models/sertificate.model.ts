@@ -1,9 +1,9 @@
 export class Sertificate {
-  constructor(public sertificateId: number,
-              public studentId: number,
-              public courseName: string,
+  constructor(public certificateId: number,
+              public name: string,
               public start: Date,
               public end: Date,
-              public coordinatorName: string) {
+              public lastName: string,
+              public firstName: string) {
   }
 }

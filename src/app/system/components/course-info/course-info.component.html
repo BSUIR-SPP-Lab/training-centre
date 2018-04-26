@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="card-header bordered">
+    <div class="header-block">
+      <h3 class="title">Создание шаблона курса</h3>
+    </div>
+  </div>
+  <div class="card-block">
+    <div
+      class="alert alert-{{message.type}}"
+      *ngIf="message.text"
+    >
+      {{message.text}}
+    </div>
+
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+      <div
+        class="form-group"
+        [ngClass] = "{'has-error': name.invalid && name.touched}"
+      >
+        <label class="control-label" for="courseInfo-name">Введите название</label>
+        <input
+          type="text"
+          id="courseInfo-name"
+          class="form-control"
+          required
+          #name="ngModel"
+          name="name"
+          [ngModel]="courseName"
+        >
+        <span
+          *ngIf="name.invalid && name.touched"
+          class="form-help-text"
+        >Название шаблона не может быть пустым.</span>
+      </div>
+
+
+      <div
+        class="form-group"
+        [ngClass] = "{'has-error': body.invalid && body.touched}"
+      >
+        <label class="control-label" for="body">Заполните описание задания</label>
+        <textarea
+          type="text"
+          id="body"
+          class="form-control"
+          rows="5"
+          required
+          #body="ngModel"
+          name="body"
+          ngModel
+        > </textarea>
+        <span
+          *ngIf="body.invalid && body.touched"
+          class="form-help-text"
+        >Описание задания должно быть заполнено</span>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="f.invalid"
+      >Добавить</button>
+
+    </form>
+  </div>
+</div>

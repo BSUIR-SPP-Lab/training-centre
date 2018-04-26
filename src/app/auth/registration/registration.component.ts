@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {UsersService} from "../../shared/services/users.service";
@@ -7,7 +7,8 @@ import {User} from "../../shared/models/user.model";
 @Component({
   selector: 'tc-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegistrationComponent implements OnInit {
 
@@ -36,7 +37,7 @@ export class RegistrationComponent implements OnInit {
     const user = new User(email, firstName, name, login, password, phone, 'USER');
     console.log(user);
     this.userService.createNewUser(user)
-      .subscribe(() => {
+      .then(() => {
         this.router.navigate(['/login'], {
           queryParams: {
             nowCanLoggin: true

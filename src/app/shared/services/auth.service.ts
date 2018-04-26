@@ -3,7 +3,7 @@ import {User} from "../models/user.model";
 export  class AuthService {
 
   constructor() {
-    const user = new User('test@gmail.com', 'firstName', 'lastNme', 'login', 'password', 'phone', 'STUDENT', 41);
+    const user = new User('test@gmail.com', 'firstName', 'lastNme', 'login', 'password', 'phone', 'ADMIN', 41);
     window.localStorage.setItem('user', JSON.stringify(user));
   }
 

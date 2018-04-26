@@ -12,10 +12,12 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class PersonalCourseComponent implements OnInit, OnDestroy {
 
+
   sub1: Subscription;
   courseList: Course[] = [];
   user: User;
   isLoaded = false;
+
 
   constructor(private courseService: CourseService,
               private authService: AuthService) { }

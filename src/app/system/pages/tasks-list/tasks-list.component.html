@@ -42,7 +42,7 @@ Loading...
               <td>{{t.firstName}} {{t.lastName}}</td>
 
               <td>
-                <a [routerLink]="['/system/solution', t.taskId]" class="btn btn-primary-outline">Отправить задание </a>
+                <a [routerLink]="['/system/solution',groupID, t.taskId ]" class="card-link">Отправить задание </a>
               </td>
 
             </tr>

@@ -11,7 +11,7 @@ export  class ApplicationService extends BaseApi {
     super(http);
   }
 
-  createApplication(studentId: number, courseId: number): Observable<any> {
+  createApplication(studentId: number, courseId: number): Promise<any> {
     return this.post('application/add', new Application(courseId, studentId));
   }
 

@@ -1,0 +1,97 @@
+<div class="card">
+  <div class="card-header bordered">
+    <div class="header-block">
+      <h3 class="title">Создание курса</h3>
+    </div>
+  </div>
+  <div class="card-block">
+    <div
+      class="alert alert-{{message.type}}"
+      *ngIf="message.text"
+    >
+      {{message.text}}
+    </div>
+
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+      <div class="form-group">
+        <label class="control-label" for="courseInfo">Выберите шаблон курса</label>
+        <select
+          class="form-control"
+          id="courseInfo"
+          [ngModel]="1"
+          name="courseInfo"
+          required
+        >
+          <option
+            *ngFor="let c of coursesInfo"
+            [value]="c.courseInfoId"
+          >
+            {{c.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="coordinator">Выберите координатора курса</label>
+        <select
+          class="form-control"
+          id="coordinator"
+          [ngModel]="coord"
+          name="coordinator"
+          required
+        >
+          <option
+            *ngFor="let c of coordinators"
+            [value]="c.id"
+          >
+            {{c.firstName}} {{c.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="initTime">Дата начала</label>
+        <input
+          id="initTime"
+          class="form-control"
+          ngModel
+          name="initTime"
+          type="datetime-local"
+          required
+          #initTime="ngModel"
+          [(ngModel)] ="start"
+        >
+        <span
+          *ngIf="initTime.invalid && initTime.touched"
+          class="form-help-text"
+        >Дата начала должна быть заполнена</span>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="endTime">Дата окончания</label>
+        <input
+          id="endTime"
+          class="form-control"
+          ngModel
+          name="endTime"
+          type="datetime-local"
+          required
+          #endTime="ngModel"
+          [(ngModel)] ="end"
+        >
+        <span
+          *ngIf="endTime.invalid && endTime.touched"
+          class="form-help-text"
+        >Дата начала должна быть заполнена</span>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="f.invalid"
+      >Добавить</button>
+
+    </form>
+  </div>
+</div>

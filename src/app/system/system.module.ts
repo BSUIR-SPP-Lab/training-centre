@@ -16,6 +16,10 @@ import { RoleControllerComponent } from './pages/role-controller/role-controller
 import { CourseDetailComponent } from './pages/course-detail/course-detail.component';
 import { TasksListComponent } from './pages/tasks-list/tasks-list.component';
 import { SolutionComponent } from './pages/solution/solution.component';
+import { SolutionListComponent } from './pages/solution-list/solution-list.component';
+import { CourseInfoComponent } from './components/course-info/course-info.component';
+import { CourseControllerComponent } from './pages/course-controller/course-controller.component';
+import { CourseComponent } from './components/course/course.component';
 
 
 @NgModule({
@@ -38,7 +42,11 @@ import { SolutionComponent } from './pages/solution/solution.component';
     RoleControllerComponent,
     CourseDetailComponent,
     TasksListComponent,
-    SolutionComponent
+    SolutionComponent,
+    SolutionListComponent,
+    CourseInfoComponent,
+    CourseControllerComponent,
+    CourseComponent
   ],
   providers: []
 })

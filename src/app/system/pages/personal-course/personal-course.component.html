@@ -31,7 +31,8 @@
               <td>{{c.end | tcMoment}}</td>
               <td>{{c.firstName}} {{c.lastName}}</td>
               <td class="text-lg-center">
-                <a [routerLink]="['/system/course-detail', c.courseId]" class="btn btn-primary-outline">Открыть подробности</a>
+                <!--<a [routerLink]="['/system/course-detail', c.courseId]" class="btn btn-primary-outline">Открыть подробности</a>-->
+                <a [routerLink]="['/system/course-detail', c.courseId]" class="card-link">Открыть подробности</a>
               </td>
 
             </tr>

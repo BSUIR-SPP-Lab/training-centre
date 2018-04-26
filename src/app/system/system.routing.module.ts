@@ -8,6 +8,8 @@ import {RoleControllerComponent} from "./pages/role-controller/role-controller.c
 import {CourseDetailComponent} from "./pages/course-detail/course-detail.component";
 import {TasksListComponent} from "./pages/tasks-list/tasks-list.component";
 import {SolutionComponent} from "./pages/solution/solution.component";
+import {SolutionListComponent} from "./pages/solution-list/solution-list.component";
+import {CourseControllerComponent} from "./pages/course-controller/course-controller.component";
 
 const routes: Routes = [
   {path: 'system', component: SystemComponent, children: [
@@ -15,9 +17,11 @@ const routes: Routes = [
     {path: 'personal-course', component: PersonalCourseComponent},
     {path: 'personal-sertificate', component: PersonalSertificateComponent},
     {path: 'role-controller', component: RoleControllerComponent},
+    {path: 'solutions', component: SolutionListComponent},
+    {path: 'courses', component: CourseControllerComponent},
     {path: 'course-detail/:id', component: CourseDetailComponent},
     {path: 'task-list/:id', component: TasksListComponent},
-    {path: 'solution/:id', component: SolutionComponent}
+    {path: 'solution/:groupID/:taskID', component: SolutionComponent}
   ]}
 ];
 

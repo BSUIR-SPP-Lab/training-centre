@@ -17,7 +17,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   sub1: Subscription;
   isLoaded = false;
   tasks: Task[] = [];
-
+  groupID: number;
 
   constructor(private route: ActivatedRoute,
               private courseService: CourseService,
@@ -26,15 +26,13 @@ export class TasksListComponent implements OnInit, OnDestroy {
               private taskService: TaskService) { }
 
   ngOnInit() {
-    // this.sub1 = this.route.params
-    //   .mergeMap((params: Params) => this.taskService.getTaskForGroup(params['id']))
-    //   .subscribe((tasks: Task[]) => {
-    //     this.tasks = tasks;
-    //     this.isLoaded = true;
-    //   });
-    // TODO FIX STUB!!!
-    this.tasks = this.taskService.getTasksForGroup(42);
-    this.isLoaded = true;
+    this.sub1 = this.route.params
+      .mergeMap((params: Params) => this.taskService.getTaskForGroup(params['id']))
+      .subscribe((tasks: Task[]) => {
+        this.tasks = tasks;
+        this.groupID = this.route.snapshot.params['id'];
+        this.isLoaded = true;
+      });
   }
 
   ngOnDestroy() {

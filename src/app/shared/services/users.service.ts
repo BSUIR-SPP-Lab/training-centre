@@ -44,8 +44,18 @@ export  class UsersService extends BaseApi {
       .catch((error: any) =>  null );
   }
 
-  createNewUser(user: User): Observable<User> {
+  checkUser(login: string, password): Promise<User> {
+    const data =  {login: login, password: password};
+    console.log('data: ', data);
+    return this.post2(`user/login/`, data);
+  }
+
+  createNewUser(user: User): Promise<User> {
     return this.post('user/add', user);
+  }
+
+  getUserByRole(role: string): Observable<User[]> {
+    return this.get(`user/findByRole/${role}`);
   }
 
   getUsers() {

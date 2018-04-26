@@ -1,3 +1,81 @@
-<p>
-  solution works!
-</p>
+<div class="text-center" *ngIf="!isLoaded">
+Loading...
+</div>
+<div *ngIf="isLoaded">
+  <div class="title-block">
+    <h3 class="title">
+      <a [routerLink]="['/system/task-list', groupID]"><i class="fa fa-arrow-left"></i></a>
+      К информации о задании
+      <span class="sparkline bar"></span>
+    </h3>
+  </div>
+<section class="section">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bordered">
+          <div class="header-block">
+            <h3 class="title"> Отправка решения</h3>
+          </div>
+        </div>
+        <div class="card-block">
+          <div
+            class="alert alert-{{message.type}}"
+            *ngIf="message.text"
+          >{{message.text}}</div>
+
+          <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+            <div class="form-group">
+              <label class="control-label" for="taskID">Выберите задание</label>
+              <select
+                class="form-control"
+                id="taskID"
+                [(ngModel)] ="taskID"
+                [ngModelOptions]="{standalone: true}"
+              >
+                <option
+                  *ngFor="let t of tasks"
+                  [value]="t.taskId"
+                >
+                  {{t.name}}
+                </option>
+              </select>
+            </div>
+
+            <div
+              class="form-group"
+              [ngClass] = "{'has-error': answer.invalid && answer.touched}"
+            >
+              <label class="control-label" for="answer">Заполните ответ на задание</label>
+              <textarea
+                type="text"
+                id="answer"
+                class="form-control"
+                rows="5"
+                required
+                #answer="ngModel"
+                name="answer"
+                ngModel
+              > </textarea>
+              <span
+                *ngIf="answer.invalid && answer.touched"
+                class="form-help-text"
+              >Ответ на задание должен быть заполнен</span>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="form.invalid"
+            >Отправить
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>

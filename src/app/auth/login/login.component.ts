@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UsersService} from "../../shared/services/users.service";
 import {AuthService} from "../../shared/services/auth.service";
@@ -14,10 +14,11 @@ import {User} from "../../shared/models/user.model";
   styleUrls: ['./login.component.scss'],
   animations: [fadeStateTrigger]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   message: Message;
+  destroy = false;
   constructor(
     private usersService: UsersService,
     private authService: AuthService,
@@ -56,6 +57,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+
+  }
+
   private showMessage(message: Message) {
     this.message = message;
     window.setTimeout( () => {
@@ -66,27 +71,24 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const formData = this.form.value;
     console.log(formData);
-    console.log('This is stub.');
-    // this.usersService.getUserByLogin(formData.login)
-    //   .subscribe( (user: User) => {
-    //     console.log(user);
-    //     if (user) {
-    //       if (user.password === formData.password) {
-    //         this.message.text = '';
-    //         this.authService.login();
-    //         window.localStorage.setItem('user', JSON.stringify(user));
-    //         this.router.navigate(['/system', 'start-page']);
-    //       } else {
-    //         this.showMessage( {
-    //           text: 'пароль не верный!',
-    //           type: 'danger'});
-    //       }
-    //     } else {
-    //       this.showMessage( {
-    //         text: 'такого пользователя нет!',
-    //         type: 'danger'});
-    //     }
-    //   });
+    this.destroy = true;
+    this.usersService.checkUser(formData.login, formData.password)
+      .then( (data: User) => {
+
+        const user: User = JSON.parse(data['_body']);
+        this.authService.logout();
+        this.message.text = '';
+        this.authService.login();
+        window.localStorage.setItem('user', JSON.stringify(user));
+        this.router.navigate(['/system', 'start-page']);
+      })
+      .catch(error => {
+        this.destroy = false;
+        this.showMessage( {
+          text: 'пароль не верный или такого пользователя нет!',
+          type: 'danger'});
+      });
+
   }
 
 }

@@ -25,11 +25,11 @@
           <tbody>
           <tr *ngFor="let s of sertificateList; let idx = index">
             <th scope="row">{{idx + 1}}</th>
-            <td>{{s.courseName}}</td>
-            <td>{{s.coordinatorName}}</td>
+            <td>{{s.name}}</td>
+            <td>{{s.firstName}} {{s.lastName}}</td>
             <td>{{s.start | tcMoment}}</td>
             <td>{{s.end | tcMoment}}</td>
-            <td class="text-lg-center" >{{s.sertificateId}}</td>
+            <td class="text-lg-center" >{{s.certificateId}}</td>
 
             <td>
               <ul >
@@ -39,16 +39,18 @@
                         Скачать сертификат
                     </span>
                   </a>
+
                   <div class="dropdown-menu profile-dropdown-menu">
 
-                    <a class="dropdown-item" [routerLink]="['/system', 'start-page']">
+                    <a href="{{documentServerRoute}}{{routeSertificatePDF}}{{s.certificateId}}" class="dropdown-item">
                       <i class="fa fa-gear icon"></i>PDF
                     </a>
 
-                    <a class="dropdown-item" [routerLink]="['/system', 'start-page']">
+                    <a href="{{documentServerRoute}}{{routeSertificateCVS}}{{s.certificateId}}" class="dropdown-item">
                       <i class="fa fa-gear icon"></i>CSV
                     </a>
-                    <a class="dropdown-item" [routerLink]="['/system', 'start-page']">
+
+                    <a href="{{documentServerRoute}}{{routeSertificateXLS}}{{s.certificateId}}" class="dropdown-item">
                       <i class="fa fa-gear icon"></i>XLS
                     </a>
 

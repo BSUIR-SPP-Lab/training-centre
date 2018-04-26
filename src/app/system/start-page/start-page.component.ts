@@ -29,6 +29,7 @@ export class StarPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.showMessage({
       text: 'Добро Пожаловать на сайт',
       type: 'info'});
@@ -36,7 +37,13 @@ export class StarPageComponent implements OnInit, OnDestroy {
       .subscribe((data: Course[]) => {
         this.courses = data;
         this.isLoaded = true;
-      });
+      },
+        (error) => {
+          this.showMessage({
+            text: 'Ошибка загрузки',
+            type: 'warning'
+          });
+        });
   }
 
   ngOnDestroy() {
@@ -58,8 +65,8 @@ export class StarPageComponent implements OnInit, OnDestroy {
   onEnrollEvent(curseID) {
     console.log(curseID);
     if (this.authService.isLoggedIn()) {
-      this.sub2 = this.applicationService.createApplication(this.authService.getId(), curseID)
-        .subscribe(
+      this.applicationService.createApplication(this.authService.getId(), curseID)
+        .then(
           (res => {
             console.log(res);
               if (res.status === 200) {
