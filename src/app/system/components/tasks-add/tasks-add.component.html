@@ -1,0 +1,98 @@
+<div class="card">
+  <div class="card-header bordered">
+    <div class="header-block">
+      <h3 class="title">Создание курса</h3>
+    </div>
+  </div>
+  <div class="card-block">
+    <div
+      class="alert alert-{{message.type}}"
+      *ngIf="message.text"
+    >
+      {{message.text}}
+    </div>
+
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+      <div class="form-group">
+        <label class="control-label" for="taskInfo">Выберите шаблон задания</label>
+        <select
+          class="form-control"
+          id="taskInfo"
+          [(ngModel)]="taskInfoId"
+          name="taskInfo"
+          required
+        >
+          <option
+            *ngFor="let t of tasksInfo"
+            [value]="t.taskInfoId"
+          >
+            {{t.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="teacher">Выберите преподователя</label>
+        <select
+          class="form-control"
+          id="teacher"
+          [(ngModel)]="teacherId"
+          name="teacher"
+          required
+          (change)="onChangeTeacher(f.value)"
+        >
+          <option
+            *ngFor="let t of teachers"
+            [value]="t.id"
+          >
+            {{t.firstName}} {{t.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="group">Выберите группу</label>
+        <select
+          class="form-control"
+          id="group"
+          [(ngModel)]="groupId"
+          name="group"
+          required
+        >
+          <option
+            *ngFor="let t of teacherGroups"
+            [value]="t.groupId"
+          >
+            {{t.groupId}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="endTime">Дата окончания</label>
+        <input
+          id="endTime"
+          class="form-control"
+          ngModel
+          name="endTime"
+          type="datetime-local"
+          required
+          #endTime="ngModel"
+          [(ngModel)] ="end"
+        >
+        <span
+          *ngIf="endTime.invalid && endTime.touched"
+          class="form-help-text"
+        >Дата окончания должна быть заполнена</span>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="f.invalid"
+      >Добавить</button>
+
+    </form>
+  </div>
+</div>

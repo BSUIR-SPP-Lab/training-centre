@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-header bordered">
+    <div class="header-block">
+      <h3 class="title">Создание группы</h3>
+    </div>
+  </div>
+  <div class="card-block">
+    <div
+      class="alert alert-{{message.type}}"
+      *ngIf="message.text"
+    >
+      {{message.text}}
+    </div>
+
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+      <div class="form-group">
+        <label class="control-label" for="course">Выберите курс</label>
+        <select
+          class="form-control"
+          id="course"
+          [ngModel]="1"
+          name="course"
+          required
+        >
+          <option
+            *ngFor="let c of courses"
+            [value]="c.courseId"
+          >
+            {{c.name}} {{c.firstName}} {{c.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="coordinator">Выберите координатора курса</label>
+        <select
+          class="form-control"
+          id="coordinator"
+          [ngModel]="coord"
+          name="coordinator"
+          required
+        >
+          <option
+            *ngFor="let c of coordinators"
+            [value]="c.id"
+          >
+            {{c.firstName}} {{c.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="f.invalid"
+      >Добавить</button>
+
+    </form>
+  </div>
+</div>

@@ -10,6 +10,9 @@ import {TasksListComponent} from "./pages/tasks-list/tasks-list.component";
 import {SolutionComponent} from "./pages/solution/solution.component";
 import {SolutionListComponent} from "./pages/solution-list/solution-list.component";
 import {CourseControllerComponent} from "./pages/course-controller/course-controller.component";
+import {GroupControlComponent} from "./pages/group-control/group-control.component";
+import {AplicationsComponent} from "./pages/aplications/aplications.component";
+import {TaskControllComponent} from "./pages/task-controll/task-controll.component";
 
 const routes: Routes = [
   {path: 'system', component: SystemComponent, children: [
@@ -19,6 +22,9 @@ const routes: Routes = [
     {path: 'role-controller', component: RoleControllerComponent},
     {path: 'solutions', component: SolutionListComponent},
     {path: 'courses', component: CourseControllerComponent},
+    {path: 'groups', component: GroupControlComponent},
+    {path: 'applications', component: AplicationsComponent},
+    {path: 'tasks', component: TaskControllComponent},
     {path: 'course-detail/:id', component: CourseDetailComponent},
     {path: 'task-list/:id', component: TasksListComponent},
     {path: 'solution/:groupID/:taskID', component: SolutionComponent}

@@ -20,6 +20,14 @@ import { SolutionListComponent } from './pages/solution-list/solution-list.compo
 import { CourseInfoComponent } from './components/course-info/course-info.component';
 import { CourseControllerComponent } from './pages/course-controller/course-controller.component';
 import { CourseComponent } from './components/course/course.component';
+import { GroupControlComponent } from './pages/group-control/group-control.component';
+import { AddGroupComponent } from './components/add-group/add-group.component';
+import { AddTeacherToGroupComponent } from './components/add-teacher-to-group/add-teacher-to-group.component';
+import { AplicationsComponent } from './pages/aplications/aplications.component';
+import { AplicationApproveComponent } from './components/aplication-approve/aplication-approve.component';
+import { TaskControllComponent } from './pages/task-controll/task-controll.component';
+import { TasksInfoComponent } from './components/tasks-info/tasks-info.component';
+import { TasksAddComponent } from './components/tasks-add/tasks-add.component';
 
 
 @NgModule({
@@ -46,7 +54,15 @@ import { CourseComponent } from './components/course/course.component';
     SolutionListComponent,
     CourseInfoComponent,
     CourseControllerComponent,
-    CourseComponent
+    CourseComponent,
+    GroupControlComponent,
+    AddGroupComponent,
+    AddTeacherToGroupComponent,
+    AplicationsComponent,
+    AplicationApproveComponent,
+    TaskControllComponent,
+    TasksInfoComponent,
+    TasksAddComponent
   ],
   providers: []
 })

@@ -18,12 +18,12 @@ export class RoleControllerComponent implements OnInit {
   constructor(private userService: UsersService) { }
 
   ngOnInit() {
-    this.message = new Message('success', '')
-    //TODO sub and destr
-    this.users = this.userService.getUsers();
-    //TODO check count
-    this.currentUser = this.users[0];
-    this.currentUserId = this.currentUser.id;
+    this.message = new Message('success', '');
+    // //TODO sub and destr
+    // this.users = this.userService.getUsers();
+    // //TODO check count
+    // this.currentUser = this.users[0];
+    // this.currentUserId = this.currentUser.id;
   }
 
   onCategoryChange() {

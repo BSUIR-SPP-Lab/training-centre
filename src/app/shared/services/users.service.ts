@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {BaseApi} from '../core/base-api';
 import {User} from "../models/user.model";
+import {TeacherGroup} from "../models/teacher.model";
 
 @Injectable()
 export  class UsersService extends BaseApi {
@@ -58,11 +59,27 @@ export  class UsersService extends BaseApi {
     return this.get(`user/findByRole/${role}`);
   }
 
-  getUsers() {
-    return this.users;
+  getUsers(): Observable<User[]> {
+    return this.get('user/all');
+  }
+
+  addTeacher(userID: number, groupID: number): Promise<any> {
+    return this.post('teacher/add', { groupId: groupID, teacherId: userID});
+  }
+
+  updateUser(user: User): Promise<any> {
+    return this.post(`user/update/${user.id}`, user);
+  }
+
+  getUserById(userId: number): Observable<User> {
+    return this.get(`user/${userId}`);
   }
 
   getRoleList() {
 
+  }
+
+  getTeacherGroup(): Observable<TeacherGroup[]> {
+    return this.get('teacher/get');
   }
 }

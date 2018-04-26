@@ -69,21 +69,18 @@ export class StarPageComponent implements OnInit, OnDestroy {
         .then(
           (res => {
             console.log(res);
-              if (res.status === 200) {
+
                 this.showMessage({
                   text: 'Регистрация прошла успешно',
                   type: 'info'
                 });
-              } else {
-                /// TODO this don't work
-                this.showMessage({
-                  text: 'Ошибка регистрации',
-                  type: 'warning'
-                });
-              }
-            }
-            )
-        );
+            }))
+        .catch(reason => {
+          this.showMessage({
+            text: 'Ошибка регистрации, возможно, вы уже регистрировались на данный курс!',
+            type: 'warning'
+          });
+        });
 
     } else {
       this.router.navigate(['/login'], {

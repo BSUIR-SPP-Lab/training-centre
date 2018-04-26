@@ -1,0 +1,25 @@
+<div class="title-block">
+  <h3 class="title">
+    Страница работы с заданиями <span class="sparkline bar"></span>
+  </h3>
+</div>
+<section class="section text-center" *ngIf="!isLoaded">
+  <tc-loader></tc-loader></section>
+
+<div class="row">
+  <div class="col-md-6">
+    <tc-tasks-info (OutTaskInfoAdd)="onTaskInfoAdded($event)">
+
+    </tc-tasks-info>
+  </div>
+  <div class="col-md-6">
+    <tc-tasks-add [tasksInfo]="tasks">
+
+    </tc-tasks-add>
+  </div>
+</div>
+<section class="section" *ngIf="isLoaded">
+
+</section>
+
+

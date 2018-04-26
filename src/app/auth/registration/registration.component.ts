@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {UsersService} from "../../shared/services/users.service";
 import {User} from "../../shared/models/user.model";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'tc-registration',
@@ -10,9 +11,11 @@ import {User} from "../../shared/models/user.model";
   styleUrls: ['./registration.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
+  sub1: Subscription;
+  sub2: Subscription;
 
   constructor(
     private userService: UsersService,
@@ -32,17 +35,34 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    if (this.sub1) {
+      this.sub1.unsubscribe();
+    }
+  }
+
   onSubmit() {
     const {email, firstName, name, password, phone, login} = this.form.value;
     const user = new User(email, firstName, name, login, password, phone, 'USER');
     console.log(user);
     this.userService.createNewUser(user)
-      .then(() => {
-        this.router.navigate(['/login'], {
-          queryParams: {
-            nowCanLoggin: true
-          }
-        });
+      .then( () => {
+        this.sub1 = this.userService.getUserByLogin(login)
+          .subscribe( (userI: User) => {
+            userI.role = 'STUDENT';
+            console.log(userI);
+            this.userService.updateUser(userI)
+              .then(() => {
+                this.router.navigate(['/login'], {
+                  queryParams: {
+                    nowCanLoggin: true
+                  }
+                });
+              });
+          });
+      })
+      .catch(reason => {
+        console.log(reason);
       });
   }
 
@@ -60,5 +80,6 @@ export class RegistrationComponent implements OnInit {
         );
     });
   }
+
 
 }

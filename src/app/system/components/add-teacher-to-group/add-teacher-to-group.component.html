@@ -1,0 +1,83 @@
+<div class="card">
+  <div class="card-header bordered">
+    <div class="header-block">
+      <h3 class="title">Добавление преподавателя к группе</h3>
+    </div>
+  </div>
+  <div class="card-block">
+    <div
+      class="alert alert-{{message.type}}"
+      *ngIf="message.text"
+    >
+      {{message.text}}
+    </div>
+
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+      <div class="form-group">
+        <label class="control-label" for="course">Выберите курс</label>
+        <select
+          class="form-control"
+          id="course"
+          [ngModel]="1"
+          name="course"
+          required
+          (change)="onChangeCourse(f.value)"
+        >
+          <option
+            *ngFor="let c of courses"
+            [value]="c.courseId"
+          >
+            {{c.name}} {{c.firstName}} {{c.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="grou">Выберите группу</label>
+        <select
+          class="form-control"
+          id="grou"
+          [ngModel]="1"
+          name="grou"
+          required
+        >
+          <option
+            *ngFor="let c of courseGroup"
+            [value]="c.groupId"
+          >
+            {{c.groupId}}
+          </option>
+        </select>
+      </div>
+
+
+
+
+      <div class="form-group">
+        <label class="control-label" for="user">Выберите пользователя</label>
+        <select
+          class="form-control"
+          id="user"
+          [ngModel]="coord"
+          name="user"
+          required
+        >
+          <option
+            *ngFor="let c of users"
+            [value]="c.id"
+          >
+            {{c.firstName}} {{c.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="f.invalid"
+      >Добавить</button>
+
+    </form>
+  </div>
+</div>

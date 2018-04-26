@@ -1,0 +1,24 @@
+<div class="title-block">
+  <h3 class="title">
+    Страница работы с курсами <span class="sparkline bar"></span>
+  </h3>
+</div>
+
+<section class="section text-center" *ngIf="!isLoaded">
+  <tc-loader></tc-loader>
+</section>
+
+<section class="section" *ngIf="isLoaded">
+
+  <div class="row">
+    <div class="col-md-6">
+      <tc-add-group
+        (OutOnGroupAdd)="onGroupAdded($event)"
+      > </tc-add-group>
+    </div>
+    <div class="col-md-6">
+      <tc-add-teacher-to-group [groups]="groups"></tc-add-teacher-to-group>
+    </div>
+  </div>
+
+</section>

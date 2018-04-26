@@ -58,8 +58,21 @@
         </li>
 
         <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'groups']"> <i class="fa fa-sign-in"></i> Управление группами </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'applications']"> <i class="fa fa-sign-in"></i> Управление заявками </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'tasks']"> <i class="fa fa-sign-in"></i> Управление заданиями </a>
+        </li>
+
+        <li routerLinkActive="active">
           <a [routerLink]="['', 'login']"> <i class="fa fa-sign-in"></i> Выйти </a>
         </li>
+
       </ul>
     </nav>
 
