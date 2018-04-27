@@ -49,34 +49,34 @@ public class DocController {
         }
     }
 
-    @GetMapping("/pdfUserListCompleteCourse/{id}")
-    public ResponseEntity<Resource> pdfUserListCompleteCourse(@PathVariable long id) {
-        Resource body = docServiceImpl.generatePdfUsersOnCourse(id, true);
+    @GetMapping("/pdfUserListCourse/{id}")
+    public ResponseEntity<Resource> pdfUserListCourse(@PathVariable long id) {
+        Resource body = docServiceImpl.generatePdfUsersOnCourse(id);
 
         if (body != null) {
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "UserListCompleteCoursePDF.pdf" + "\"").body(body);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "UserListCoursePDF.pdf" + "\"").body(body);
         } else {
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping("/xlsUserListCompleteCourse/{id}")
-    public ResponseEntity<Resource> xlsUserListCompleteCourse(@PathVariable long id) {
-        Resource body = docServiceImpl.generateXLSUsersOnCourse(id, true);
+    @GetMapping("/xlsUserListCourse/{id}")
+    public ResponseEntity<Resource> xlsUserListCourse(@PathVariable long id) {
+        Resource body = docServiceImpl.generateXLSUsersOnCourse(id);
 
         if (body != null) {
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "UserListCompleteCourseXLS.xls" + "\"").body(body);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "UserListCourseXLS.xls" + "\"").body(body);
         } else {
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping("/csvUserListCompleteCourse/{id}")
-    public ResponseEntity<Resource> csvUserListCompleteCourse(@PathVariable long id) {
-        Resource body = docServiceImpl.generateCSVUsersOnCourse(id, true);
+    @GetMapping("/csvUserListCourse/{id}")
+    public ResponseEntity<Resource> csvUserListCourse(@PathVariable long id) {
+        Resource body = docServiceImpl.generateCSVUsersOnCourse(id);
 
         if (body != null) {
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "UserListCompleteCourseCSV.csv" + "\"").body(body);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "UserListCourseCSV.csv" + "\"").body(body);
         } else {
             return ResponseEntity.badRequest().build();
         }

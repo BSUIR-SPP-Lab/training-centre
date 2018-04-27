@@ -10,11 +10,11 @@ public interface DocService {
     Resource generateCSVCertificate(long id);
 
 
-    Resource generatePdfUsersOnCourse(long id, boolean finish);
+    Resource generatePdfUsersOnCourse(long id);
 
-    Resource generateXLSUsersOnCourse(long id, boolean finish);
+    Resource generateXLSUsersOnCourse(long id);
 
-    Resource generateCSVUsersOnCourse(long id, boolean finish);
+    Resource generateCSVUsersOnCourse(long id);
 
     Resource generateXLSUserSolution(long userId, long courseId);
 

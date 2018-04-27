@@ -128,8 +128,8 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public Resource generatePdfUsersOnCourse(long id, boolean finish) {
-        List<User> list = userService.findUsersByCourseId(id, finish);
+    public Resource generatePdfUsersOnCourse(long id) {
+        List<User> list = userService.findUsersByCourseId(id);
         CourseWithInfoView course = courseService.findCourseWithInfo(id);
         if (course == null) {
             return null;
@@ -138,27 +138,17 @@ public class DocServiceImpl implements DocService {
             try {
                 PdfFont font = PdfFontFactory.createFont("src/main/resources/times.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                 Paragraph paragraph = null;
-                if (finish) {
 
-                    paragraph = new Paragraph(String.format("Пользователи прошедшие курс \"%s\"", course.getName()))
-                            .setItalic()
-                            .setMarginBottom(20)
-                            .setTextAlignment(TextAlignment.CENTER)
-                            .setFont(font)
-                            .setFontSize(40);
-                    doc.add(paragraph);
 
-                } else {
+                paragraph = new Paragraph(String.format("Пользователи обучающиеся на курсе \"%s\"", course.getName()))
+                        .setItalic()
+                        .setMarginBottom(20)
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setFont(font)
+                        .setFontSize(40);
+                doc.add(paragraph);
 
-                    paragraph = new Paragraph(String.format("Пользователи обучающиеся на курсе \"%s\"", course.getName()))
-                            .setItalic()
-                            .setMarginBottom(20)
-                            .setTextAlignment(TextAlignment.CENTER)
-                            .setFont(font)
-                            .setFontSize(40);
-                    doc.add(paragraph);
 
-                }
                 paragraph = new Paragraph()
                         .setFont(font)
                         .setFontSize(20)
@@ -174,8 +164,8 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public Resource generateXLSUsersOnCourse(long id, boolean finish) {
-        List<User> list = userService.findUsersByCourseId(id, finish);
+    public Resource generateXLSUsersOnCourse(long id) {
+        List<User> list = userService.findUsersByCourseId(id);
         return createXLS((sheet, style) -> {
             HSSFRow[] rows = new HSSFRow[list.size() + 1];
             for (int i = 0; i < rows.length; i++) {
@@ -196,8 +186,8 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public Resource generateCSVUsersOnCourse(long id, boolean finish) {
-        List<User> list = userService.findUsersByCourseId(id, finish);
+    public Resource generateCSVUsersOnCourse(long id) {
+        List<User> list = userService.findUsersByCourseId(id);
         return createCSV(() -> {
             StringBuffer buf = new StringBuffer();
             for (User user : list) {
@@ -282,7 +272,7 @@ public class DocServiceImpl implements DocService {
                 i++;
 
                 createCell(rows[j++], 1, course.getName(), style);
-                createCell(rows[j++], 1, user.getFirstName()+""+user.getLastName(), style);
+                createCell(rows[j++], 1, user.getFirstName() + "" + user.getLastName(), style);
                 createCell(rows[j++], 1, solution.getName(), style);
                 createCell(rows[j++], 1, solution.getBody(), style);
                 createCell(rows[j++], 1, solution.getNotes(), style);
@@ -306,9 +296,9 @@ public class DocServiceImpl implements DocService {
         }
         return createCSV(() -> {
             StringBuffer buf = new StringBuffer();
-            buf.append(course.getName()+";"+user.getFirstName()+" "+user.getLastName()+";");
+            buf.append(course.getName() + ";" + user.getFirstName() + " " + user.getLastName() + ";");
             for (SolutionWithTaskView solution : list) {
-                buf.append(String.format("%s;%s;%s;%s;%s;", solution.getName(),solution.getBody(), solution.getNotes(),solution.getTeacherNotes(),solution.getMark()));
+                buf.append(String.format("%s;%s;%s;%s;%s;", solution.getName(), solution.getBody(), solution.getNotes(), solution.getTeacherNotes(), solution.getMark()));
             }
             return buf.toString();
         });
@@ -321,7 +311,7 @@ public class DocServiceImpl implements DocService {
             try {
                 PdfFont font = PdfFontFactory.createFont("src/main/resources/times.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                 Paragraph paragraph = null;
-                paragraph = new Paragraph(String.format("Список заданий %n",  groupId))
+                paragraph = new Paragraph(String.format("Список заданий %n", groupId))
                         .setItalic()
                         .setMarginBottom(20)
                         .setTextAlignment(TextAlignment.CENTER)
@@ -340,7 +330,7 @@ public class DocServiceImpl implements DocService {
                                     .setFont(font)
                                     .setFontSize(30)
                                     .add(task.getName()))
-                            .add("Задача: " + task.getBody() + "\n\n").add("Срок сдачи:" + task.getUploadTime()+"\n\n");
+                            .add("Задача: " + task.getBody() + "\n\n").add("Срок сдачи:" + task.getUploadTime() + "\n\n");
 
                     doc.add(paragraph);
 
@@ -368,12 +358,12 @@ public class DocServiceImpl implements DocService {
 
                 createCell(rows[i++], 0, "Название", style);
                 createCell(rows[i++], 0, "Задание", style);
-                createCell(rows[i++],0,"Срок сдачи",style);
+                createCell(rows[i++], 0, "Срок сдачи", style);
                 i++;
 
                 createCell(rows[j++], 1, task.getName(), style);
                 createCell(rows[j++], 1, task.getBody(), style);
-                createCell(rows[j++],1,task.getUploadTime(),style);
+                createCell(rows[j++], 1, task.getUploadTime(), style);
                 j++;
 
             }
@@ -388,7 +378,7 @@ public class DocServiceImpl implements DocService {
         return createCSV(() -> {
             StringBuffer buf = new StringBuffer();
             for (TaskWIthInfoView task : tasks) {
-                buf.append(String.format("%s;%s;%s;", task.getName(),task.getBody(),task.getUploadTime()));
+                buf.append(String.format("%s;%s;%s;", task.getName(), task.getBody(), task.getUploadTime()));
             }
             return buf.toString();
         });

@@ -94,8 +94,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findUsersByCourseId(long courseId, boolean finish) {
-        return userDAO.findUsersByCourseId(courseId, finish);
+    public List<User> findUsersByCourseId(long courseId) {
+        return userDAO.findUsersByCourseId(courseId);
     }
 
     @Override

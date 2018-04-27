@@ -14,7 +14,7 @@ public interface UserDAO {
 
     List<User> findUsers();
 
-    List<User> findUsersByCourseId(long courseId, boolean finish);
+    List<User> findUsersByCourseId(long courseId);
 
     List<User> findUsersByGroupId(long groupId);
 

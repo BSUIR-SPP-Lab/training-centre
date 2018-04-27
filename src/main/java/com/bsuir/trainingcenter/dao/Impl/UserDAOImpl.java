@@ -36,7 +36,7 @@ public class UserDAOImpl implements UserDAO {
             "JOIN `group` g ON course.course_id = g.course_id\n" +
             "JOIN student_group s ON g.group_id = s.group_id\n" +
             "JOIN `user` u ON s.student_id=u.user_id\n" +
-            "WHERE `course`.course_id=? AND `s`.course_complete=?";
+            "WHERE `course`.course_id=?";
     private static final String queryFindUsersByGroupId="SELECT `u`.`user_id`, `u`.`login`, `u`.`password`, `u`.`role`, `u`.`email`, `u`.`phone`, `u`.`first_name`, `u`.`last_name` FROM course\n" +
             "JOIN `group` g ON course.course_id = g.course_id\n" +
             "JOIN student_group s ON g.group_id = s.group_id\n" +
@@ -80,8 +80,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> findUsersByCourseId(long courseId, boolean finish) {
-        return jdbcTemplate.query(queryFindUsersByCourseId,new Object[]{courseId,finish}, rowMapper);
+    public List<User> findUsersByCourseId(long courseId) {
+        return jdbcTemplate.query(queryFindUsersByCourseId,new Object[]{courseId}, rowMapper);
     }
 
     @Override
