@@ -340,7 +340,7 @@ public class DocServiceImpl implements DocService {
                                     .setFont(font)
                                     .setFontSize(30)
                                     .add(task.getName()))
-                            .add("Задача: " + task.getBody() + "\n\n");
+                            .add("Задача: " + task.getBody() + "\n\n").add("Срок сдачи:" + task.getUploadTime()+"\n\n");
 
                     doc.add(paragraph);
 
@@ -356,7 +356,7 @@ public class DocServiceImpl implements DocService {
     public Resource generateXLSTasksByGroup(long groupId) {
         List<TaskWIthInfoView> tasks = taskService.findTasks(groupId);
         return createXLS((sheet, style) -> {
-            HSSFRow[] rows = new HSSFRow[(tasks.size()) * 3];
+            HSSFRow[] rows = new HSSFRow[(tasks.size()) * 4];
             for (int i = 0; i < rows.length; i++) {
                 rows[i] = sheet.createRow(i);
             }
@@ -368,10 +368,12 @@ public class DocServiceImpl implements DocService {
 
                 createCell(rows[i++], 0, "Название", style);
                 createCell(rows[i++], 0, "Задание", style);
+                createCell(rows[i++],0,"Срок сдачи",style);
                 i++;
 
                 createCell(rows[j++], 1, task.getName(), style);
                 createCell(rows[j++], 1, task.getBody(), style);
+                createCell(rows[j++],1,task.getUploadTime(),style);
                 j++;
 
             }
@@ -386,7 +388,7 @@ public class DocServiceImpl implements DocService {
         return createCSV(() -> {
             StringBuffer buf = new StringBuffer();
             for (TaskWIthInfoView task : tasks) {
-                buf.append(String.format("%s;%s;", task.getName(),task.getBody()));
+                buf.append(String.format("%s;%s;%s;", task.getName(),task.getBody(),task.getUploadTime()));
             }
             return buf.toString();
         });
