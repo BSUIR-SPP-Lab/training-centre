@@ -19,4 +19,6 @@ public interface SolutionService {
     boolean updateSolutionMark(long taskId, long userId, String teacherNotes, long mark);
 
     boolean deleteSolution(long taskId, long userId);
+
+    List<SolutionWithTaskView> findSolutionsByUserIdAndCourseId(long groupId, long courseId);
 }

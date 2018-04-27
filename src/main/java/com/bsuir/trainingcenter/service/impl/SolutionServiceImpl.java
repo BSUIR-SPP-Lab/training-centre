@@ -71,4 +71,13 @@ public class SolutionServiceImpl implements SolutionService {
     public boolean deleteSolution(long taskId, long userId) {
         return solutionDAO.deleteSolution(taskId, userId);
     }
+
+    @Override
+    public List<SolutionWithTaskView> findSolutionsByUserIdAndCourseId(long userId, long courseId) {
+        List<SolutionWithTaskView> list = new ArrayList<>();
+        for(SolutionWithTask solution :solutionDAO.findSolutionsByUserIdAndCourseId(userId,courseId)){
+            list.add(new SolutionWithTaskView(solution.getTaskId(),solution.getUserId(),solution.getNotes(),solution.getFilepath(),solution.getTeacherNotes(),solution.getMark(), solution.getUploadTime().toString(),solution.getName(),solution.getBody(),solution.getFirstName(),solution.getLastName()));
+        }
+        return list;
+    }
 }

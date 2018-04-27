@@ -14,6 +14,8 @@ public interface TaskService {
 
     List<TaskWIthInfoView> findTasksByGroupId(long groupId);
 
+    List<TaskWIthInfoView> findTasks(long groupId);
+
     TaskView findTask(long taskId);
 
     boolean updateTask(TaskView task);

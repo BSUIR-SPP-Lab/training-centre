@@ -4,10 +4,9 @@ package com.bsuir.trainingcenter.service.impl;
 import com.bsuir.trainingcenter.entity.User;
 import com.bsuir.trainingcenter.entity.view.CertificateInfoView;
 import com.bsuir.trainingcenter.entity.view.CourseWithInfoView;
-import com.bsuir.trainingcenter.service.CertificateService;
-import com.bsuir.trainingcenter.service.CourseService;
-import com.bsuir.trainingcenter.service.DocService;
-import com.bsuir.trainingcenter.service.UserService;
+import com.bsuir.trainingcenter.entity.view.SolutionWithTaskView;
+import com.bsuir.trainingcenter.entity.view.TaskWIthInfoView;
+import com.bsuir.trainingcenter.service.*;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -47,12 +46,16 @@ public class DocServiceImpl implements DocService {
     private final CertificateService certificateService;
     private final UserService userService;
     private final CourseService courseService;
+    private final SolutionService solutionService;
+    private final TaskService taskService;
 
     @Autowired
-    public DocServiceImpl(CertificateService certificateService, UserService userService, CourseService courseService) {
+    public DocServiceImpl(CertificateService certificateService, UserService userService, CourseService courseService, SolutionService solutionService, TaskService taskService) {
         this.certificateService = certificateService;
         this.userService = userService;
         this.courseService = courseService;
+        this.solutionService = solutionService;
+        this.taskService = taskService;
     }
 
     @Override
@@ -205,13 +208,198 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
+    public Resource generatePdfUserSolutions(long userId, long courseId) {
+        List<SolutionWithTaskView> list = solutionService.findSolutionsByUserIdAndCourseId(userId, courseId);
+        CourseWithInfoView course = courseService.findCourseWithInfo(courseId);
+        User user = userService.findUser(userId);
+        if (course == null || user == null) {
+            return null;
+        }
+        return createPdf(((Document doc) -> {
+            try {
+                PdfFont font = PdfFontFactory.createFont("src/main/resources/times.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                Paragraph paragraph = null;
+                paragraph = new Paragraph(String.format("Список решений по курсу \"%s\" пользователя %s %s", course.getName(), user.getFirstName(), user.getLastName()))
+                        .setItalic()
+                        .setMarginBottom(20)
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setFont(font)
+                        .setFontSize(40);
+                doc.add(paragraph);
+
+                for (SolutionWithTaskView solution : list) {
+                    paragraph = new Paragraph()
+                            .setFont(font)
+                            .setFontSize(20)
+                            .add(new Paragraph()
+                                    .setItalic()
+                                    .setMarginBottom(20)
+                                    .setTextAlignment(TextAlignment.CENTER)
+                                    .setFont(font)
+                                    .setFontSize(30)
+                                    .add(solution.getName()))
+                            .add("Задача: " + solution.getBody() + "\n\n")
+                            .add("Решение: " + solution.getNotes() + "\n\n")
+                            .add("Заметки учителя: " + solution.getTeacherNotes() + "\n\n")
+                            .add("Оценка: " + solution.getMark() + "\n\n");
+
+                    doc.add(paragraph);
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
+    }
+
+    @Override
+    public Resource generateXLSUserSolution(long userId, long courseId) {
+        List<SolutionWithTaskView> list = solutionService.findSolutionsByUserIdAndCourseId(userId, courseId);
+        CourseWithInfoView course = courseService.findCourseWithInfo(courseId);
+        User user = userService.findUser(userId);
+        if (course == null || user == null) {
+            return null;
+        }
+        return createXLS((sheet, style) -> {
+            HSSFRow[] rows = new HSSFRow[list.size() * 8];
+            for (int i = 0; i < rows.length; i++) {
+                rows[i] = sheet.createRow(i);
+            }
+
+            int i = 0;
+            int j = 0;
+
+            for (SolutionWithTaskView solution : list) {
+
+                createCell(rows[i++], 0, "Курс", style);
+                createCell(rows[i++], 0, "Имя Фамилия", style);
+                createCell(rows[i++], 0, "Название", style);
+                createCell(rows[i++], 0, "Задание", style);
+                createCell(rows[i++], 0, "Решение", style);
+                createCell(rows[i++], 0, "Заметки", style);
+                createCell(rows[i++], 0, "Оценка", style);
+                i++;
+
+                createCell(rows[j++], 1, course.getName(), style);
+                createCell(rows[j++], 1, user.getFirstName()+""+user.getLastName(), style);
+                createCell(rows[j++], 1, solution.getName(), style);
+                createCell(rows[j++], 1, solution.getBody(), style);
+                createCell(rows[j++], 1, solution.getNotes(), style);
+                createCell(rows[j++], 1, solution.getTeacherNotes(), style);
+                createCell(rows[j++], 1, solution.getMark().toString(), style);
+                j++;
+
+            }
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+        });
+    }
+
+    @Override
+    public Resource generateCSVUserSolution(long userId, long courseId) {
+        List<SolutionWithTaskView> list = solutionService.findSolutionsByUserIdAndCourseId(userId, courseId);
+        CourseWithInfoView course = courseService.findCourseWithInfo(courseId);
+        User user = userService.findUser(userId);
+        if (course == null || user == null) {
+            return null;
+        }
+        return createCSV(() -> {
+            StringBuffer buf = new StringBuffer();
+            buf.append(course.getName()+";"+user.getFirstName()+" "+user.getLastName()+";");
+            for (SolutionWithTaskView solution : list) {
+                buf.append(String.format("%s;%s;%s;%s;%s;", solution.getName(),solution.getBody(), solution.getNotes(),solution.getTeacherNotes(),solution.getMark()));
+            }
+            return buf.toString();
+        });
+    }
+
+    @Override
+    public Resource generatePdfTasksByGroup(long groupId) {
+        List<TaskWIthInfoView> tasks = taskService.findTasks(groupId);
+        return createPdf(((Document doc) -> {
+            try {
+                PdfFont font = PdfFontFactory.createFont("src/main/resources/times.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                Paragraph paragraph = null;
+                paragraph = new Paragraph(String.format("Список заданий %n",  groupId))
+                        .setItalic()
+                        .setMarginBottom(20)
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setFont(font)
+                        .setFontSize(40);
+                doc.add(paragraph);
+
+                for (TaskWIthInfoView task : tasks) {
+                    paragraph = new Paragraph()
+                            .setFont(font)
+                            .setFontSize(20)
+                            .add(new Paragraph()
+                                    .setItalic()
+                                    .setMarginBottom(20)
+                                    .setTextAlignment(TextAlignment.CENTER)
+                                    .setFont(font)
+                                    .setFontSize(30)
+                                    .add(task.getName()))
+                            .add("Задача: " + task.getBody() + "\n\n");
+
+                    doc.add(paragraph);
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
+    }
+
+    @Override
+    public Resource generateXLSTasksByGroup(long groupId) {
+        List<TaskWIthInfoView> tasks = taskService.findTasks(groupId);
+        return createXLS((sheet, style) -> {
+            HSSFRow[] rows = new HSSFRow[(tasks.size()) * 3];
+            for (int i = 0; i < rows.length; i++) {
+                rows[i] = sheet.createRow(i);
+            }
+
+            int i = 0;
+            int j = 0;
+
+            for (TaskWIthInfoView task : tasks) {
+
+                createCell(rows[i++], 0, "Название", style);
+                createCell(rows[i++], 0, "Задание", style);
+                i++;
+
+                createCell(rows[j++], 1, task.getName(), style);
+                createCell(rows[j++], 1, task.getBody(), style);
+                j++;
+
+            }
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+        });
+    }
+
+    @Override
+    public Resource generateCSVTasksByGroup(long groupId) {
+        List<TaskWIthInfoView> tasks = taskService.findTasks(groupId);
+        return createCSV(() -> {
+            StringBuffer buf = new StringBuffer();
+            for (TaskWIthInfoView task : tasks) {
+                buf.append(String.format("%s;%s;", task.getName(),task.getBody()));
+            }
+            return buf.toString();
+        });
+    }
+
+    @Override
     public Resource generatePdfUsersInGroup(long groupId) {
         List<User> list = userService.findUsersByGroupId(groupId);
         return createPdf(((Document doc) -> {
             try {
                 PdfFont font = PdfFontFactory.createFont("src/main/resources/times.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                 Paragraph paragraph = null;
-                paragraph = new Paragraph(String.format("Список пользователей группы %n",groupId))
+                paragraph = new Paragraph(String.format("Список пользователей группы %n", groupId))
                         .setItalic()
                         .setMarginBottom(20)
                         .setTextAlignment(TextAlignment.CENTER)
@@ -261,7 +449,7 @@ public class DocServiceImpl implements DocService {
         return createCSV(() -> {
             StringBuffer buf = new StringBuffer();
             for (User user : list) {
-                buf.append(String.format("%s %s;", user.getFirstName() , user.getLastName()));
+                buf.append(String.format("%s %s;", user.getFirstName(), user.getLastName()));
             }
             return buf.toString();
         });

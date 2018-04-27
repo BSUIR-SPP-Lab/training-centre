@@ -12,6 +12,8 @@ public interface TaskDAO {
 
     List<Task> findTasks();
 
+    List<TaskWithInfo> findTasks(long groupId);
+
     List<TaskWithInfo> findTasksByGroupId(long groupId);
 
     Optional<Task> findTask(long taskId);

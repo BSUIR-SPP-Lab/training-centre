@@ -16,7 +16,19 @@ public interface DocService {
 
     Resource generateCSVUsersOnCourse(long id, boolean finish);
 
+    Resource generateXLSUserSolution(long userId, long courseId);
+
+    Resource generateCSVUserSolution(long userId, long courseId);
+
+    Resource generatePdfTasksByGroup(long groupId);
+
+    Resource generateXLSTasksByGroup(long groupId);
+
+    Resource generateCSVTasksByGroup(long groupId);
+
     Resource generatePdfUsersInGroup(long grouoId);
+
+    Resource generatePdfUserSolutions(long userId, long courseId);
 
     Resource generateXLSUsersInGroup(long groupId);
 

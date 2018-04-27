@@ -20,10 +20,14 @@ public class TaskDAOImpl implements TaskDAO {
             "`upload_time`) VALUES (?, ?, ?, ?)";
     private static final String queryFindTasks = "SELECT `task`.`task_id`, `task`.`teacher_id`, `task`.`group_id`, " +
             "`task`.`task_info_id`, `task`.`upload_time` FROM `task`";
-    private static final String queryFindTasksByGroupId ="SELECT `task`.`task_id`,`task`.`group_id`, `task`.`upload_time`, `u`.`first_name`, `u`.`last_name`, ti.name, ti.body\n" +
+    private static final String queryFindTasksByGroupId = "SELECT `task`.`task_id`,`task`.`group_id`, `task`.`upload_time`, `u`.`first_name`, `u`.`last_name`, ti.name, ti.body\n" +
             "FROM `task`\n" +
             "  JOIN task_info ti ON task.task_info_id = ti.task_info_id\n" +
             "  JOIN `user` u ON task.teacher_id = u.user_id\n" +
+            "WHERE group_id = ?";
+    private static final String queryFindTasksByGroupId2 = "SELECT `task`.`task_id`,`task`.`group_id`, `task`.`upload_time`, ti.name, ti.body\n" +
+            "FROM `task`\n" +
+            "  JOIN task_info ti ON task.task_info_id = ti.task_info_id\n" +
             "WHERE group_id = ?";
     private static final String queryFindTaskById = "SELECT `task`.`task_id`, `task`.`teacher_id`, `task`.`group_id`, " +
             "`task`.`task_info_id`, `task`.`upload_time` FROM `task` WHERE `task`.`task_id` = ?";
@@ -42,11 +46,20 @@ public class TaskDAOImpl implements TaskDAO {
         task.setUploadTime(resultSet.getTimestamp("upload_time").toLocalDateTime());
         return task;
     });
-    private RowMapper<TaskWithInfo> taskWithInfoRowMapper = ((resultSet, i) ->{
+    private RowMapper<TaskWithInfo> taskWithInfoAndUserInfoRowMapper = ((resultSet, i) -> {
         TaskWithInfo task = new TaskWithInfo();
         task.setTaskId(resultSet.getLong("task_id"));
         task.setFirstName(resultSet.getString("first_name"));
         task.setLastName(resultSet.getString("last_name"));
+        task.setGroupId(resultSet.getLong("group_id"));
+        task.setBody(resultSet.getString("body"));
+        task.setName(resultSet.getString("name"));
+        task.setUploadTime(resultSet.getTimestamp("upload_time").toLocalDateTime());
+        return task;
+    });
+    private RowMapper<TaskWithInfo> taskWithInfoRowMapper = ((resultSet, i) -> {
+        TaskWithInfo task = new TaskWithInfo();
+        task.setTaskId(resultSet.getLong("task_id"));
         task.setGroupId(resultSet.getLong("group_id"));
         task.setBody(resultSet.getString("body"));
         task.setName(resultSet.getString("name"));
@@ -71,9 +84,15 @@ public class TaskDAOImpl implements TaskDAO {
     }
 
     @Override
-    public List<TaskWithInfo> findTasksByGroupId(long groupId) {
-        return jdbcTemplate.query(queryFindTasksByGroupId,new Object[]{groupId},taskWithInfoRowMapper);
+    public List<TaskWithInfo> findTasks(long groupId) {
+        return jdbcTemplate.query(queryFindTasksByGroupId2, new Object[]{groupId}, taskWithInfoRowMapper);
     }
+
+    @Override
+    public List<TaskWithInfo> findTasksByGroupId(long groupId) {
+        return jdbcTemplate.query(queryFindTasksByGroupId, new Object[]{groupId}, taskWithInfoAndUserInfoRowMapper);
+    }
+
 
     @Override
     public Optional<Task> findTask(long taskId) {
