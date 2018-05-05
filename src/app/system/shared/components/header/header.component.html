@@ -1,6 +1,6 @@
 <header class="header">
   <div class="header-block header-block-search">
-    <a [routerLink]="['/system/start-page']" >На главную </a>
+    <a [routerLink]="['/system/start-page']" > <h5>На главную</h5> </a>
   </div>
   <div class="header-block header-block-nav">
     <ul class="nav-profile">
@@ -14,13 +14,105 @@
         <div class="dropdown-menu profile-dropdown-menu">
 
           <div *ngIf="isLogginIn">
-            <a class="dropdown-item" [routerLink]="['/system', 'start-page']">
-              <i class="fa fa-gear icon"></i>TODO: сделать тут что-нибудь
+
+            <div *ngIf="role == 'STUDENT'">
+
+              <a class="dropdown-item"  [routerLink]="['/system', 'personal-course']">
+                <i class="fa fa-university" aria-hidden="true"></i> Мои курсы
+              </a>
+              <a class="dropdown-item"  [routerLink]="['/system', 'personal-sertificate']">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i> Мои сертификаты
+              </a>
+              <a  class="dropdown-item" [routerLink]="['/system', 'solutions']">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i> Мои решения
+              </a>
+              <a class="dropdown-item" [routerLink]="['/system', 'personal-sertificate']">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i> Мои сертификаты
+              </a>
+
+            </div>
+
+            <div *ngIf="role ==='ADMIN'">
+            <a  class="dropdown-item" [routerLink]="['/system', 'role-controller']">
+              <i class="fa fa-user" aria-hidden="true"></i> Управление ролями
             </a>
+
+            <a  class="dropdown-item"  [routerLink]="['/system', 'courses']">
+              <i class="fa fa-university" aria-hidden="true"></i> Управление курсами
+            </a>
+            <a class="dropdown-item" [routerLink]="['/system', 'groups']">
+              <i class="fa fa-users" aria-hidden="true"></i> Управление группами
+            </a>
+
+            <a class="dropdown-item" [routerLink]="['/system', 'applications']">
+              <i class="fa fa-check-circle-o" aria-hidden="true"></i> Управление заявками
+            </a>
+
+            <a class="dropdown-item" [routerLink]="['/system', 'tasks']">
+              <i class="fa fa-tasks" aria-hidden="true"></i> Управление заданиями
+            </a>
+
+            <a class="dropdown-item" [routerLink]="['/system', 'solutions-teacher']">
+              <i class="fa fa-graduation-cap" aria-hidden="true"></i> Проставление оценок
+            </a>
+
+          </div>
+
+            <div *ngIf="role ==='TEACHER'">
+              <a class="dropdown-item" [routerLink]="['/system', 'groups']">
+                <i class="fa fa-users" aria-hidden="true"></i> Управление группами
+              </a>
+
+
+              <a class="dropdown-item" [routerLink]="['/system', 'tasks']">
+                <i class="fa fa-tasks" aria-hidden="true"></i> Управление заданиями
+              </a>
+
+              <a class="dropdown-item" [routerLink]="['/system', 'solutions-teacher']">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i> Проставление оценок
+              </a>
+
+            </div>
+
+            <div *ngIf="role ==='COORDINATOR'">
+
+
+              <a  class="dropdown-item"  [routerLink]="['/system', 'courses']">
+                <i class="fa fa-university" aria-hidden="true"></i> Управление курсами
+              </a>
+
+              <a class="dropdown-item" [routerLink]="['/system', 'groups']">
+                <i class="fa fa-users" aria-hidden="true"></i> Управление группами
+              </a>
+
+              <a class="dropdown-item" [routerLink]="['/system', 'applications']">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i> Управление заявками
+              </a>
+
+            </div>
+
+            <div *ngIf="role == 'USER'">
+
+              <a class="dropdown-item"  [routerLink]="['/system', 'personal-course']">
+                <i class="fa fa-university" aria-hidden="true"></i> Мои курсы
+              </a>
+              <a class="dropdown-item"  [routerLink]="['/system', 'personal-sertificate']">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i> Мои сертификаты
+              </a>
+              <a  class="dropdown-item" [routerLink]="['/system', 'solutions']">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i> Мои решения
+              </a>
+              <a class="dropdown-item" [routerLink]="['/system', 'personal-sertificate']">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i> Мои сертификаты
+              </a>
+
+            </div>
+
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click) ="onLogout()">
-              <i class="fa fa-power-off icon"></i>Выйти
+              <i class="fa fa-sign-in"></i>Выйти
             </a>
+
           </div>
 
           <div *ngIf="!isLogginIn">

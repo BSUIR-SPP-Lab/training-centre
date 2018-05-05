@@ -16,13 +16,17 @@ import {GroupService} from "../../../shared/services/group.service";
 })
 export class CourseDetailComponent implements OnInit, OnDestroy {
 
-  routeCourseListPDF = 'pdfCertificate/';
-  routeCourseListCVS = 'csvCertificate/';
-  routeCourseListXLS = 'xlsCertificate/';
+  routeCourseListPDF = 'pdfUserListCourse/';
+  routeCourseListCVS = 'cvsUserListCourse/';
+  routeCourseListXLS = 'xlsUserListCourse/';
   // TODO this route
-  routeGroupListPDF = 'pdf';
-  routeGroupListCVS = 'pdf';
-  routeGroupListXLS = 'pdf';
+  routeGroupListPDF = 'pdfUserListInGroup/';
+  routeGroupListCVS = 'csvUserListInGroup/';
+  routeGroupListXLS = 'xlsUserListInGroup';
+
+  routeTasksPDF = 'pdfGroupTasks/';
+  routeTasksCVS = 'csvGroupTasks/';
+  routeTasksXLS = 'xlsGroupTasks/';
 
   documentServerRoute: string;
   courseInfo: Course;

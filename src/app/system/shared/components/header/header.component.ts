@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   user: User;
   userName = 'Гость';
   isLogginIn = false;
+  role: string;
 
 
   constructor(
@@ -27,6 +28,8 @@ export class HeaderComponent implements OnInit {
       this.userName = this.user.firstName;
       this.isLogginIn = true;
     }
+
+    this.role = this.authService.getRole();
   }
 
   onLogout() {

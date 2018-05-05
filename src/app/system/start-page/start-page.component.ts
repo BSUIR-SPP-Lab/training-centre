@@ -31,7 +31,7 @@ export class StarPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.showMessage({
-      text: 'Добро Пожаловать на сайт',
+      text: 'Добро пожаловать на сайт',
       type: 'info'});
     this.sub1 = this.courseServer.getCourses()
       .subscribe((data: Course[]) => {

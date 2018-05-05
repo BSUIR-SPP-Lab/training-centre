@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import {BaseApi} from '../core/base-api';
 import {User} from "../models/user.model";
 import {TeacherGroup} from "../models/teacher.model";
+import {Role} from "../models/role.model";
 
 @Injectable()
 export  class UsersService extends BaseApi {
@@ -21,19 +22,12 @@ export  class UsersService extends BaseApi {
     }
   ];
 
-  roles = [
-    {
-      name: 'ADMIN', id: 1
-    },
-    {
-      name: 'USER', id: 2
-    },
-    {
-      name: 'COORD', id: 3
-    },
-    {
-      name: 'TEAC', id: 4
-    },
+  role: Role[] = [
+    {role: 'USER', text: 'Пользователь'},
+    {role: 'STUDENT', text: 'Студент'},
+    {role: 'TEACHER', text: 'Преподаватель'},
+    {role: 'COORDINATOR', text: 'Координатор'},
+    {role: 'ADMIN', text: 'Администратор'}
   ];
 
   constructor(public  http: Http) {
@@ -75,11 +69,16 @@ export  class UsersService extends BaseApi {
     return this.get(`user/${userId}`);
   }
 
-  getRoleList() {
-
+  getRoleList(): Role[] {
+    return this.role;
   }
 
   getTeacherGroup(): Observable<TeacherGroup[]> {
     return this.get('teacher/get');
   }
+
+  changeRole(id: number, role: string): Promise<any> {
+    return this.post(`user/updateRole/${id}`, role);
+  }
+
 }

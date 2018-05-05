@@ -53,7 +53,7 @@ export class TasksAddComponent implements OnInit, OnDestroy {
 
     console.log(form.value);
     const {taskInfo, teacher, group, endTime } = form.value;
-
+    console.log('groupID:', this.groupId);
     const task = new TaskWithoutInfo(group, taskInfo, teacher, endTime);
     this.taskService.addTask(task)
       .then((res) => {
@@ -82,7 +82,7 @@ export class TasksAddComponent implements OnInit, OnDestroy {
     console.log('all group' , this.teachersGroups);
     this.teacherGroups = this.teachersGroups.filter(g => g.teacherId === +this.teacherId);
     console.log('after filter group' , this.teacherGroups);
-    this.groupId = this.teachersGroups[0].groupId;
+    this.groupId = this.teacherGroups[0].groupId;
   }
 
   private showMessage(message: Message) {

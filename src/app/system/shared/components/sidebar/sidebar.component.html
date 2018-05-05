@@ -28,15 +28,15 @@
       <ul class="nav metismenu">
 
         <li routerLinkActive="active">
-          <a [routerLink]="['/system', 'personal-course']"> <i class="fa fa-user-plus"></i> Мои курсы</a>
+          <a [routerLink]="['/system', 'personal-course']"> <i class="fa fa-university" aria-hidden="true"></i> Мои курсы</a>
         </li>
 
         <li routerLinkActive="active">
-          <a [routerLink]="['/system', 'personal-sertificate']"> <i class="fa fa-user-plus"></i> Мои сертификаты </a>
+          <a [routerLink]="['/system', 'personal-sertificate']"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Мои сертификаты </a>
         </li>
 
         <li routerLinkActive="active">
-          <a [routerLink]="['/system', 'solutions']"> <i class="fa fa-user-plus"></i> Мои решения.</a>
+          <a [routerLink]="['/system', 'solutions']"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Мои решения</a>
         </li>
 
         <li routerLinkActive="active">
@@ -46,37 +46,103 @@
     </nav>
 
     <nav class="menu" *ngIf="role == 'ADMIN'">
+    <ul class="nav metismenu">
+
+
+      <li routerLinkActive="active">
+        <a [routerLink]="['/system', 'role-controller']"><i class="fa fa-user" aria-hidden="true"></i> Управление ролями </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a [routerLink]="['/system', 'courses']"> <i class="fa fa-university" aria-hidden="true"></i> Управление курсами </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a [routerLink]="['/system', 'groups']"> <i class="fa fa-users" aria-hidden="true"></i> Управление группами </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a [routerLink]="['/system', 'applications']"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Управление заявками </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a [routerLink]="['/system', 'tasks']"> <i class="fa fa-tasks" aria-hidden="true"></i> Управление заданиями </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a [routerLink]="['/system', 'solutions-teacher']"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Проставление оценок </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a [routerLink]="['', 'login']"> <i class="fa fa-sign-in"></i> Выйти </a>
+      </li>
+
+    </ul>
+  </nav>
+
+    <nav class="menu" *ngIf="role == 'TEACHER'">
       <ul class="nav metismenu">
 
 
         <li routerLinkActive="active">
-          <a [routerLink]="['/system', 'role-controller']"> <i class="fa fa-sign-in"></i> Управление ролями </a>
+          <a [routerLink]="['/system', 'groups']"> <i class="fa fa-users" aria-hidden="true"></i> Управление группами </a>
         </li>
 
         <li routerLinkActive="active">
-          <a [routerLink]="['/system', 'courses']"> <i class="fa fa-sign-in"></i> Управление курсами </a>
+          <a [routerLink]="['/system', 'tasks']"> <i class="fa fa-tasks" aria-hidden="true"></i> Управление заданиями </a>
         </li>
 
         <li routerLinkActive="active">
-          <a [routerLink]="['/system', 'groups']"> <i class="fa fa-sign-in"></i> Управление группами </a>
-        </li>
-
-        <li routerLinkActive="active">
-          <a [routerLink]="['/system', 'applications']"> <i class="fa fa-sign-in"></i> Управление заявками </a>
-        </li>
-
-        <li routerLinkActive="active">
-          <a [routerLink]="['/system', 'tasks']"> <i class="fa fa-sign-in"></i> Управление заданиями </a>
-        </li>
-
-        <li routerLinkActive="active">
-          <a [routerLink]="['/system', 'solutions-teacher']"> <i class="fa fa-sign-in"></i> Проставление оценок </a>
+          <a [routerLink]="['/system', 'solutions-teacher']"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Проставление оценок </a>
         </li>
 
         <li routerLinkActive="active">
           <a [routerLink]="['', 'login']"> <i class="fa fa-sign-in"></i> Выйти </a>
         </li>
 
+      </ul>
+    </nav>
+
+    <nav class="menu" *ngIf="role == 'COORDINATOR'">
+      <ul class="nav metismenu">
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'courses']"> <i class="fa fa-university" aria-hidden="true"></i> Управление курсами </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'groups']"> <i class="fa fa-users" aria-hidden="true"></i> Управление группами </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'applications']"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Управление заявками </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['', 'login']"> <i class="fa fa-sign-in"></i> Выйти </a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <nav class="menu" *ngIf="role == 'USER'">
+      <ul class="nav metismenu">
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'personal-course']"> <i class="fa fa-university" aria-hidden="true"></i> Мои курсы</a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'personal-sertificate']"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Мои сертификаты </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['/system', 'solutions']"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Мои решения</a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="['', 'login']"> <i class="fa fa-sign-in"></i> Выйти </a>
+        </li>
       </ul>
     </nav>
 

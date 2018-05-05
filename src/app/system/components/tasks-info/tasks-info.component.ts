@@ -26,8 +26,7 @@ export class TasksInfoComponent implements OnInit {
 
     console.log(form.value);
     const { name, body} = form.value;
-
-    this.taskInfoService.addTask(new TaskInfo(body, name))
+    this.taskInfoService.addTask(new TaskInfo(name, body))
       .then((res) => {
         console.log('res ', res)
         this.OutTaskInfoAdd.emit(new TaskInfo(body, name));
@@ -36,6 +35,7 @@ export class TasksInfoComponent implements OnInit {
           type: 'info'});
       })
       .catch((reason => {
+        console.log(reason);
         this.showMessage({
           text: 'Ошибка добавления шаблона',
           type: 'warning'});
